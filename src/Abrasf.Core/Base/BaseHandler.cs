@@ -1,11 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
-using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml;
 using System.Xml.Linq;
 using Abrasf.Core.Helpers;
 
@@ -118,7 +113,7 @@ namespace Abrasf.Core.Base
         private static bool ValidaAC(string issuer)
         {
             // www.gov.br/iti/pt-br/assuntos/repositorio/cadeias-da-icp-brasil
-            // Data última atualização: 16/02/2024 18h34
+            // Data ï¿½ltima atualizaï¿½ï¿½o: 16/02/2024 18h34
             string[] listAC =
             {
                 //Raiz
@@ -176,9 +171,9 @@ namespace Abrasf.Core.Base
                 "CN=AC VALID-JUS SSL V5",
                 "CN=AC VALID-JUS CODESIGNING V5",
 
-                //AC Ministério das Relações Exteriores - 24/02/2025 14h25
+                //AC Ministï¿½rio das Relaï¿½ï¿½es Exteriores - 24/02/2025 14h25
                 "CN=AUTORIDADE CERTIFICADORA MINISTERIO DAS RELACOES EXTERIORES",
-                "CN=AUTORIDADE CERTIFICADORA MINISTÉRIO DAS RELAÇÕES EXTERIORESV1",
+                "CN=AUTORIDADE CERTIFICADORA MINISTï¿½RIO DAS RELAï¿½ï¿½ES EXTERIORESV1",
 
                 //AC PR - 30/06/2023 10h30
                 "CN=AUTORIDADE CERTIFICADORA DA PRESIDENCIA DA REPUBLICA V5",
@@ -323,8 +318,8 @@ namespace Abrasf.Core.Base
                 "CN=AUTORIDADE CERTIFICADORA IDFEDERAL",
 
                 //AC PR - 04/12/2024 11h48
-                "CN=AC PRESIDÊNCIA DA REPÚBLICA V5",
-                "CN=AC PRESIDÊNCIA DA REPÚBLICA V6"
+                "CN=AC PRESIDï¿½NCIA DA REPï¿½BLICA V5",
+                "CN=AC PRESIDï¿½NCIA DA REPï¿½BLICA V6"
             };
 
             var certInfo = issuer.Split(',');

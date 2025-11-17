@@ -1,6 +1,5 @@
 using System.Data;
 using System.Data.SqlClient;
-using Abrasf.Core.CancelarNfse.Models;
 using Abrasf.Core.GerarNfse.Models;
 using Abrasf.Core.GerarNfse.Repositories;
 using Abrasf.Infra.Commands;

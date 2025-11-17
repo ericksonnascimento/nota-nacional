@@ -1,16 +1,9 @@
-using System.Dynamic;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
 using Abrasf.Core.Cabecalho.Validator;
 using Abrasf.Core.ConsultarLoteRps.Models;
 using Abrasf.Core.ConsultarLoteRps.Repositories;
 using Abrasf.Core.ConsultarLoteRps.Validator;
 using Abrasf.Core.Helpers;
 using Abrasf.Core.Models.Response;
-using Newtonsoft.Json;
 
 namespace Abrasf.Core.ConsultarLoteRps.Handlers
 {
@@ -41,7 +34,7 @@ namespace Abrasf.Core.ConsultarLoteRps.Handlers
 
                 if (!headValidatorResult.IsValid)
                 {
-                    erros = erros.Length == 0 ? "E183" : erros + ",E183"; //A mensagem XML do cabeçalho do arquivo enviado está fora do padrão especificado.
+                    erros = erros.Length == 0 ? "E183" : erros + ",E183"; //A mensagem XML do cabeï¿½alho do arquivo enviado estï¿½ fora do padrï¿½o especificado.
                 }
 
                 ////Validar corpo

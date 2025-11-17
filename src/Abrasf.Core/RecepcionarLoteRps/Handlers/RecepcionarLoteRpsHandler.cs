@@ -1,10 +1,5 @@
-using System.Data.SqlTypes;
 using System.Dynamic;
-using System.Net.Http.Json;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Text.Json.Serialization;
-using System.Xml;
 using System.Xml.Linq;
 using Abrasf.Core.Base;
 using Abrasf.Core.Cabecalho.Validator;
@@ -45,7 +40,7 @@ namespace Abrasf.Core.RecepcionarLoteRps.Handlers
 
                 if (!headValidatorResult.IsValid)
                 {
-                    erros = erros.Length == 0 ? "E183" : erros + ",E183"; //A mensagem XML do cabeçalho do arquivo enviado está fora do padrão especificado.
+                    erros = erros.Length == 0 ? "E183" : erros + ",E183"; //A mensagem XML do cabeï¿½alho do arquivo enviado estï¿½ fora do padrï¿½o especificado.
                 }
 
                 //////Validar corpo

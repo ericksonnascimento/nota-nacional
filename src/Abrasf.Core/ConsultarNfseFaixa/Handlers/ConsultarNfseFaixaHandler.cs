@@ -1,5 +1,3 @@
-using System.Security.Policy;
-using System.Xml;
 using Abrasf.Core.Base;
 using Abrasf.Core.Cabecalho.Validator;
 using Abrasf.Core.ConsultarNfseFaixa.Models;
@@ -37,7 +35,7 @@ namespace Abrasf.Core.ConsultarNfseFaixa.Handlers
 
                 if (!headValidatorResult.IsValid)
                 {
-                    erros = erros.Length == 0 ? "E183" : erros + ",E183"; //A mensagem XML do cabeçalho do arquivo enviado está fora do padrão especificado.
+                    erros = erros.Length == 0 ? "E183" : erros + ",E183"; //A mensagem XML do cabeï¿½alho do arquivo enviado estï¿½ fora do padrï¿½o especificado.
                 }
 
                 ////Validar corpo

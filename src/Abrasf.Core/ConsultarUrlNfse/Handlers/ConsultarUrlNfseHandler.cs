@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using Abrasf.Core.Base;
+﻿using Abrasf.Core.Base;
 using Abrasf.Core.Cabecalho.Validator;
 using Abrasf.Core.ConsultarUrlNfse.Models;
 using Abrasf.Core.ConsultarUrlNfse.Repositories;
