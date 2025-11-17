@@ -1,0 +1,48 @@
+<ConsultarNfseServicoTomadoEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">
+	<Pedido Id="01">
+		<Consulente>
+			<CpfCnpj>
+				<Cnpj>13287665000170</Cnpj>
+			</CpfCnpj>
+			<InscricaoMunicipal>5340</InscricaoMunicipal>
+		</Consulente>
+		<NumeroNfse/>
+		<PeriodoEmissao>
+			<DataInicial>2022-09-01</DataInicial>
+			<DataFinal>2022-09-15</DataFinal>
+		</PeriodoEmissao>
+		<Prestador>
+			<CpfCnpj>
+				<Cnpj>32251860000194</Cnpj>
+			</CpfCnpj>
+			<InscricaoMunicipal>0575</InscricaoMunicipal>
+		</Prestador>
+		<Tomador>
+			<CpfCnpj>
+				<Cnpj>13287665000170</Cnpj>
+			</CpfCnpj>
+			<InscricaoMunicipal>5340</InscricaoMunicipal>
+		</Tomador>
+		<Intermediario/>
+		<Pagina>1</Pagina>
+	</Pedido>
+	<Signature Id="01" xmlns="http://www.w3.org/2000/09/xmldsig#">
+		<SignedInfo>
+			<CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+			<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+			<Reference URI="">
+				<Transforms>
+					<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+				</Transforms>
+				<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+				<DigestValue>w5zFwsOOhSA7tfcA8+W8GZHs8aw=</DigestValue>
+			</Reference>
+		</SignedInfo>
+		<SignatureValue>O7FXbwFsDsn10XfpbVgb6J152eEYdXr7ty37MuykolzM2kKAS4C8lyNl4jV4jvaCG78O5ljSJD2zpPmfE2xGfAMI4OEPZpcd1ljyoZwT/UVtDCZHMHXhbXsC4g2SkC7gTrO31NekYZtlP3m61yvA20uVMi95Ue97X7srSXDEuR22tDWSyzMIHcmK039qei5MJpqFJtHM2VME1ceBI0ouV8svVrQ0XpQs95ZXBTnGASAe4QytwSSsMYnaZHQggMKGPV7VbEHgYKQzQ4YLPP7ybRYwDQiIMMTMUwIbLJQUNQi60oUcEQxeF2FJfB4h/MjTsp1/0MCEParKpiOsHewVDA==</SignatureValue>
+		<KeyInfo>
+			<X509Data>
+				<X509Certificate>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</X509Certificate>
+			</X509Data>
+		</KeyInfo>
+	</Signature>
+</ConsultarNfseServicoTomadoEnvio>

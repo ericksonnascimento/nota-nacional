@@ -1,0 +1,120 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SoapCore" Version="1.1.0.30" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Abrasf.Core\Abrasf.Core.csproj" />
+    <ProjectReference Include="..\Abrasf.Infra\Abrasf.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="nfse.wsdl" />
+    <None Remove="Schemas\consultarDadosCadastrais.xsd" />
+    <None Remove="Schemas\consultarRpsDisponivel.xsd" />
+    <None Remove="Schemas\consultarUrlNfse.xsd" />
+    <Content Include="nfse.wsdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\cabecalho.xsd" />
+    <Content Include="Schemas\cabecalho.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\cancelarNfse.xsd" />
+    <Content Include="Schemas\cancelarNfse.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\complexTypes.xsd" />
+    <Content Include="Schemas\complexTypes.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\consultarLoteRps.xsd" />
+    <Content Include="Schemas\consultarDadosCadastrais.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Schemas\consultarLoteRps.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\consultarNfseFaixa.xsd" />
+    <Content Include="Schemas\consultarNfseFaixa.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\consultarNfsePorRps.xsd" />
+    <Content Include="Schemas\consultarNfsePorRps.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\consultarNfseServicoPrestado.xsd" />
+    <Content Include="Schemas\consultarNfseServicoPrestado.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\consultarNfseServicoTomado.xsd" />
+    <Content Include="Schemas\consultarNfseServicoTomado.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\enviarLoteRps.xsd" />
+    <Content Include="Schemas\consultarRpsDisponivel.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Schemas\consultarUrlNfse.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Schemas\enviarLoteRps.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\enviarLoteRpsSincrono.xsd" />
+    <Content Include="Schemas\enviarLoteRpsSincrono.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\gerarNfse.xsd" />
+    <Content Include="Schemas\gerarNfse.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\schema_v204.xsd" />
+    <Content Include="Schemas\schema_v204.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\signature.xsd" />
+    <Content Include="Schemas\signature.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\simpleTypes.xsd" />
+    <Content Include="Schemas\simpleTypes.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Schemas\substituirNfse.xsd" />
+    <Content Include="Schemas\substituirNfse.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.abrasf.org.br/nfse.xsd" xmlns="http://www.abrasf.org.br/nfse.xsd"
+	xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" attributeFormDefault="unqualified"
+	elementFormDefault="qualified">
+  <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#"
+		schemaLocation="xmldsig-core-schema20020212.xsd" />
+
+  <xsd:element name="ListaMensagemRetorno">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="MensagemRetorno" type="tcMensagemRetorno"
+							 minOccurs="1" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- Consulta de dados cadastrais - ConsultarDadosCadastrais -->
+  <xsd:element name="ConsultarDadosCadastraisEnvio">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Pedido" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa"
+										 minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element ref="dsig:Signature"
+							 minOccurs="1" maxOccurs="1" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <!-- Consulta de dados cadastrais - ConsultarDadosCadastrais -->
+  <xsd:element name="ConsultarDadosCadastraisResposta">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element ref="Cadastro"
+					minOccurs="1" maxOccurs="1" />
+        <xsd:element ref="ListaMensagemRetorno"
+					minOccurs="1" maxOccurs="1" />
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

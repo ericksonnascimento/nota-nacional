@@ -1,0 +1,23 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <nfse:ConsultarLoteRps>
+         <nfseCabecMsg>
+            <cabecalho versao="1.00" xmlns="http://www.abrasf.org.br/nfse.xsd">
+               <versaoDados>1.00</versaoDados>
+            </cabecalho>
+         </nfseCabecMsg>
+         <nfseDadosMsg>
+			<ConsultarLoteRpsEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">
+				<Prestador>
+					<CpfCnpj>
+						<Cnpj>32251860000194</Cnpj>
+					</CpfCnpj>
+					<InscricaoMunicipal>0575</InscricaoMunicipal>
+				</Prestador>
+				<Protocolo>8CB938E5-F61E-43A6-8DA8-7E62CA7F01F7</Protocolo>
+			</ConsultarLoteRpsEnvio>
+         </nfseDadosMsg>
+      </nfse:ConsultarLoteRps>
+   </soapenv:Body>
+</soapenv:Envelope>
