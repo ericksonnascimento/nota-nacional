@@ -15,6 +15,63 @@
 
   <ItemGroup>
     <Content Remove="appsettings.json" />
+    <Content Update="Schemas\204\cabecalho.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\cancelarNfse.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\complexTypes.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\consultarDadosCadastrais.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Update="Schemas\204\consultarLoteRps.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\consultarNfseFaixa.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\consultarNfsePorRps.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\consultarNfseServicoPrestado.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\consultarNfseServicoTomado.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\consultarRpsDisponivel.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Update="Schemas\204\consultarUrlNfse.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Update="Schemas\204\enviarLoteRps.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\enviarLoteRpsSincrono.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\gerarNfse.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\schema_v204.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\signature.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\simpleTypes.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Schemas\204\substituirNfse.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -28,79 +85,7 @@
 
   <ItemGroup>
     <None Remove="nfse.wsdl" />
-    <None Remove="Schemas\consultarDadosCadastrais.xsd" />
-    <None Remove="Schemas\consultarRpsDisponivel.xsd" />
-    <None Remove="Schemas\consultarUrlNfse.xsd" />
     <Content Include="nfse.wsdl">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\cabecalho.xsd" />
-    <Content Include="Schemas\cabecalho.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\cancelarNfse.xsd" />
-    <Content Include="Schemas\cancelarNfse.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\complexTypes.xsd" />
-    <Content Include="Schemas\complexTypes.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\consultarLoteRps.xsd" />
-    <Content Include="Schemas\consultarDadosCadastrais.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Schemas\consultarLoteRps.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\consultarNfseFaixa.xsd" />
-    <Content Include="Schemas\consultarNfseFaixa.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\consultarNfsePorRps.xsd" />
-    <Content Include="Schemas\consultarNfsePorRps.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\consultarNfseServicoPrestado.xsd" />
-    <Content Include="Schemas\consultarNfseServicoPrestado.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\consultarNfseServicoTomado.xsd" />
-    <Content Include="Schemas\consultarNfseServicoTomado.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\enviarLoteRps.xsd" />
-    <Content Include="Schemas\consultarRpsDisponivel.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Schemas\consultarUrlNfse.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Schemas\enviarLoteRps.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\enviarLoteRpsSincrono.xsd" />
-    <Content Include="Schemas\enviarLoteRpsSincrono.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\gerarNfse.xsd" />
-    <Content Include="Schemas\gerarNfse.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\schema_v204.xsd" />
-    <Content Include="Schemas\schema_v204.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\signature.xsd" />
-    <Content Include="Schemas\signature.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\simpleTypes.xsd" />
-    <Content Include="Schemas\simpleTypes.xsd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Remove="Schemas\substituirNfse.xsd" />
-    <Content Include="Schemas\substituirNfse.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

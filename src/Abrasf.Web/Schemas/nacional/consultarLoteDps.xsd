@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.sped.fazenda.gov.br/nfse" xmlns="http://www.sped.fazenda.gov.br/nfse" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+
+  <xsd:element name="ListaMensagemRetorno">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="MensagemRetorno" type="tcMensagemRetorno" minOccurs="1" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="ListaMensagemAlertaRetorno">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="MensagemRetorno" type="tcMensagemRetorno" minOccurs="1" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="ListaMensagemRetornoLote">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="MensagemRetorno" type="tcMensagemRetornoLote" minOccurs="1" maxOccurs="unbounded" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+
+  <xsd:element name="CompNfse" type="tcCompNfse"/>
+
+  <!-- Consulta de Lote de DPS - ConsultarLoteDps -->  
+  <xsd:element name="ConsultarLoteDpsEnvio">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+        <xsd:element name="Protocolo" type="TSDesc50" minOccurs="1" maxOccurs="1" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="ConsultarLoteDpsResposta">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Situacao" type="tsSituacaoLoteDps" minOccurs="1" maxOccurs="1" />
+        <xsd:choice minOccurs="0">
+          <xsd:element name="ListaNfse" minOccurs="1" maxOccurs="1">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="CompNfse" minOccurs="1" maxOccurs="unbounded" />
+                <xsd:element ref="ListaMensagemAlertaRetorno" minOccurs="0" maxOccurs="1" />
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element ref="ListaMensagemRetorno" minOccurs="1" maxOccurs="1" />
+          <xsd:element ref="ListaMensagemRetornoLote" minOccurs="1" maxOccurs="1" />
+      </xsd:choice>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

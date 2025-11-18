@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.sped.fazenda.gov.br/nfse" xmlns="http://www.sped.fazenda.gov.br/nfse" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+  <xsd:element name="cabecalho">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="versaoDados" type="TVerNFSe" minOccurs="1" maxOccurs="1" />
+      </xsd:sequence>
+      <xsd:attribute name="versao" type="TVerNFSe" use="required" />
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

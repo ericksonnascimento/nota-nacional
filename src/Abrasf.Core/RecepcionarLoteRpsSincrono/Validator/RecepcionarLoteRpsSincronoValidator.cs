@@ -37,10 +37,10 @@ namespace Abrasf.Core.RecepcionarLoteRpsSincrono.Validator
         {
             try
             {
-                var signature = "Schemas//signature.xsd";
-                var simpleTypes = "Schemas//simpleTypes.xsd";
-                var complexTypes = "Schemas//complexTypes.xsd";
-                var enviarLoteRpsSincrono = "Schemas//enviarLoteRpsSincrono.xsd";
+                var signature = "Schemas/204/signature.xsd";
+                var simpleTypes = "Schemas/204/simpleTypes.xsd";
+                var complexTypes = "Schemas/204/complexTypes.xsd";
+                var enviarLoteRpsSincrono = "Schemas/204/enviarLoteRpsSincrono.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema

@@ -34,7 +34,7 @@ namespace Abrasf.Core.Cabecalho.Validator
         {
             try
             {
-                var schema = "Schemas//cabecalho.xsd";
+                var schema = "Schemas/204/cabecalho.xsd";
                 var cfg = new XmlReaderSettings() { ValidationType = ValidationType.Schema };
                 cfg.Schemas.Add(null, schema);
                 cfg.Schemas.XmlResolver = new XmlUrlResolver();

@@ -37,10 +37,10 @@ namespace Abrasf.Core.ConsultarNfsePorRps.Validator
         {
             try
             {
-                var signature = "Schemas//signature.xsd";
-                var simpleTypes = "Schemas//simpleTypes.xsd";
-                var complexTypes = "Schemas//complexTypes.xsd";
-                var consultarNfsePorRps = "Schemas//consultarNfsePorRps.xsd";
+                var signature = "Schemas/204/signature.xsd";
+                var simpleTypes = "Schemas/204/simpleTypes.xsd";
+                var complexTypes = "Schemas/204/complexTypes.xsd";
+                var consultarNfsePorRps = "Schemas/204/consultarNfsePorRps.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema
