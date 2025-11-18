@@ -37,10 +37,10 @@ namespace Abrasf.Core.GerarNfse.Validator
         {
             try
             {
-                var signature = "Schemas/204/signature.xsd";
-                var simpleTypes = "Schemas/204/simpleTypes.xsd";
-                var complexTypes = "Schemas/204/complexTypes.xsd";
-                var gerarNfse = "Schemas/204/gerarNfse.xsd";
+                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/complexTypes.xsd";
+                var gerarNfse = "Schemas/nacional/gerarNfse.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema

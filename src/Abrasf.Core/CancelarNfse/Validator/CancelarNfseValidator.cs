@@ -37,10 +37,10 @@ namespace Abrasf.Core.CancelarNfse.Validator
         {
             try
             {
-                var signature = "Schemas/204/signature.xsd";
-                var simpleTypes = "Schemas/204/simpleTypes.xsd";
-                var complexTypes = "Schemas/204/complexTypes.xsd";
-                var cancelarNfse = "Schemas/204/cancelarNfse.xsd";
+                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/complexTypes.xsd";
+                var cancelarNfse = "Schemas/nacional/cancelarNfse.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema

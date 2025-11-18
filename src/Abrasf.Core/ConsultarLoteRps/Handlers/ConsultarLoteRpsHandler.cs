@@ -71,14 +71,14 @@ namespace Abrasf.Core.ConsultarLoteRps.Handlers
             }
         }
 
-        private ConsultarLoteRpsResposta BuildResponse(WsNfseConsultarLoteRpsResult result)
+        private ConsultarLoteDpsResposta BuildResponse(WsNfseConsultarLoteRpsResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<ConsultarLoteRpsResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<ConsultarLoteDpsResposta>(result.XmlResposta);
         }
     }
 }

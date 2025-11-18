@@ -58,11 +58,11 @@ namespace Abrasf.Core.RecepcionarLoteRps.Handlers
                 }
 
                 var xmlString = ParseHelper.GetXml(body);
-                EnviarLoteRpsEnvio envio;
+                EnviarLoteDpsEnvio envio;
 
                 try
                 {
-                    envio = ParseHelper.ParseXml<EnviarLoteRpsEnvio>(xmlString);
+                    envio = ParseHelper.ParseXml<EnviarLoteDpsEnvio>(xmlString);
                 }
                 catch (Exception)
                 {
@@ -73,8 +73,8 @@ namespace Abrasf.Core.RecepcionarLoteRps.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    string issuer = ValidateCertificate(envio.Signature ?? envio.LoteRps.ListaRps[0].Signature);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(envio.Signature ?? envio.LoteRps.ListaRps[0].Signature);
+                    string issuer = ValidateCertificate(envio.Signature ?? envio.LoteDps.ListaDps[0].Signature);
+                    var personalDocument = ExtractPersonalDocumentFromSignature(envio.Signature ?? envio.LoteDps.ListaDps[0].Signature);
                     var result = _repository.Register(xmlString, personalDocument, erros, ipUsuario, issuer);
                     return BuildResponse(result);
                 }
@@ -91,7 +91,7 @@ namespace Abrasf.Core.RecepcionarLoteRps.Handlers
             }
         }
 
-        private EnviarLoteRpsResponse BuildResponse(WsNfseEnviarLoteRpsResult result)
+        private EnviarLoteDpsResponse BuildResponse(WsNfseEnviarLoteRpsResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
@@ -105,11 +105,11 @@ namespace Abrasf.Core.RecepcionarLoteRps.Handlers
             dynamic dyn = JsonConvert.DeserializeObject<ExpandoObject>(jsonText) ?? throw new Exception("Invalid object");
 
 
-            return new EnviarLoteRpsResponse
+            return new EnviarLoteDpsResponse
             {
-                NumeroLote = dyn.EnviarLoteRpsResposta.NumeroLote.ToString(),
-                DataRecebimento = dyn.EnviarLoteRpsResposta.DataRecebimento.ToString("yyyy-MM-ddThh:mm:ss"),
-                Protocolo = dyn.EnviarLoteRpsResposta.Protocolo
+                NumeroLote = dyn.EnviarLoteDpsResposta.NumeroLote.ToString(),
+                DataRecebimento = dyn.EnviarLoteDpsResposta.DataRecebimento.ToString("yyyy-MM-ddThh:mm:ss"),
+                Protocolo = dyn.EnviarLoteDpsResposta.Protocolo
             };
         }
     }

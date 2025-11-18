@@ -8,7 +8,7 @@ namespace Abrasf.Core.RecepcionarLoteRps.Validator
 
     public class RecepcionarLoteRpsValidator : IRecepcionarLoteRpsValidator
     {
-        private const string Operation = "EnviarLoteRps";
+        private const string Operation = "EnviarLoteDps";
         public ValidationResult Validate(object? data)
         {
             var result = new ValidationResult();
@@ -37,17 +37,17 @@ namespace Abrasf.Core.RecepcionarLoteRps.Validator
         {
             try
             {
-                var signature = "Schemas/204/signature.xsd";
-                var simpleTypes = "Schemas/204/simpleTypes.xsd";
-                var complexTypes = "Schemas/204/complexTypes.xsd";
-                var enviarloteRps = "Schemas/204/enviarLoteRps.xsd";
+                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/complexTypes.xsd";
+                var enviarLoteDps = "Schemas/nacional/enviarLoteDps.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema
                 };
                 cfg.Schemas.Add(null, simpleTypes);
                 cfg.Schemas.Add(null, complexTypes);
-                cfg.Schemas.Add(null, enviarloteRps);
+                cfg.Schemas.Add(null, enviarLoteDps);
                 cfg.Schemas.Add(null, signature);
                 cfg.Schemas.XmlResolver = new XmlUrlResolver();
                 var reader = XmlReader.Create(new StringReader(xml), cfg);

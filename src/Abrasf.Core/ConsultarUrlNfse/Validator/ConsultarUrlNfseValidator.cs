@@ -35,10 +35,10 @@ namespace Abrasf.Core.ConsultarUrlNfse.Validator
         {
             try
             {
-                var signature = "Schemas/204/signature.xsd";
-                var simpleTypes = "Schemas/204/simpleTypes.xsd";
-                var complexTypes = "Schemas/204/complexTypes.xsd";
-                var ConsultarUrlNfse = "Schemas/204/consultarUrlNfse.xsd";
+                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/complexTypes.xsd";
+                var ConsultarUrlNfse = "Schemas/nacional/consultarUrlNfse.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema

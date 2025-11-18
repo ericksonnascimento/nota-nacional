@@ -37,10 +37,10 @@ namespace Abrasf.Core.ConsultarNfseServicoTomado.Validator
         {
             try
             {
-                var signature = "Schemas/204/signature.xsd";
-                var simpleTypes = "Schemas/204/simpleTypes.xsd";
-                var complexTypes = "Schemas/204/complexTypes.xsd";
-                var consultarNfseServicoTomado = "Schemas/204/consultarNfseServicoTomado.xsd";
+                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/complexTypes.xsd";
+                var consultarNfseServicoTomado = "Schemas/nacional/consultarNfseServicoTomado.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema

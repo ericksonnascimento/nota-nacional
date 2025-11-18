@@ -37,10 +37,10 @@ namespace Abrasf.Core.ConsultarDadosCadastrais.Validator
         {
             try
             {
-                var signature = "Schemas/204/signature.xsd";
-                var simpleTypes = "Schemas/204/simpleTypes.xsd";
-                var complexTypes = "Schemas/204/complexTypes.xsd";
-                var ConsultarDadosCadastrais = "Schemas/204/consultarDadosCadastrais.xsd";
+                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/complexTypes.xsd";
+                var ConsultarDadosCadastrais = "Schemas/nacional/consultarDadosCadastrais.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema

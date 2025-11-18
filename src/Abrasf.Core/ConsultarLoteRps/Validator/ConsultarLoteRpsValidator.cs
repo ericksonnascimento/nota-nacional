@@ -8,7 +8,7 @@ namespace Abrasf.Core.ConsultarLoteRps.Validator
 
     public class ConsultarLoteRpsValidator : IConsultarLoteRpsValidator
     {
-        private const string Operation = "ConsultarLoteRps";
+        private const string Operation = "ConsultarLoteDps";
         public ValidationResult Validate(object? data)
         {
             var result = new ValidationResult();
@@ -37,17 +37,17 @@ namespace Abrasf.Core.ConsultarLoteRps.Validator
         {
             try
             {
-                var signature = "Schemas/204/signature.xsd";
-                var simpleTypes = "Schemas/204/simpleTypes.xsd";
-                var complexTypes = "Schemas/204/complexTypes.xsd";
-                var consultarLoteRps = "Schemas/204/consultarLoteRps.xsd";
+                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/complexTypes.xsd";
+                var consultarLoteDps = "Schemas/nacional/consultarLoteDps.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema
                 };
                 cfg.Schemas.Add(null, simpleTypes);
                 cfg.Schemas.Add(null, complexTypes);
-                cfg.Schemas.Add(null, consultarLoteRps);
+                cfg.Schemas.Add(null, consultarLoteDps);
                 cfg.Schemas.Add(null, signature);
                 cfg.Schemas.XmlResolver = new XmlUrlResolver();
                 var reader = XmlReader.Create(new StringReader(xml), cfg);

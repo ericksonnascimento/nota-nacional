@@ -8,7 +8,7 @@ namespace Abrasf.Core.ConsultarNfsePorRps.Validator
 
     public class ConsultarNfsePorRpsValidator : IConsultarNfsePorRpsValidator
     {
-        private const string Operation = "ConsultarNfsePorRps";
+        private const string Operation = "ConsultarNfseDps";
         public ValidationResult Validate(object? data)
         {
             var result = new ValidationResult();
@@ -37,17 +37,17 @@ namespace Abrasf.Core.ConsultarNfsePorRps.Validator
         {
             try
             {
-                var signature = "Schemas/204/signature.xsd";
-                var simpleTypes = "Schemas/204/simpleTypes.xsd";
-                var complexTypes = "Schemas/204/complexTypes.xsd";
-                var consultarNfsePorRps = "Schemas/204/consultarNfsePorRps.xsd";
+                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/complexTypes.xsd";
+                var consultarNfseDps = "Schemas/nacional/consultarNfseDps.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema
                 };
                 cfg.Schemas.Add(null, simpleTypes);
                 cfg.Schemas.Add(null, complexTypes);
-                cfg.Schemas.Add(null, consultarNfsePorRps);
+                cfg.Schemas.Add(null, consultarNfseDps);
                 cfg.Schemas.Add(null, signature);
                 cfg.Schemas.XmlResolver = new XmlUrlResolver();
                 var reader = XmlReader.Create(new StringReader(xml), cfg);

@@ -53,11 +53,11 @@ namespace Abrasf.Core.ConsultarRpsDisponivel.Handlers
                 }
 
                 var xmlString = ParseHelper.GetXml(body);
-                ConsultarRpsDisponivelEnvio consulta;
+                ConsultarDpsDisponivelEnvio consulta;
 
                 try
                 {
-                    consulta = ParseHelper.ParseXml<ConsultarRpsDisponivelEnvio>(xmlString);
+                    consulta = ParseHelper.ParseXml<ConsultarDpsDisponivelEnvio>(xmlString);
                 }
                 catch (Exception)
                 {
@@ -84,7 +84,7 @@ namespace Abrasf.Core.ConsultarRpsDisponivel.Handlers
                 return BuildResponse(result);
             }
         }
-        private ConsultarRpsDisponivelResposta BuildResponse(WsConsultarRpsDisponivelResult result)
+        private ConsultarDpsDisponivelResposta BuildResponse(WsConsultarRpsDisponivelResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {

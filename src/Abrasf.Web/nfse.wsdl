@@ -15,59 +15,55 @@
 		</xsd:complexType>
 		<xsd:element name="CancelarNfse" type="ws:input" />
 		<xsd:element name="CancelarNfseResponse" type="ws:output" />
-		<xsd:element name="ConsultarLoteRps" type="ws:input" />
-		<xsd:element name="ConsultarLoteRpsResponse" type="ws:output" />
+		<xsd:element name="ConsultarLoteDps" type="ws:input" />
+		<xsd:element name="ConsultarLoteDpsResponse" type="ws:output" />
 		<xsd:element name="ConsultarNfseServicoPrestado" type="ws:input" />
 		<xsd:element name="ConsultarNfseServicoPrestadoResponse" type="ws:output" />
 		<xsd:element name="ConsultarNfseServicoTomado" type="ws:input" />
 		<xsd:element name="ConsultarNfseServicoTomadoResponse" type="ws:output" />
 		<xsd:element name="ConsultarNfsePorFaixa" type="ws:input" />
 		<xsd:element name="ConsultarNfsePorFaixaResponse" type="ws:output" />
-		<xsd:element name="ConsultarNfsePorRps" type="ws:input" />
-		<xsd:element name="ConsultarNfsePorRpsResponse" type="ws:output" />
-		<xsd:element name="RecepcionarLoteRps" type="ws:input" />
-		<xsd:element name="RecepcionarLoteRpsResponse" type="ws:output" />
+		<xsd:element name="ConsultarNfseDps" type="ws:input" />
+		<xsd:element name="ConsultarNfseDpsResponse" type="ws:output" />
+		<xsd:element name="RecepcionarLoteDps" type="ws:input" />
+		<xsd:element name="RecepcionarLoteDpsResponse" type="ws:output" />
 		<xsd:element name="GerarNfse" type="ws:input" />
 		<xsd:element name="GerarNfseResponse" type="ws:output" />
-		<xsd:element name="SubstituirNfse" type="ws:input" />
-		<xsd:element name="SubstituirNfseResponse" type="ws:output" />
-		<xsd:element name="RecepcionarLoteRpsSincrono" type="ws:input" />
-		<xsd:element name="RecepcionarLoteRpsSincronoResponse" type="ws:output" />
+		<xsd:element name="RecepcionarLoteDpsSincrono" type="ws:input" />
+		<xsd:element name="RecepcionarLoteDpsSincronoResponse" type="ws:output" />
     <xsd:element name="ConsultarUrlNfse" type="ws:input" />
     <xsd:element name="ConsultarUrlNfseResponse" type="ws:output" />
     <xsd:element name="ConsultarDadosCadastrais" type="ws:input" />
     <xsd:element name="ConsultarDadosCadastraisResponse" type="ws:output" />
-    <xsd:element name="ConsultarRpsDisponivel" type="ws:input" />
-    <xsd:element name="ConsultarRpsDisponivelResponse" type="ws:output" />
+    <xsd:element name="ConsultarDpsDisponivel" type="ws:input" />
+    <xsd:element name="ConsultarDpsDisponivelResponse" type="ws:output" />
 
   </xsd:schema>
   </wsdl:types>
   <wsdl:message name="CancelarNfseRequest"><wsdl:part element="ws:CancelarNfse" name="parameters"/></wsdl:message>
   <wsdl:message name="CancelarNfseResponse"><wsdl:part element="ws:CancelarNfseResponse" name="parameters"/></wsdl:message>
-  <wsdl:message name="ConsultarLoteRpsRequest"><wsdl:part element="ws:ConsultarLoteRps" name="parameters"/></wsdl:message>
-  <wsdl:message name="ConsultarLoteRpsResponse"><wsdl:part element="ws:ConsultarLoteRpsResponse" name="parameters"/></wsdl:message>
+  <wsdl:message name="ConsultarLoteDpsRequest"><wsdl:part element="ws:ConsultarLoteDps" name="parameters"/></wsdl:message>
+  <wsdl:message name="ConsultarLoteDpsResponse"><wsdl:part element="ws:ConsultarLoteDpsResponse" name="parameters"/></wsdl:message>
   <wsdl:message name="ConsultarNfseServicoPrestadoRequest"><wsdl:part element="ws:ConsultarNfseServicoPrestado" name="parameters"/></wsdl:message>
   <wsdl:message name="ConsultarNfseServicoPrestadoResponse"><wsdl:part element="ws:ConsultarNfseServicoPrestadoResponse" name="parameters"/></wsdl:message>
   <wsdl:message name="ConsultarNfseServicoTomadoRequest"><wsdl:part element="ws:ConsultarNfseServicoTomado" name="parameters"/></wsdl:message>
   <wsdl:message name="ConsultarNfseServicoTomadoResponse"><wsdl:part element="ws:ConsultarNfseServicoTomadoResponse" name="parameters"/></wsdl:message>
   <wsdl:message name="ConsultarNfsePorFaixaRequest"><wsdl:part element="ws:ConsultarNfsePorFaixa" name="parameters"/></wsdl:message>
   <wsdl:message name="ConsultarNfsePorFaixaResponse"><wsdl:part element="ws:ConsultarNfsePorFaixaResponse" name="parameters"/></wsdl:message>
-  <wsdl:message name="ConsultarNfsePorRpsRequest"><wsdl:part element="ws:ConsultarNfsePorRps" name="parameters"/></wsdl:message>
-  <wsdl:message name="ConsultarNfsePorRpsResponse"><wsdl:part element="ws:ConsultarNfsePorRpsResponse" name="parameters"/></wsdl:message>
-  <wsdl:message name="RecepcionarLoteRpsRequest"><wsdl:part element="ws:RecepcionarLoteRps" name="parameters"/></wsdl:message>
-  <wsdl:message name="RecepcionarLoteRpsResponse"><wsdl:part element="ws:RecepcionarLoteRpsResponse" name="parameters"/></wsdl:message>
+  <wsdl:message name="ConsultarNfseDpsRequest"><wsdl:part element="ws:ConsultarNfseDps" name="parameters"/></wsdl:message>
+  <wsdl:message name="ConsultarNfseDpsResponse"><wsdl:part element="ws:ConsultarNfseDpsResponse" name="parameters"/></wsdl:message>
+  <wsdl:message name="RecepcionarLoteDpsRequest"><wsdl:part element="ws:RecepcionarLoteDps" name="parameters"/></wsdl:message>
+  <wsdl:message name="RecepcionarLoteDpsResponse"><wsdl:part element="ws:RecepcionarLoteDpsResponse" name="parameters"/></wsdl:message>
   <wsdl:message name="GerarNfseRequest"><wsdl:part element="ws:GerarNfse" name="parameters"/></wsdl:message> 
   <wsdl:message name="GerarNfseResponse"><wsdl:part element="ws:GerarNfseResponse" name="parameters"/></wsdl:message>
-  <wsdl:message name="SubstituirNfseRequest"><wsdl:part element="ws:SubstituirNfse" name="parameters"/></wsdl:message> 
-  <wsdl:message name="SubstituirNfseResponse"><wsdl:part element="ws:SubstituirNfseResponse" name="parameters"/></wsdl:message>
-  <wsdl:message name="RecepcionarLoteRpsSincronoRequest"><wsdl:part element="ws:RecepcionarLoteRpsSincrono" name="parameters"/></wsdl:message> 
-  <wsdl:message name="RecepcionarLoteRpsSincronoResponse"><wsdl:part element="ws:RecepcionarLoteRpsSincronoResponse" name="parameters"/></wsdl:message>
+  <wsdl:message name="RecepcionarLoteDpsSincronoRequest"><wsdl:part element="ws:RecepcionarLoteDpsSincrono" name="parameters"/></wsdl:message> 
+  <wsdl:message name="RecepcionarLoteDpsSincronoResponse"><wsdl:part element="ws:RecepcionarLoteDpsSincronoResponse" name="parameters"/></wsdl:message>
   <wsdl:message name="ConsultarUrlNfseRequest"><wsdl:part element="ws:ConsultarUrlNfse" name="parameters"/></wsdl:message> 
   <wsdl:message name="ConsultarUrlNfseResponse"><wsdl:part element="ws:ConsultarUrlNfseResponse" name="parameters"/></wsdl:message>
   <wsdl:message name="ConsultarDadosCadastraisRequest"><wsdl:part element="ws:ConsultarDadosCadastrais" name="parameters"/></wsdl:message> 
   <wsdl:message name="ConsultarDadosCadastraisResponse"><wsdl:part element="ws:ConsultarDadosCadastraisResponse" name="parameters"/></wsdl:message>  
-  <wsdl:message name="ConsultarRpsDisponivelRequest"><wsdl:part element="ws:ConsultarRpsDisponivel" name="parameters"/></wsdl:message> 
-  <wsdl:message name="ConsultarRpsDisponivelResponse"><wsdl:part element="ws:ConsultarRpsDisponivelResponse" name="parameters"/></wsdl:message>  
+  <wsdl:message name="ConsultarDpsDisponivelRequest"><wsdl:part element="ws:ConsultarDpsDisponivel" name="parameters"/></wsdl:message> 
+  <wsdl:message name="ConsultarDpsDisponivelResponse"><wsdl:part element="ws:ConsultarDpsDisponivelResponse" name="parameters"/></wsdl:message>  
 
 
     <wsdl:portType name="nfse">
@@ -75,9 +71,9 @@
       <wsdl:input message="ws:CancelarNfseRequest"/>
       <wsdl:output message="ws:CancelarNfseResponse"/>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarLoteRps">
-      <wsdl:input message="ws:ConsultarLoteRpsRequest"/>
-      <wsdl:output message="ws:ConsultarLoteRpsResponse"/>
+    <wsdl:operation name="ConsultarLoteDps">
+      <wsdl:input message="ws:ConsultarLoteDpsRequest"/>
+      <wsdl:output message="ws:ConsultarLoteDpsResponse"/>
     </wsdl:operation>
     <wsdl:operation name="ConsultarNfseServicoPrestado">
       <wsdl:input message="ws:ConsultarNfseServicoPrestadoRequest"/>
@@ -91,25 +87,21 @@
       <wsdl:input message="ws:ConsultarNfsePorFaixaRequest"/>
       <wsdl:output message="ws:ConsultarNfsePorFaixaResponse"/>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarNfsePorRps">
-      <wsdl:input message="ws:ConsultarNfsePorRpsRequest"/>
-      <wsdl:output message="ws:ConsultarNfsePorRpsResponse"/>
+    <wsdl:operation name="ConsultarNfseDps">
+      <wsdl:input message="ws:ConsultarNfseDpsRequest"/>
+      <wsdl:output message="ws:ConsultarNfseDpsResponse"/>
     </wsdl:operation>
-    <wsdl:operation name="RecepcionarLoteRps">
-      <wsdl:input message="ws:RecepcionarLoteRpsRequest"/>
-      <wsdl:output message="ws:RecepcionarLoteRpsResponse"/>
+    <wsdl:operation name="RecepcionarLoteDps">
+      <wsdl:input message="ws:RecepcionarLoteDpsRequest"/>
+      <wsdl:output message="ws:RecepcionarLoteDpsResponse"/>
     </wsdl:operation>
     <wsdl:operation name="GerarNfse">
       <wsdl:input message="ws:GerarNfseRequest"/>
       <wsdl:output message="ws:GerarNfseResponse"/>
     </wsdl:operation>
-    <wsdl:operation name="SubstituirNfse">
-      <wsdl:input message="ws:SubstituirNfseRequest"/>
-      <wsdl:output message="ws:SubstituirNfseResponse"/>
-    </wsdl:operation>
-    <wsdl:operation name="RecepcionarLoteRpsSincrono">
-      <wsdl:input message="ws:RecepcionarLoteRpsSincronoRequest"/>
-      <wsdl:output message="ws:RecepcionarLoteRpsSincronoResponse"/>
+    <wsdl:operation name="RecepcionarLoteDpsSincrono">
+      <wsdl:input message="ws:RecepcionarLoteDpsSincronoRequest"/>
+      <wsdl:output message="ws:RecepcionarLoteDpsSincronoResponse"/>
     </wsdl:operation>        
        <wsdl:operation name="ConsultarUrlNfse">
       <wsdl:input message="ws:ConsultarUrlNfseRequest"/>
@@ -119,9 +111,9 @@
         <wsdl:input message="ws:ConsultarDadosCadastraisRequest"/>
         <wsdl:output message="ws:ConsultarDadosCadastraisResponse"/>
       </wsdl:operation>
-      <wsdl:operation name="ConsultarRpsDisponivel">
-        <wsdl:input message="ws:ConsultarRpsDisponivelRequest"/>
-        <wsdl:output message="ws:ConsultarRpsDisponivelResponse"/>
+      <wsdl:operation name="ConsultarDpsDisponivel">
+        <wsdl:input message="ws:ConsultarDpsDisponivelRequest"/>
+        <wsdl:output message="ws:ConsultarDpsDisponivelResponse"/>
       </wsdl:operation>
     </wsdl:portType>
 
@@ -132,8 +124,8 @@
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarLoteRps">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarLoteRps"/>
+    <wsdl:operation name="ConsultarLoteDps">
+      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarLoteDps"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
@@ -152,13 +144,13 @@
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarNfsePorRps">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarNfsePorRps"/>
+    <wsdl:operation name="ConsultarNfseDps">
+      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarNfseDps"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RecepcionarLoteRps">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/RecepcionarLoteRps"/>
+    <wsdl:operation name="RecepcionarLoteDps">
+      <soap:operation soapAction="http://nfse.abrasf.org.br/RecepcionarLoteDps"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
@@ -167,13 +159,8 @@
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
-   <wsdl:operation name="SubstituirNfse">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/SubstituirNfse"/>
-      <wsdl:input><soap:body use="literal"/></wsdl:input>
-      <wsdl:output><soap:body use="literal"/></wsdl:output>
-    </wsdl:operation>
-   <wsdl:operation name="RecepcionarLoteRpsSincrono">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/RecepcionarLoteRpsSincrono"/>
+   <wsdl:operation name="RecepcionarLoteDpsSincrono">
+      <soap:operation soapAction="http://nfse.abrasf.org.br/RecepcionarLoteDpsSincrono"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
    </wsdl:operation>     
@@ -187,8 +174,8 @@
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
    </wsdl:operation>     
-     <wsdl:operation name="ConsultarRpsDisponivel">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarRpsDisponivel"/>
+     <wsdl:operation name="ConsultarDpsDisponivel">
+      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarDpsDisponivel"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
    </wsdl:operation> 

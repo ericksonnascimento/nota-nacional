@@ -53,11 +53,11 @@ namespace Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers
                 }
 
                 var xmlString = ParseHelper.GetXml(body);
-                EnviarLoteRpsSincronoEnvio envio;
+                EnviarLoteDpsSincronoEnvio envio;
 
                 try
                 {
-                    envio = ParseHelper.ParseXml<EnviarLoteRpsSincronoEnvio>(xmlString);
+                    envio = ParseHelper.ParseXml<EnviarLoteDpsSincronoEnvio>(xmlString);
                 }
                 catch (Exception)
                 {
@@ -68,8 +68,8 @@ namespace Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    string issuer = ValidateCertificate(envio.Signature ?? envio.LoteRps.ListaRps[0].Signature);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(envio.Signature ?? envio.LoteRps.ListaRps[0].Signature);
+                    string issuer = ValidateCertificate(envio.Signature ?? envio.LoteDps.ListaDps[0].Signature);
+                    var personalDocument = ExtractPersonalDocumentFromSignature(envio.Signature ?? envio.LoteDps.ListaDps[0].Signature);
                     var result = _repository.Process(xmlString, personalDocument, erros, ipUsuario, issuer);
                     return BuildResponse(result);
                 }
@@ -86,14 +86,14 @@ namespace Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers
             }
         }
 
-        private EnviarLoteRpsSincronoResposta BuildResponse(WsNfseEnviarLoteRpsSincronoResult result)
+        private EnviarLoteDpsSincronoResposta BuildResponse(WsNfseEnviarLoteRpsSincronoResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<EnviarLoteRpsSincronoResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<EnviarLoteDpsSincronoResposta>(result.XmlResposta);
         }
     }
 }

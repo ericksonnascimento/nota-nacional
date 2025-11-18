@@ -8,7 +8,6 @@ using Abrasf.Core.GerarNfse.Handlers;
 using Abrasf.Core.Models.Response;
 using Abrasf.Core.RecepcionarLoteRps.Handlers;
 using Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers;
-using Abrasf.Core.SubstituirNfse.Handlers;
 using Abrasf.Core.ConsultarUrlNfse.Handlers;
 using Abrasf.Core.ConsultarDadosCadastrais.Handlers;
 using Abrasf.Core.ConsultarRpsDisponivel.Handlers;
@@ -26,7 +25,6 @@ namespace Abrasf.Web.Service
         private IConsultarNfsePorRpsHandler _consultarNfsePorRpsHandler;
         private IRecepcionarLoteRpsHandler _recepcionarLoteRpsHandler;
         private IGerarNfseHandler _gerarNfseHandler;
-        private ISubstituirNfseHandler _substituirNfseHandler;
         private IRecepcionarLoteRpsSincronoHandler _recepcionarLoteRpsSincronoHandler;
         private IConsultarUrlNfseHandler _consultarUrlNfseHandler;
         private IConsultarDadosCadastraisHandler _consultarDadosCadastraisHandler;
@@ -42,7 +40,6 @@ namespace Abrasf.Web.Service
             IConsultarNfsePorRpsHandler consultarNfsePorRpsHandler,
             IRecepcionarLoteRpsHandler recepcionarLoteRpsHandler,
             IGerarNfseHandler gerarNfseHandler,
-            ISubstituirNfseHandler substituirNfseHandler,
             IRecepcionarLoteRpsSincronoHandler recepcionarLoteRpsSincronoHandler,
             IConsultarUrlNfseHandler consultarUrlNfseHandler,
             IConsultarDadosCadastraisHandler consultarDadosCadastraisHandler,
@@ -57,7 +54,6 @@ namespace Abrasf.Web.Service
             _consultarNfsePorRpsHandler = consultarNfsePorRpsHandler;
             _recepcionarLoteRpsHandler = recepcionarLoteRpsHandler;
             _gerarNfseHandler = gerarNfseHandler;
-            _substituirNfseHandler = substituirNfseHandler;
             _recepcionarLoteRpsSincronoHandler = recepcionarLoteRpsSincronoHandler;
             _consultarUrlNfseHandler = consultarUrlNfseHandler;
             _consultarDadosCadastraisHandler = consultarDadosCadastraisHandler;
@@ -71,13 +67,13 @@ namespace Abrasf.Web.Service
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _cancelarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
-        public BaseResponse RecepcionarLoteRps(object nfseCabecMsg, object nfseDadosMsg)
+        public BaseResponse RecepcionarLoteDps(object nfseCabecMsg, object nfseDadosMsg)
         {
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _recepcionarLoteRpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
 
-        public BaseResponse ConsultarLoteRps(object nfseCabecMsg, object nfseDadosMsg)
+        public BaseResponse ConsultarLoteDps(object nfseCabecMsg, object nfseDadosMsg)
         {
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarLoteRpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
@@ -97,7 +93,7 @@ namespace Abrasf.Web.Service
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarNfseFaixaHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
-        public BaseResponse ConsultarNfsePorRps(object nfseCabecMsg, object nfseDadosMsg)
+        public BaseResponse ConsultarNfseDps(object nfseCabecMsg, object nfseDadosMsg)
         {
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarNfsePorRpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
@@ -107,12 +103,7 @@ namespace Abrasf.Web.Service
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _gerarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
-        public BaseResponse SubstituirNfse(object nfseCabecMsg, object nfseDadosMsg)
-        {
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            return _substituirNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
-        }
-        public BaseResponse RecepcionarLoteRpsSincrono(object nfseCabecMsg, object nfseDadosMsg)
+        public BaseResponse RecepcionarLoteDpsSincrono(object nfseCabecMsg, object nfseDadosMsg)
         {
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _recepcionarLoteRpsSincronoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
@@ -127,7 +118,7 @@ namespace Abrasf.Web.Service
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarDadosCadastraisHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
-        public BaseResponse ConsultarRpsDisponivel(object nfseCabecMsg, object nfseDadosMsg)
+        public BaseResponse ConsultarDpsDisponivel(object nfseCabecMsg, object nfseDadosMsg)
         {
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarRpsDisponivelHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);

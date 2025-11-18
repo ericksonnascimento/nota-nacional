@@ -53,11 +53,11 @@ namespace Abrasf.Core.ConsultarNfsePorRps.Handlers
                 }
 
                 var xmlString = ParseHelper.GetXml(body);
-                ConsultarNfseRpsEnvio consulta;
+                ConsultarNfseDpsEnvio consulta;
 
                 try
                 {
-                    consulta = ParseHelper.ParseXml<ConsultarNfseRpsEnvio>(xmlString);
+                    consulta = ParseHelper.ParseXml<ConsultarNfseDpsEnvio>(xmlString);
 
                 }
                 catch (Exception)
@@ -86,7 +86,7 @@ namespace Abrasf.Core.ConsultarNfsePorRps.Handlers
             }
         }
 
-        private ConsultarNfseRpsResposta BuildResponse(WsNfseConsultarNfsePorRpsResult result)
+        private ConsultarNfseDpsResposta BuildResponse(WsNfseConsultarNfsePorRpsResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {

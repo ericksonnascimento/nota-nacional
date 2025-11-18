@@ -11,9 +11,9 @@ namespace Abrasf.Web.Service
         [XmlSerializerFormat]
         BaseResponse CancelarNfse(object nfseCabecMsg, object nfseDadosMsg);
 
-        [OperationContract(Name = "ConsultarLoteRps")]
+        [OperationContract(Name = "ConsultarLoteDps")]
         [XmlSerializerFormat]
-        BaseResponse ConsultarLoteRps(object nfseCabecMsg, object nfseDadosMsg);
+        BaseResponse ConsultarLoteDps(object nfseCabecMsg, object nfseDadosMsg);
 
         [OperationContract(Name = "ConsultarNfseServicoPrestado")]
         [XmlSerializerFormat]
@@ -27,25 +27,21 @@ namespace Abrasf.Web.Service
         [XmlSerializerFormat]
         BaseResponse ConsultarNfsePorFaixa(object nfseCabecMsg, object nfseDadosMsg);
 
-        [OperationContract(Name = "ConsultarNfsePorRps")]
+        [OperationContract(Name = "ConsultarNfseDps")]
         [XmlSerializerFormat]
-        BaseResponse ConsultarNfsePorRps(object nfseCabecMsg, object nfseDadosMsg);
+        BaseResponse ConsultarNfseDps(object nfseCabecMsg, object nfseDadosMsg);
 
-        [OperationContract(Name = "RecepcionarLoteRps")]
+        [OperationContract(Name = "RecepcionarLoteDps")]
         [XmlSerializerFormat]
-        BaseResponse RecepcionarLoteRps(object nfseCabecMsg, object nfseDadosMsg);
+        BaseResponse RecepcionarLoteDps(object nfseCabecMsg, object nfseDadosMsg);
 
         [OperationContract(Name = "GerarNfse")]
         [XmlSerializerFormat]
         BaseResponse GerarNfse(object nfseCabecMsg, object nfseDadosMsg);
 
-        [OperationContract(Name = "SubstituirNfse")]
+        [OperationContract(Name = "RecepcionarLoteDpsSincrono")]
         [XmlSerializerFormat]
-        BaseResponse SubstituirNfse(object nfseCabecMsg, object nfseDadosMsg);
-
-        [OperationContract(Name = "RecepcionarLoteRpsSincrono")]
-        [XmlSerializerFormat]
-        BaseResponse RecepcionarLoteRpsSincrono(object nfseCabecMsg, object nfseDadosMsg);
+        BaseResponse RecepcionarLoteDpsSincrono(object nfseCabecMsg, object nfseDadosMsg);
 
         [OperationContract(Name = "ConsultarUrlNfse")]
         [XmlSerializerFormat]
@@ -55,8 +51,8 @@ namespace Abrasf.Web.Service
         [XmlSerializerFormat]
         BaseResponse ConsultarDadosCadastrais(object nfseCabecMsg, object nfseDadosMsg);
 
-        [OperationContract(Name = "ConsultarRpsDisponivel")]
+        [OperationContract(Name = "ConsultarDpsDisponivel")]
         [XmlSerializerFormat]
-        BaseResponse ConsultarRpsDisponivel(object nfseCabecMsg, object nfseDadosMsg);
+        BaseResponse ConsultarDpsDisponivel(object nfseCabecMsg, object nfseDadosMsg);
     }
 }
