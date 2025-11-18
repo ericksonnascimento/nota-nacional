@@ -13,7 +13,6 @@
 
   <xsd:element name="CompNfse" type="tcCompNfse"/>
 
-  <!-- Consulta de NFS-e – Serviços Prestados - ConsultarNfseServicoPrestado -->  
   <xsd:element name="ConsultarNfseServicoPrestadoEnvio">
     <xsd:complexType>
       <xsd:sequence>

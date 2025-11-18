@@ -19,6 +19,24 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
+
+    <xsd:element name="ListaMensagemRetornoLote">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="MensagemRetorno" type="tcMensagemRetornoLote"
+                             minOccurs="1" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="ListaMensagemRetorno">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="MensagemRetorno" type="tcMensagemRetorno"
+                             minOccurs="1" maxOccurs="unbounded" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
   
   <xsd:element name="EnviarLoteDpsResposta">
     <xsd:complexType>

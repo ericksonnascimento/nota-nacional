@@ -114,13 +114,6 @@
       <xsd:enumeration value="2"/>
     </xsd:restriction>
   </xsd:simpleType>
-    <xsd:simpleType name="tsRazaoSocial">
-        <xsd:restriction base="xsd:string">
-            <xsd:maxLength value="150" />
-            <xsd:minLength value="1" />
-            <xsd:whiteSpace value="collapse" />
-        </xsd:restriction>
-    </xsd:simpleType>
   <xsd:simpleType name="TSProcEmissao">
     <xsd:annotation>
       <xsd:documentation>
@@ -1762,93 +1755,6 @@ O identificador do pedido de registro do evento √© formado conforme a concatena√
       <xsd:maxLength value="200" />
       <xsd:minLength value="1" />
       <xsd:whiteSpace value="collapse" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="tsUrlVisualizacaoNfse">
-    <xsd:restriction base="xsd:string">
-      <xsd:maxLength value="2000"/>
-      <xsd:minLength value="1"/>
-      <xsd:whiteSpace value="collapse"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="tsUrlVerificaAutenticidade">
-    <xsd:restriction base="xsd:string">
-      <xsd:maxLength value="2000"/>
-      <xsd:minLength value="1"/>
-      <xsd:whiteSpace value="collapse"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="tsStatusCadastro">
-    <xsd:restriction base="xsd:string">
-      <xsd:maxLength value="500" />
-      <xsd:minLength value="1" />
-      <xsd:whiteSpace value="collapse" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="tsCodigoCnae">
-    <xsd:restriction base="xsd:int">
-      <xsd:totalDigits value="7" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="tsExigibilidadeISS">
-    <xsd:annotation>
-      <xsd:documentation>Exigibilidade do ISS da NFS-e (
-        1 - Exigivel; 
-        2 - Nao incidencia; 
-        3 - Isencao; 
-        4 - Exportacao; 
-        5 - Imunidade; 
-        6 - Exigibilidade Suspensa por Decisao Judicial; 
-        7 - Exigibilidade Suspensa por Processo Administrativo)
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:restriction base="xsd:byte">
-      <xsd:pattern value="1|2|3|4|5|6|7" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="tsPagina">
-    <xsd:restriction base="xsd:nonNegativeInteger">
-      <xsd:minInclusive value="1" />
-      <xsd:maxInclusive value="999999" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="tsNumeroRps">
-    <xsd:restriction base="xsd:nonNegativeInteger">
-      <xsd:totalDigits value="15" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="tsSerieRps">
-    <xsd:restriction base="xsd:string">
-      <xsd:maxLength value="5" />
-      <xsd:minLength value="1" />
-      <xsd:whiteSpace value="collapse" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="tsTipoRps">
-    <xsd:annotation>
-      <xsd:documentation>Tipo do RPS (
-        1 - RPS;
-        2 - RPS Nota Fiscal Conjugada (Mista); 
-        3 - Cupom)
-      </xsd:documentation>
-    </xsd:annotation>
-    <xsd:restriction base="xsd:byte">
-      <xsd:pattern value="1|2|3" />
-    </xsd:restriction>
-  </xsd:simpleType>
-
-  <xsd:simpleType name="tsVersao">
-    <xsd:restriction base="xsd:token">
-      <xsd:pattern value="[1-9]{1}[0-9]{0,1}\.[0-9]{2}" />
     </xsd:restriction>
   </xsd:simpleType>
   
