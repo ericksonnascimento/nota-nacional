@@ -27,7 +27,7 @@ namespace Abrasf.Core.ConsultarNfsePorRps.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -70,8 +70,8 @@ namespace Abrasf.Core.ConsultarNfsePorRps.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(consulta.Signature);
-                    var result = _repository.Find(xmlString, personalDocument, erros, ipUsuario);
+                    // ConsultarNfseDpsEnvio não tem Signature no padrão nacional
+                    var result = _repository.Find(xmlString, string.Empty, erros, ipUsuario);
                     return BuildResponse(result);
                 }
                 catch (ValidateException ex)
@@ -87,14 +87,14 @@ namespace Abrasf.Core.ConsultarNfsePorRps.Handlers
             }
         }
 
-        private ConsultarNfseDpsResposta BuildResponse(WsNfseConsultarNfsePorRpsResult result)
+        private Abrasf.Core.Models.ConsultarNfseDpsResposta BuildResponse(WsNfseConsultarNfsePorRpsResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<ConsultarNfseRpsResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarNfseDpsResposta>(result.XmlResposta);
         }
 
 

@@ -26,7 +26,7 @@ namespace Abrasf.Core.ConsultarNfseServicoPrestado.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -53,11 +53,11 @@ namespace Abrasf.Core.ConsultarNfseServicoPrestado.Handlers
                 }
 
                 var xmlString = ParseHelper.GetXml(body);
-                ConsultarNfseServicoPrestadoEnvio consulta;
+                Abrasf.Core.Models.ConsultarNfseServicoPrestadoEnvio consulta;
 
                 try
                 {
-                    consulta = ParseHelper.ParseXml<ConsultarNfseServicoPrestadoEnvio>(xmlString);
+                    consulta = ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarNfseServicoPrestadoEnvio>(xmlString);
 
                 }
                 catch (Exception)
@@ -69,8 +69,8 @@ namespace Abrasf.Core.ConsultarNfseServicoPrestado.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(consulta.Signature);
-                    var result = _repository.Find(xmlString, personalDocument, erros, ipUsuario);
+                    // ConsultarNfseServicoPrestadoEnvio não tem Signature no padrão nacional
+                    var result = _repository.Find(xmlString, string.Empty, erros, ipUsuario);
                     return BuildResponse(result);
                 }
                 catch (ValidateException ex)
@@ -86,14 +86,14 @@ namespace Abrasf.Core.ConsultarNfseServicoPrestado.Handlers
             }
         }
 
-        private ConsultarNfseServicoPrestadoResposta BuildResponse(WsNfseConsultarNfseServicoPrestadoResult result)
+        private Abrasf.Core.Models.ConsultarNfseServicoPrestadoResposta BuildResponse(WsNfseConsultarNfseServicoPrestadoResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<ConsultarNfseServicoPrestadoResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarNfseServicoPrestadoResposta>(result.XmlResposta);
         }
     }
 }

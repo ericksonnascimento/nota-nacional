@@ -19,7 +19,7 @@ namespace Abrasf.Core.Base
     {
         protected static void DuplicateIdValidation(string xmlString)
         {
-            XDocument xmlDoc = XDocument.Parse(xmlString);
+            var xmlDoc = XDocument.Parse(xmlString);
 
             if (XmlDuplicateIds(xmlDoc))
             {
@@ -68,7 +68,7 @@ namespace Abrasf.Core.Base
             }
             catch (ValidateException e)
             {
-                throw e;
+                throw;
             }
             catch (Exception)
             {
@@ -102,7 +102,73 @@ namespace Abrasf.Core.Base
             }
             catch (ValidateException e)
             {
-                throw e;
+                throw;
+            }
+            catch (Exception)
+            {
+                throw new ValidateException("E190");
+            }
+        }
+
+        // Métodos sobrecarregados para aceitar o tipo gerado do padrão nacional
+        protected static string ValidateCertificate(Abrasf.Core.Models.SignatureType signature)
+        {
+            if (signature?.KeyInfo?.X509Data == null || signature.KeyInfo.X509Data.Count == 0)
+                throw new ValidateException("E190");
+
+            try
+            {
+                var x509Data = signature.KeyInfo.X509Data[0];
+                if (x509Data.X509Certificate == null || x509Data.X509Certificate.Count == 0)
+                    throw new ValidateException("E190");
+
+                var certificate = new X509Certificate2(x509Data.X509Certificate[0]);
+                return ValidateSignature(certificate);
+            }
+            catch (ValidateException e)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw new ValidateException("E190");
+            }
+        }
+
+        protected static string ExtractPersonalDocumentFromSignature(Abrasf.Core.Models.SignatureType signature)
+        {
+            if (signature?.KeyInfo?.X509Data == null || signature.KeyInfo.X509Data.Count == 0)
+                throw new ValidateException("E190");
+
+            try
+            {
+                var x509Data = signature.KeyInfo.X509Data[0];
+                if (x509Data.X509Certificate == null || x509Data.X509Certificate.Count == 0)
+                    throw new ValidateException("E190");
+
+                var certificate = new X509Certificate2(x509Data.X509Certificate[0]);
+
+                var oid = "2.5.29.17";
+                var extension = certificate.Extensions[oid];
+                var data = Encoding.UTF8.GetString(extension.RawData);
+                var matches = Regex.Matches(data, @"(?<!\d)\d{14}(?!\d)");
+                var cnpj = matches.FirstOrDefault(x => Util.IsCnpj(x.Value));
+
+                if (cnpj != null && !string.IsNullOrEmpty(cnpj.Value))
+                {
+                    return cnpj.Value;
+                }
+
+                var cn = certificate.Subject.Split(',')
+                    .Select(x => x.Split('=')).Where(x => x[0] == "CN")
+                    .Select(x => x[1])
+                    .First() ?? string.Empty;
+
+                return cn.Any(char.IsDigit) ? new string(cn.Where(char.IsDigit).ToArray()) : string.Empty;
+            }
+            catch (ValidateException e)
+            {
+                throw;
             }
             catch (Exception)
             {
@@ -324,15 +390,7 @@ namespace Abrasf.Core.Base
 
             var certInfo = issuer.Split(',');
 
-            foreach (var info in certInfo)
-            {
-                if (listAC.Contains(info.ToUpper()))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return certInfo.Any(info => listAC.Contains(info.ToUpper()));
         }
     }
 }

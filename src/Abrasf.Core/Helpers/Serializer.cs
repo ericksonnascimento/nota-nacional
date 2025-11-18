@@ -11,7 +11,7 @@ namespace Abrasf.Core.Helpers
             var xsSubmit = new XmlSerializer(typeof(T));
             using (var sww = new StringWriter())
             {
-                using (XmlTextWriter writer = new XmlTextWriter(sww) { Formatting = Formatting.Indented })
+                using (var writer = new XmlTextWriter(sww) { Formatting = Formatting.Indented })
                 {
                     xsSubmit.Serialize(writer, obj);
                     return sww.ToString();

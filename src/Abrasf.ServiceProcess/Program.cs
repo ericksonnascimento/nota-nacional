@@ -1,7 +1,7 @@
 using Abrasf.ServiceProcess;
 using Serilog;
 
-IHost host = Host.CreateDefaultBuilder(args)
+var host = Host.CreateDefaultBuilder(args)
     .UseWindowsService()
     .ConfigureAppConfiguration((builderContext, config) =>
     {

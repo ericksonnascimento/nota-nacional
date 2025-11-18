@@ -25,7 +25,7 @@ namespace Abrasf.Core.ConsultarDadosCadastrais.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -52,11 +52,11 @@ namespace Abrasf.Core.ConsultarDadosCadastrais.Handlers
                 }
 
                 var xmlString = ParseHelper.GetXml(body);
-                ConsultarDadosCadastraisEnvio consulta;
+                Abrasf.Core.Models.ConsultarDadosCadastraisEnvio consulta;
 
                 try
                 {
-                    consulta = ParseHelper.ParseXml<ConsultarDadosCadastraisEnvio>(xmlString);
+                    consulta = ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarDadosCadastraisEnvio>(xmlString);
                 }
                 catch (Exception)
                 {
@@ -67,8 +67,8 @@ namespace Abrasf.Core.ConsultarDadosCadastrais.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(consulta.Signature);
-                    var result = _repository.Find(xmlString, personalDocument, erros, ipUsuario);
+                    // ConsultarDadosCadastraisEnvio não tem Signature no padrão nacional
+                    var result = _repository.Find(xmlString, string.Empty, erros, ipUsuario);
                     return BuildResponse(result);
                 }
                 catch (ValidateException ex)
@@ -83,14 +83,14 @@ namespace Abrasf.Core.ConsultarDadosCadastrais.Handlers
                 return BuildResponse(result);
             }
         }
-        private ConsultarDadosCadastraisResposta BuildResponse(WsConsultarDadosCadastraisResult result)
+        private Abrasf.Core.Models.ConsultarDadosCadastraisResposta BuildResponse(WsConsultarDadosCadastraisResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<ConsultarDadosCadastraisResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarDadosCadastraisResposta>(result.XmlResposta);
         }
 
     }

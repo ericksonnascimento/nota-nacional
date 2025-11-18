@@ -377,7 +377,6 @@
     <xsd:restriction base="xsd:string">
       <xsd:whiteSpace value="preserve"/>
       <xsd:maxLength value="11"/>
-      <xsd:maxLength value="11"/>
       <xsd:pattern value="[0-9]{11}"/>
     </xsd:restriction>
   </xsd:simpleType>

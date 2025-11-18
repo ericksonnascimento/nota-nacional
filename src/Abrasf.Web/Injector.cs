@@ -24,8 +24,7 @@ using Abrasf.Core.RecepcionarLoteRps.Repositories;
 using Abrasf.Core.RecepcionarLoteRps.Validator;
 using Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers;
 using Abrasf.Core.RecepcionarLoteRpsSincrono.Validator;
-using Abrasf.Core.SubstituirNfse.Handlers;
-using Abrasf.Core.SubstituirNfse.Validator;
+// SubstituirNfse não existe no padrão Nacional v101 - removido
 
 using Abrasf.Infra.Repositories;
 using Abrasf.Web.Service;
@@ -76,10 +75,6 @@ public static class Injector
         //RecepcionarLoteRpsSincrono
         services.AddScoped<IRecepcionarLoteRpsSincronoValidator, RecepcionarLoteRpsSincronoValidator>();
         services.AddScoped<IRecepcionarLoteRpsSincronoHandler, RecepcionarLoteRpsSincronoHandler>();
-        
-        //SubstituirNfse
-        services.AddScoped<ISubstituirNfseValidator, SubstituirNfseValidator>();
-        services.AddScoped<ISubstituirNfseHandler, SubstituirNfseHandler>();
 
         //ConsultarUrlNfse
         services.AddScoped<IConsultarUrlNfseValidator, ConsultarUrlNfseValidator>();

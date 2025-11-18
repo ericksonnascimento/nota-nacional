@@ -26,7 +26,7 @@ namespace Abrasf.Core.ConsultarNfseServicoTomado.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -53,11 +53,11 @@ namespace Abrasf.Core.ConsultarNfseServicoTomado.Handlers
                 }
 
                 var xmlString = ParseHelper.GetXml(body);
-                ConsultarNfseServicoTomadoEnvio consulta;
+                Abrasf.Core.Models.ConsultarNfseServicoTomadoEnvio consulta;
 
                 try
                 {
-                    consulta = ParseHelper.ParseXml<ConsultarNfseServicoTomadoEnvio>(xmlString);
+                    consulta = ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarNfseServicoTomadoEnvio>(xmlString);
 
                 }
                 catch (Exception)
@@ -69,8 +69,8 @@ namespace Abrasf.Core.ConsultarNfseServicoTomado.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(consulta.Signature);
-                    var result = _repository.Find(xmlString, personalDocument, erros, ipUsuario);
+                    // ConsultarNfseServicoTomadoEnvio não tem Signature no padrão nacional
+                    var result = _repository.Find(xmlString, string.Empty, erros, ipUsuario);
                     return BuildResponse(result);
                 }
                 catch (ValidateException ex)
@@ -86,14 +86,14 @@ namespace Abrasf.Core.ConsultarNfseServicoTomado.Handlers
             }
         }
 
-        private ConsultarNfseServicoTomadoResposta BuildResponse(WsNfseConsultarNfseServicoTomadoResult result)
+        private Abrasf.Core.Models.ConsultarNfseServicoTomadoResposta BuildResponse(WsNfseConsultarNfseServicoTomadoResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<ConsultarNfseServicoTomadoResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarNfseServicoTomadoResposta>(result.XmlResposta);
         }
     }
 }

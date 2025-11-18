@@ -1,6 +1,3 @@
-using System.Dynamic;
-using System.Text;
-using System.Xml.Linq;
 using Abrasf.Core.Base;
 using Abrasf.Core.Cabecalho.Validator;
 using Abrasf.Core.Helpers;
@@ -9,7 +6,6 @@ using Abrasf.Core.Models.Response;
 using Abrasf.Core.RecepcionarLoteRps.Models;
 using Abrasf.Core.RecepcionarLoteRps.Repositories;
 using Abrasf.Core.RecepcionarLoteRps.Validator;
-using Newtonsoft.Json;
 
 namespace Abrasf.Core.RecepcionarLoteRps.Handlers
 {
@@ -32,7 +28,7 @@ namespace Abrasf.Core.RecepcionarLoteRps.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -74,8 +70,9 @@ namespace Abrasf.Core.RecepcionarLoteRps.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    string issuer = ValidateCertificate(envio.Signature ?? envio.LoteDps.ListaDps[0].Signature);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(envio.Signature ?? envio.LoteDps.ListaDps[0].Signature);
+                    var signature = envio.Signature ?? envio.LoteDps.ListaDps.FirstOrDefault()?.Signature;
+                    var issuer = signature != null ? ValidateCertificate(signature) : "";
+                    var personalDocument = signature != null ? ExtractPersonalDocumentFromSignature(signature) : "";
                     var result = _repository.Register(xmlString, personalDocument, erros, ipUsuario, issuer);
                     return BuildResponse(result);
                 }
@@ -92,26 +89,14 @@ namespace Abrasf.Core.RecepcionarLoteRps.Handlers
             }
         }
 
-        private EnviarLoteDpsResponse BuildResponse(WsNfseEnviarLoteRpsResult result)
+        private Abrasf.Core.Models.EnviarLoteDpsResposta BuildResponse(WsNfseEnviarLoteRpsResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            var byteArray = Encoding.UTF8.GetBytes(result.XmlResposta);
-            var stream = new MemoryStream(byteArray);
-            var xDoc = XDocument.Load(stream);
-            var jsonText = JsonConvert.SerializeXNode(xDoc);
-            dynamic dyn = JsonConvert.DeserializeObject<ExpandoObject>(jsonText) ?? throw new Exception("Invalid object");
-
-
-            return new EnviarLoteDpsResponse
-            {
-                NumeroLote = dyn.EnviarLoteDpsResposta.NumeroLote.ToString(),
-                DataRecebimento = dyn.EnviarLoteDpsResposta.DataRecebimento.ToString("yyyy-MM-ddThh:mm:ss"),
-                Protocolo = dyn.EnviarLoteDpsResposta.Protocolo
-            };
+            return ParseHelper.ParseXml<Abrasf.Core.Models.EnviarLoteDpsResposta>(result.XmlResposta);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Abrasf.Core.ConsultarRpsDisponivel.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -69,8 +69,8 @@ namespace Abrasf.Core.ConsultarRpsDisponivel.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(consulta.Signature);
-                    var result = _repository.Find(xmlString, personalDocument, erros, ipUsuario);
+                    // ConsultarDpsDisponivelEnvio não tem Signature no padrão nacional
+                    var result = _repository.Find(xmlString, string.Empty, erros, ipUsuario);
                     return BuildResponse(result);
                 }
                 catch (ValidateException ex)
@@ -85,14 +85,14 @@ namespace Abrasf.Core.ConsultarRpsDisponivel.Handlers
                 return BuildResponse(result);
             }
         }
-        private ConsultarDpsDisponivelResposta BuildResponse(WsConsultarRpsDisponivelResult result)
+        private Abrasf.Core.Models.ConsultarDpsDisponivelResposta BuildResponse(WsConsultarRpsDisponivelResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<ConsultarRpsDisponivelResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarDpsDisponivelResposta>(result.XmlResposta);
         }
     }
 }

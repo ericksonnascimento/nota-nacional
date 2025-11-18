@@ -2,6 +2,15 @@
 
 Este documento descreve como regenerar os tipos C# a partir dos schemas XSD do padrão Nacional v101.
 
+## Status Atual
+
+✅ **Tipos já foram gerados com sucesso!**
+
+- **Data da geração**: $(date)
+- **Ferramenta utilizada**: dotnet-xscgen v3.0.1188.0
+- **Arquivos gerados**: 241 arquivos em `src/Abrasf.Core/Models/NacionalTypesGenerated/`
+- **Schemas corrigidos**: `simpleTypes.xsd` e `schema_v101.xsd` (removido maxLength duplicado em TSCPF)
+
 ## Pré-requisitos
 
 - .NET SDK instalado

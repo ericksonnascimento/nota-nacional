@@ -26,7 +26,7 @@ namespace Abrasf.Core.CancelarNfse.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -53,11 +53,11 @@ namespace Abrasf.Core.CancelarNfse.Handlers
                 }
 
                 var xmlString = ParseHelper.GetXml(body);
-                CancelarNfseEnvio cancelar;
+                Abrasf.Core.Models.CancelarNfseEnvio cancelar;
 
                 try
                 {
-                    cancelar = ParseHelper.ParseXml<CancelarNfseEnvio>(xmlString);
+                    cancelar = ParseHelper.ParseXml<Abrasf.Core.Models.CancelarNfseEnvio>(xmlString);
                 }
                 catch (Exception)
                 {
@@ -68,8 +68,9 @@ namespace Abrasf.Core.CancelarNfse.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    string issuer = ValidateCertificate(cancelar.Pedido.Signature);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(cancelar.Pedido.Signature);
+                    var signature = cancelar.PedRegEvento?.Signature;
+                    var issuer = signature != null ? ValidateCertificate(signature) : "";
+                    var personalDocument = signature != null ? ExtractPersonalDocumentFromSignature(signature) : "";
                     var result = _repository.Cancel(xmlString, personalDocument, erros, ipUsuario, issuer);
                     return BuildResponse(result);
                 }
@@ -86,14 +87,14 @@ namespace Abrasf.Core.CancelarNfse.Handlers
             }
         }
 
-        private CancelarNfseResposta BuildResponse(WsCancelarNfseResult result)
+        private Abrasf.Core.Models.CancelarNfseResposta BuildResponse(WsCancelarNfseResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<CancelarNfseResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<Abrasf.Core.Models.CancelarNfseResposta>(result.XmlResposta);
         }
     }
 }

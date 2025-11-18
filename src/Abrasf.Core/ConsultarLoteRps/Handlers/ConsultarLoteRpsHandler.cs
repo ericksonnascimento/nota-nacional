@@ -25,7 +25,7 @@ namespace Abrasf.Core.ConsultarLoteRps.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -71,14 +71,14 @@ namespace Abrasf.Core.ConsultarLoteRps.Handlers
             }
         }
 
-        private ConsultarLoteDpsResposta BuildResponse(WsNfseConsultarLoteRpsResult result)
+        private Abrasf.Core.Models.ConsultarLoteDpsResposta BuildResponse(WsNfseConsultarLoteRpsResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<ConsultarLoteDpsResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarLoteDpsResposta>(result.XmlResposta);
         }
     }
 }

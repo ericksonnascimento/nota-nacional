@@ -11,7 +11,6 @@ using Abrasf.Core.GerarNfse.Repositories;
 using Abrasf.Core.RecepcionarLoteRps.Repositories;
 using Abrasf.Core.RecepcionarLoteRpsSincrono.Repositories;
 using Abrasf.Core.ServicoProcessamento.Repositories;
-using Abrasf.Core.SubstituirNfse.Repositories;
 using Abrasf.Infra.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,7 +28,7 @@ namespace Abrasf.Infra
             services.AddScoped<IConsultarNfseServicoPrestadoRepository, ConsultarNfseServicoPrestadoRepository>();
             services.AddScoped<IConsultarNfseServicoTomadoRepository, ConsultarNfseServicoTomadoRepository>();
             services.AddScoped<ICancelarNfseRepository, CancelarNfseRepository>();
-            services.AddScoped<ISubstituirNfseRepository, SubstituirNfseRepository>();
+            // SubstituirNfse não existe no padrão Nacional v101 - removido
             services.AddScoped<IGerarNfseRepository, GerarNfseRepository>();
             services.AddScoped<IRecepcionarLoteRpsSincronoRepository, RecepcionarLoteRpsSincronoRepository>();
             services.AddScoped<IConsultarUrlNfseRepository, ConsultarUrlNfseRepository>();

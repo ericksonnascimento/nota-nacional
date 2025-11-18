@@ -28,7 +28,7 @@ namespace Abrasf.Infra.Repositories
             parameters.Add("IP_USUARIO", ipUsuario);
             parameters.Add("XML_RESPOSTA", dbType: DbType.String, direction: ParameterDirection.Output,size:10000);            
 
-            string retorno = string.Empty;         
+            var retorno = string.Empty;         
 
             var Urlmunicipio = connection.QuerySingleOrDefault<string>(
                         ConsultarNfseUrlSQLCommand.WSNfseConsultaUrlMunicipio,
@@ -44,22 +44,22 @@ namespace Abrasf.Infra.Repositories
             {              
                 retorno = "<ConsultarUrlNfseResposta xmlns=\"http://www.abrasf.org.br/nfse.xsd\">";
                 retorno +="<ListaLinks>";
-                string pagina = string.Empty;                    
+                var pagina = string.Empty;                    
 
                 while (xmlResult.Read())
                 {
-                    string InscricaoMunicipal = Convert.ToString(xmlResult["InscricaoMunicipal"]) ?? "";
-                    string serie = Convert.ToString(xmlResult["SerieNfse"]) ?? "";
-                    string tipoContribuinte = Convert.ToString(xmlResult["TipoContribuinte"]) ?? "";
-                    string numeroNfse = Convert.ToString(xmlResult["NumeroNfse"]) ?? "";
-                    string Cnpj = Convert.ToString(xmlResult["Cnpj"]) ?? "";
-                    string Cpf = Convert.ToString(xmlResult["Cpf"]) ?? "";
-                    string CodigoMunicipio = Convert.ToString(xmlResult["CodigoMunicipio"]) ?? "";
-                    string NumeroRps = Convert.ToString(xmlResult["NumeroRps"]) ?? "";
-                    string SerieRps = Convert.ToString(xmlResult["SerieRps"]) ?? "";
-                    string TipoRps = Convert.ToString(xmlResult["TipoRps"]) ?? "";
-                    string ChaveAutenticidade = Convert.ToString(xmlResult["ChaveAutenticidade"]) ?? "";
-                    string GerarUrl = Convert.ToString(xmlResult["GerarUrl"]) ?? "";
+                    var InscricaoMunicipal = Convert.ToString(xmlResult["InscricaoMunicipal"]) ?? "";
+                    var serie = Convert.ToString(xmlResult["SerieNfse"]) ?? "";
+                    var tipoContribuinte = Convert.ToString(xmlResult["TipoContribuinte"]) ?? "";
+                    var numeroNfse = Convert.ToString(xmlResult["NumeroNfse"]) ?? "";
+                    var Cnpj = Convert.ToString(xmlResult["Cnpj"]) ?? "";
+                    var Cpf = Convert.ToString(xmlResult["Cpf"]) ?? "";
+                    var CodigoMunicipio = Convert.ToString(xmlResult["CodigoMunicipio"]) ?? "";
+                    var NumeroRps = Convert.ToString(xmlResult["NumeroRps"]) ?? "";
+                    var SerieRps = Convert.ToString(xmlResult["SerieRps"]) ?? "";
+                    var TipoRps = Convert.ToString(xmlResult["TipoRps"]) ?? "";
+                    var ChaveAutenticidade = Convert.ToString(xmlResult["ChaveAutenticidade"]) ?? "";
+                    var GerarUrl = Convert.ToString(xmlResult["GerarUrl"]) ?? "";
                     if (string.IsNullOrEmpty(pagina))
                     {
                         pagina = Convert.ToString(xmlResult["Pagina"]) ?? string.Empty;

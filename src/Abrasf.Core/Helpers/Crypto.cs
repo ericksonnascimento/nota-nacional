@@ -13,24 +13,24 @@ namespace Abrasf.Core.Helpers
 
         public string EncryptNF(string entry)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(entry);
+            var bytes = Encoding.UTF8.GetBytes(entry);
             TripleDESCryptoServiceProvider des = new();
             MD5CryptoServiceProvider md5 = new();
 
             des.IV = IVNF;
             des.Key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(keyNF));
 
-            byte[] cryptBytes = des.CreateEncryptor().TransformFinalBlock(bytes, 0, bytes.Length);
+            var cryptBytes = des.CreateEncryptor().TransformFinalBlock(bytes, 0, bytes.Length);
 
             return BitConverter.ToString(cryptBytes).Replace("-", "+").Replace("+0", "+") + "+";
         }
 
         public string EncryptAutenticidade(string entry)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(entry);
-            string entryCrypted = String.Empty;
+            var bytes = Encoding.UTF8.GetBytes(entry);
+            var entryCrypted = String.Empty;
 
-            using (Aes encryptor = Aes.Create())
+            using (var encryptor = Aes.Create())
             {
                 var pdb = new Rfc2898DeriveBytes(keyQrCode, IVQrCode);
                 encryptor.Key = pdb.GetBytes(32);

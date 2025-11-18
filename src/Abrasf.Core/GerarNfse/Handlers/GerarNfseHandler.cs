@@ -26,7 +26,7 @@ namespace Abrasf.Core.GerarNfse.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -53,11 +53,11 @@ namespace Abrasf.Core.GerarNfse.Handlers
                 }
 
                 var xmlString = ParseHelper.GetXml(body);
-                GerarNfseEnvio consulta;
+                Abrasf.Core.Models.GerarNfseEnvio consulta;
 
                 try
                 {
-                    consulta = ParseHelper.ParseXml<GerarNfseEnvio>(xmlString);
+                    consulta = ParseHelper.ParseXml<Abrasf.Core.Models.GerarNfseEnvio>(xmlString);
                 }
                 catch (Exception)
                 {
@@ -68,9 +68,10 @@ namespace Abrasf.Core.GerarNfse.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    string issuer = ValidateCertificate(consulta.Rps.Signature);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(consulta.Rps.Signature);
-                    var result = _repository.Generate(xmlString, personalDocument, erros, ipUsuario,issuer);
+                    var signature = consulta.Dps?.Signature;
+                    var issuer = signature != null ? ValidateCertificate(signature) : "";
+                    var personalDocument = signature != null ? ExtractPersonalDocumentFromSignature(signature) : "";
+                    var result = _repository.Generate(xmlString, personalDocument, erros, ipUsuario, issuer);
                     return BuildResponse(result);
                 }
                 catch (ValidateException ex)
@@ -86,14 +87,11 @@ namespace Abrasf.Core.GerarNfse.Handlers
             }
         }
 
-        private GerarNfseResposta BuildResponse(WsNfseGerarNfseResult result)
+        private Abrasf.Core.Models.GerarNfseResposta BuildResponse(WsNfseGerarNfseResult result)
         {
-            if (string.IsNullOrEmpty(result.XmlResposta))
-            {
-                throw new Exception("Error");
-            }
-
-            return ParseHelper.ParseXml<GerarNfseResposta>(result.XmlResposta);
+            return string.IsNullOrEmpty(result.XmlResposta) 
+                ? throw new Exception("Error") : 
+                ParseHelper.ParseXml<Abrasf.Core.Models.GerarNfseResposta>(result.XmlResposta);
         }
     }
 }

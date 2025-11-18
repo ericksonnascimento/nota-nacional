@@ -26,7 +26,7 @@ namespace Abrasf.Core.ConsultarNfseFaixa.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -53,11 +53,11 @@ namespace Abrasf.Core.ConsultarNfseFaixa.Handlers
                 }
 
                 var xmlString = ParseHelper.GetXml(body);
-                ConsultarNfseFaixaEnvio consulta;
+                Abrasf.Core.Models.ConsultarNfseFaixaEnvio consulta;
 
                 try
                 {
-                    consulta = ParseHelper.ParseXml<ConsultarNfseFaixaEnvio>(xmlString);
+                    consulta = ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarNfseFaixaEnvio>(xmlString);
                 }
                 catch (Exception)
                 {
@@ -68,8 +68,8 @@ namespace Abrasf.Core.ConsultarNfseFaixa.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(consulta.Signature);
-                    var result = _repository.Find(xmlString, personalDocument, erros, ipUsuario);
+                    // ConsultarNfseFaixaEnvio não tem Signature no padrão nacional
+                    var result = _repository.Find(xmlString, string.Empty, erros, ipUsuario);
                     return BuildResponse(result);
                 }
                 catch (ValidateException ex)
@@ -85,14 +85,14 @@ namespace Abrasf.Core.ConsultarNfseFaixa.Handlers
             }
         }
 
-        private ConsultarNfseFaixaResposta BuildResponse(WsNfseConsultarNfseFaixaResult result)
+        private Abrasf.Core.Models.ConsultarNfseFaixaResposta BuildResponse(WsNfseConsultarNfseFaixaResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<ConsultarNfseFaixaResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<Abrasf.Core.Models.ConsultarNfseFaixaResposta>(result.XmlResposta);
         }
     }
 }

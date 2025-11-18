@@ -40,7 +40,7 @@
         
         private string QueryStringNF()
         {
-            string url = "";
+            var url = "";
 
             url += "VISUALIZACAO=" + visualize;
             url += "&SERIE=" + serie;
@@ -55,7 +55,7 @@
 
         private string QueryStringAutenticidade()
         {
-            string url = "";
+            var url = "";
 
             url += "Cae=" + cae;
             url += "&NumeroSeq=" + sequence;

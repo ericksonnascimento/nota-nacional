@@ -27,7 +27,7 @@ namespace Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
-            string erros = string.Empty;
+            var erros = string.Empty;
 
             try
             {
@@ -69,8 +69,9 @@ namespace Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers
                 try
                 {
                     DuplicateIdValidation(xmlString);
-                    string issuer = ValidateCertificate(envio.Signature ?? envio.LoteDps.ListaDps[0].Signature);
-                    var personalDocument = ExtractPersonalDocumentFromSignature(envio.Signature ?? envio.LoteDps.ListaDps[0].Signature);
+                    var signature = envio.Signature ?? envio.LoteDps.ListaDps.FirstOrDefault()?.Signature;
+                    var issuer = signature != null ? ValidateCertificate(signature) : "";
+                    var personalDocument = signature != null ? ExtractPersonalDocumentFromSignature(signature) : "";
                     var result = _repository.Process(xmlString, personalDocument, erros, ipUsuario, issuer);
                     return BuildResponse(result);
                 }
@@ -87,14 +88,14 @@ namespace Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers
             }
         }
 
-        private EnviarLoteDpsSincronoResposta BuildResponse(WsNfseEnviarLoteRpsSincronoResult result)
+        private Abrasf.Core.Models.EnviarLoteDpsSincronoResposta BuildResponse(WsNfseEnviarLoteRpsSincronoResult result)
         {
             if (string.IsNullOrEmpty(result.XmlResposta))
             {
                 throw new Exception("Error");
             }
 
-            return ParseHelper.ParseXml<EnviarLoteDpsSincronoResposta>(result.XmlResposta);
+            return ParseHelper.ParseXml<Abrasf.Core.Models.EnviarLoteDpsSincronoResposta>(result.XmlResposta);
         }
     }
 }
