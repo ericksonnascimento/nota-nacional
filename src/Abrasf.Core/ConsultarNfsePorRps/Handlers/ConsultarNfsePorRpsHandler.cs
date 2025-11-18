@@ -4,6 +4,7 @@ using Abrasf.Core.ConsultarNfsePorRps.Models;
 using Abrasf.Core.ConsultarNfsePorRps.Repositories;
 using Abrasf.Core.ConsultarNfsePorRps.Validator;
 using Abrasf.Core.Helpers;
+using Abrasf.Core.Models;
 using Abrasf.Core.Models.Response;
 
 namespace Abrasf.Core.ConsultarNfsePorRps.Handlers

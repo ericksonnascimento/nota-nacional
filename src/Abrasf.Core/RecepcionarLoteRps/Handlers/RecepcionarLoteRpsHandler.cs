@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using Abrasf.Core.Base;
 using Abrasf.Core.Cabecalho.Validator;
 using Abrasf.Core.Helpers;
+using Abrasf.Core.Models;
 using Abrasf.Core.Models.Response;
 using Abrasf.Core.RecepcionarLoteRps.Models;
 using Abrasf.Core.RecepcionarLoteRps.Repositories;

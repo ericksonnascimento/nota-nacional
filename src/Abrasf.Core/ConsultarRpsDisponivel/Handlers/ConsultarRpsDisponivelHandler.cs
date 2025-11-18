@@ -4,6 +4,7 @@ using Abrasf.Core.ConsultarRpsDisponivel.Models;
 using Abrasf.Core.ConsultarRpsDisponivel.Repositories;
 using Abrasf.Core.ConsultarRpsDisponivel.Validator;
 using Abrasf.Core.Helpers;
+using Abrasf.Core.Models;
 using Abrasf.Core.Models.Response;
 
 namespace Abrasf.Core.ConsultarRpsDisponivel.Handlers
