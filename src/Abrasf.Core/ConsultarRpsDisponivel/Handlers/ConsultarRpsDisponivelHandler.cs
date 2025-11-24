@@ -1,11 +1,13 @@
 ﻿using Abrasf.Core.Base;
 using Abrasf.Core.Cabecalho.Validator;
+using Abrasf.Core.Configuration;
 using Abrasf.Core.ConsultarRpsDisponivel.Models;
 using Abrasf.Core.ConsultarRpsDisponivel.Repositories;
 using Abrasf.Core.ConsultarRpsDisponivel.Validator;
 using Abrasf.Core.Helpers;
 using Abrasf.Core.Models;
 using Abrasf.Core.Models.Response;
+using Microsoft.Extensions.Configuration;
 
 namespace Abrasf.Core.ConsultarRpsDisponivel.Handlers
 {
@@ -14,14 +16,18 @@ namespace Abrasf.Core.ConsultarRpsDisponivel.Handlers
         private readonly ICabecalhoValidator _cabecalhoValidator;
         private readonly IConsultarRpsDisponivelValidator _consultaRpsDisponivelValidator;
         private readonly IConsultarRpsDisponivelRepository _repository;
+        private readonly bool _apenasValidar;
 
         public ConsultarRpsDisponivelHandler(ICabecalhoValidator cabecalhoValidator,
             IConsultarRpsDisponivelValidator consultarRpsDisponivelValidator,
-            IConsultarRpsDisponivelRepository repository)
+            IConsultarRpsDisponivelRepository repository,
+            IConfiguration configuration)
         {
             _cabecalhoValidator = cabecalhoValidator;
             _consultaRpsDisponivelValidator = consultarRpsDisponivelValidator;
             _repository = repository;
+            var handlerConfig = configuration.GetSection("HandlerConfiguration").Get<HandlerConfiguration>() ?? new HandlerConfiguration();
+            _apenasValidar = handlerConfig.ApenasValidar;
         }
 
 
@@ -50,6 +56,12 @@ namespace Abrasf.Core.ConsultarRpsDisponivel.Handlers
                 if (erros.Length != 0)
                 {
                     var result = _repository.Find(string.Empty, string.Empty, erros, ipUsuario);
+                    return BuildResponse(result);
+                }
+
+                if (_apenasValidar)
+                {
+                    var result = _repository.Find(string.Empty, string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 

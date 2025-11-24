@@ -1,11 +1,13 @@
 using Abrasf.Core.Base;
 using Abrasf.Core.Cabecalho.Validator;
+using Abrasf.Core.Configuration;
 using Abrasf.Core.Helpers;
 using Abrasf.Core.Models;
 using Abrasf.Core.Models.Response;
 using Abrasf.Core.RecepcionarLoteRps.Models;
 using Abrasf.Core.RecepcionarLoteRps.Repositories;
 using Abrasf.Core.RecepcionarLoteRps.Validator;
+using Microsoft.Extensions.Configuration;
 
 namespace Abrasf.Core.RecepcionarLoteRps.Handlers
 {
@@ -15,15 +17,19 @@ namespace Abrasf.Core.RecepcionarLoteRps.Handlers
         private readonly ICabecalhoValidator _cabecalhoValidator;
         private readonly IRecepcionarLoteRpsValidator _validator;
         private readonly IRecepcionarLoteRpsRepository _repository;
+        private readonly bool _apenasValidar;
 
         public RecepcionarLoteRpsHandler(
             ICabecalhoValidator cabecalhoValidator,
             IRecepcionarLoteRpsValidator validator,
-            IRecepcionarLoteRpsRepository repository)
+            IRecepcionarLoteRpsRepository repository,
+            IConfiguration configuration)
         {
             _cabecalhoValidator = cabecalhoValidator;
             _validator = validator;
             _repository = repository;
+            var handlerConfig = configuration.GetSection("HandlerConfiguration").Get<HandlerConfiguration>() ?? new HandlerConfiguration();
+            _apenasValidar = handlerConfig.ApenasValidar;
         }
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
@@ -51,6 +57,12 @@ namespace Abrasf.Core.RecepcionarLoteRps.Handlers
                 if (erros.Length != 0)
                 {
                     var result = _repository.Register(string.Empty, string.Empty, erros, ipUsuario);
+                    return BuildResponse(result);
+                }
+
+                if (_apenasValidar)
+                {
+                    var result = _repository.Register(string.Empty, string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 

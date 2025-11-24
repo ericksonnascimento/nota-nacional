@@ -1,9 +1,11 @@
 using Abrasf.Core.Cabecalho.Validator;
+using Abrasf.Core.Configuration;
 using Abrasf.Core.ConsultarLoteRps.Models;
 using Abrasf.Core.ConsultarLoteRps.Repositories;
 using Abrasf.Core.ConsultarLoteRps.Validator;
 using Abrasf.Core.Helpers;
 using Abrasf.Core.Models.Response;
+using Microsoft.Extensions.Configuration;
 
 namespace Abrasf.Core.ConsultarLoteRps.Handlers
 {
@@ -13,14 +15,18 @@ namespace Abrasf.Core.ConsultarLoteRps.Handlers
         private readonly ICabecalhoValidator _cabecalhoValidator;
         private readonly IConsultarLoteRpsValidator _consultarLoteRpsValidator;
         private readonly IConsultarLoteRpsRepository _repository;
+        private readonly bool _apenasValidar;
 
         public ConsultarLoteRpsHandler(ICabecalhoValidator cabecalhoValidator,
             IConsultarLoteRpsValidator consultarLoteRpsValidator,
-            IConsultarLoteRpsRepository repository)
+            IConsultarLoteRpsRepository repository,
+            IConfiguration configuration)
         {
             _cabecalhoValidator = cabecalhoValidator;
             _consultarLoteRpsValidator = consultarLoteRpsValidator;
             _repository = repository;
+            var handlerConfig = configuration.GetSection("HandlerConfiguration").Get<HandlerConfiguration>() ?? new HandlerConfiguration();
+            _apenasValidar = handlerConfig.ApenasValidar;
         }
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
@@ -48,6 +54,12 @@ namespace Abrasf.Core.ConsultarLoteRps.Handlers
                 if (erros.Length != 0)
                 {
                     var result = _repository.Find(string.Empty, erros, ipUsuario);
+                    return BuildResponse(result);
+                }
+
+                if (_apenasValidar)
+                {
+                    var result = _repository.Find(string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 

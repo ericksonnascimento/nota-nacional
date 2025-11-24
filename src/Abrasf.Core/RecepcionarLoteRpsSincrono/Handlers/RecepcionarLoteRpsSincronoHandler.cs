@@ -1,11 +1,13 @@
 using Abrasf.Core.Base;
 using Abrasf.Core.Cabecalho.Validator;
+using Abrasf.Core.Configuration;
 using Abrasf.Core.Helpers;
 using Abrasf.Core.Models;
 using Abrasf.Core.Models.Response;
 using Abrasf.Core.RecepcionarLoteRpsSincrono.Models;
 using Abrasf.Core.RecepcionarLoteRpsSincrono.Repositories;
 using Abrasf.Core.RecepcionarLoteRpsSincrono.Validator;
+using Microsoft.Extensions.Configuration;
 
 namespace Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers
 {
@@ -15,14 +17,18 @@ namespace Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers
         private readonly ICabecalhoValidator _cabecalhoValidator;
         private readonly IRecepcionarLoteRpsSincronoValidator _recepcionarLoteRpsSincronoValidator;
         private readonly IRecepcionarLoteRpsSincronoRepository _repository;
+        private readonly bool _apenasValidar;
 
         public RecepcionarLoteRpsSincronoHandler(ICabecalhoValidator cabecalhoValidator,
             IRecepcionarLoteRpsSincronoValidator recepcionarLoteRpsSincronoValidator,
-            IRecepcionarLoteRpsSincronoRepository repository)
+            IRecepcionarLoteRpsSincronoRepository repository,
+            IConfiguration configuration)
         {
             _cabecalhoValidator = cabecalhoValidator;
             _recepcionarLoteRpsSincronoValidator = recepcionarLoteRpsSincronoValidator;
             _repository = repository;
+            var handlerConfig = configuration.GetSection("HandlerConfiguration").Get<HandlerConfiguration>() ?? new HandlerConfiguration();
+            _apenasValidar = handlerConfig.ApenasValidar;
         }
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
@@ -50,6 +56,12 @@ namespace Abrasf.Core.RecepcionarLoteRpsSincrono.Handlers
                 if (erros.Length != 0)
                 {
                     var result = _repository.Process(string.Empty, string.Empty, erros, ipUsuario);
+                    return BuildResponse(result);
+                }
+
+                if (_apenasValidar)
+                {
+                    var result = _repository.Process(string.Empty, string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 

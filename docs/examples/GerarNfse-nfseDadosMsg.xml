@@ -1,0 +1,36 @@
+<GerarNfseEnvio xmlns="http://www.sped.fazenda.gov.br/nfse">
+   <Dps Id="dps01">
+      <!-- Conteúdo completo do DPS conforme schema TCDPS -->
+      <!-- Este é um exemplo simplificado - o DPS completo deve seguir o schema complexTypes.xsd -->
+      <InfDps>
+         <IdentificacaoDps>
+            <Numero>?</Numero>
+            <Serie>?</Serie>
+            <Tipo>?</Tipo>
+         </IdentificacaoDps>
+         <DataEmissao>?</DataEmissao>
+         <Competencia>?</Competencia>
+         <!-- Demais campos do DPS conforme schema -->
+      </InfDps>
+   </Dps>
+   <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <SignedInfo>
+         <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+         <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+         <Reference URI="#dps01">
+            <Transforms>
+               <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+            </Transforms>
+            <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+            <DigestValue>?</DigestValue>
+         </Reference>
+      </SignedInfo>
+      <SignatureValue>?</SignatureValue>
+      <KeyInfo>
+         <X509Data>
+            <X509Certificate>?</X509Certificate>
+         </X509Data>
+      </KeyInfo>
+   </Signature>
+</GerarNfseEnvio>
+

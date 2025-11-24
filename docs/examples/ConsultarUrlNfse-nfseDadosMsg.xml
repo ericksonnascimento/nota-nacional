@@ -1,0 +1,42 @@
+<ConsultarUrlNfseEnvio xmlns="http://www.sped.fazenda.gov.br/nfse">
+   <Prestador>
+      <CpfCnpj>
+         <Cnpj>?</Cnpj>
+         <Cpf>?</Cpf>
+      </CpfCnpj>
+      <InscricaoMunicipal>?</InscricaoMunicipal>
+   </Prestador>
+   <!-- Escolher uma das opções abaixo -->
+   <!-- Opção 1: Consultar por número da NFS-e -->
+   <NumeroNfse>?</NumeroNfse>
+   <!-- Opção 2: Consultar por período de emissão -->
+   <!--
+   <PeriodoEmissao>
+      <DataInicial>?</DataInicial>
+      <DataFinal>?</DataFinal>
+   </PeriodoEmissao>
+   -->
+   <!-- Opção 3: Consultar por período de competência -->
+   <!--
+   <PeriodoCompetencia>
+      <DataInicial>?</DataInicial>
+      <DataFinal>?</DataFinal>
+   </PeriodoCompetencia>
+   -->
+   <Tomador>
+      <CpfCnpj>
+         <Cnpj>?</Cnpj>
+         <Cpf>?</Cpf>
+      </CpfCnpj>
+      <InscricaoMunicipal>?</InscricaoMunicipal>
+   </Tomador>
+   <Intermediario>
+      <CpfCnpj>
+         <Cnpj>?</Cnpj>
+         <Cpf>?</Cpf>
+      </CpfCnpj>
+      <InscricaoMunicipal>?</InscricaoMunicipal>
+   </Intermediario>
+   <Pagina>1</Pagina>
+</ConsultarUrlNfseEnvio>
+

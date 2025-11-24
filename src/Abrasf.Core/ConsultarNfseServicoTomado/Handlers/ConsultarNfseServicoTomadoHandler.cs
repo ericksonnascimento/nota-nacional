@@ -1,10 +1,12 @@
 using Abrasf.Core.Base;
 using Abrasf.Core.Cabecalho.Validator;
+using Abrasf.Core.Configuration;
 using Abrasf.Core.ConsultarNfseServicoTomado.Models;
 using Abrasf.Core.ConsultarNfseServicoTomado.Repositories;
 using Abrasf.Core.ConsultarNfseServicoTomado.Validator;
 using Abrasf.Core.Helpers;
 using Abrasf.Core.Models.Response;
+using Microsoft.Extensions.Configuration;
 
 namespace Abrasf.Core.ConsultarNfseServicoTomado.Handlers
 {
@@ -14,14 +16,18 @@ namespace Abrasf.Core.ConsultarNfseServicoTomado.Handlers
         private readonly ICabecalhoValidator _cabecalhoValidator;
         private readonly IConsultarNfseServicoTomadoValidator _consultarNfseServicoTomadoValidator;
         private readonly IConsultarNfseServicoTomadoRepository _repository;
+        private readonly bool _apenasValidar;
 
         public ConsultarNfseServicoTomadoHandler(ICabecalhoValidator cabecalhoValidator,
             IConsultarNfseServicoTomadoValidator consultarNfseServicoTomadoValidator,
-            IConsultarNfseServicoTomadoRepository repository)
+            IConsultarNfseServicoTomadoRepository repository,
+            IConfiguration configuration)
         {
             _cabecalhoValidator = cabecalhoValidator;
             _consultarNfseServicoTomadoValidator = consultarNfseServicoTomadoValidator;
             _repository = repository;
+            var handlerConfig = configuration.GetSection("HandlerConfiguration").Get<HandlerConfiguration>() ?? new HandlerConfiguration();
+            _apenasValidar = handlerConfig.ApenasValidar;
         }
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
@@ -49,6 +55,12 @@ namespace Abrasf.Core.ConsultarNfseServicoTomado.Handlers
                 if (erros.Length != 0)
                 {
                     var result = _repository.Find(string.Empty, string.Empty, erros, ipUsuario);
+                    return BuildResponse(result);
+                }
+
+                if (_apenasValidar)
+                {
+                    var result = _repository.Find(string.Empty, string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 

@@ -1,10 +1,12 @@
 using Abrasf.Core.Base;
 using Abrasf.Core.Cabecalho.Validator;
+using Abrasf.Core.Configuration;
 using Abrasf.Core.GerarNfse.Models;
 using Abrasf.Core.GerarNfse.Repositories;
 using Abrasf.Core.GerarNfse.Validator;
 using Abrasf.Core.Helpers;
 using Abrasf.Core.Models.Response;
+using Microsoft.Extensions.Configuration;
 
 namespace Abrasf.Core.GerarNfse.Handlers
 {
@@ -14,14 +16,18 @@ namespace Abrasf.Core.GerarNfse.Handlers
         private readonly ICabecalhoValidator _cabecalhoValidator;
         private readonly IGerarNfseValidator _gerarNfseValidator;
         private readonly IGerarNfseRepository _repository;
+        private readonly bool _apenasValidar;
 
         public GerarNfseHandler(ICabecalhoValidator cabecalhoValidator,
             IGerarNfseValidator gerarNfseValidator,
-            IGerarNfseRepository repository)
+            IGerarNfseRepository repository,
+            IConfiguration configuration)
         {
             _cabecalhoValidator = cabecalhoValidator;
             _gerarNfseValidator = gerarNfseValidator;
             _repository = repository;
+            var handlerConfig = configuration.GetSection("HandlerConfiguration").Get<HandlerConfiguration>() ?? new HandlerConfiguration();
+            _apenasValidar = handlerConfig.ApenasValidar;
         }
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
@@ -49,6 +55,12 @@ namespace Abrasf.Core.GerarNfse.Handlers
                 if (erros.Length != 0)
                 {
                     var result = _repository.Generate(string.Empty, string.Empty, erros, ipUsuario);
+                    return BuildResponse(result);
+                }
+
+                if (_apenasValidar)
+                {
+                    var result = _repository.Generate(string.Empty, string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 

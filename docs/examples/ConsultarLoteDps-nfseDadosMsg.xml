@@ -1,0 +1,11 @@
+<ConsultarLoteDpsEnvio xmlns="http://www.sped.fazenda.gov.br/nfse">
+   <Prestador>
+      <CpfCnpj>
+         <Cnpj>?</Cnpj>
+         <Cpf>?</Cpf>
+      </CpfCnpj>
+      <InscricaoMunicipal>?</InscricaoMunicipal>
+   </Prestador>
+   <Protocolo>?</Protocolo>
+</ConsultarLoteDpsEnvio>
+

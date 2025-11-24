@@ -3,8 +3,10 @@ using Abrasf.Core.Cabecalho.Validator;
 using Abrasf.Core.ConsultarDadosCadastrais.Models;
 using Abrasf.Core.ConsultarDadosCadastrais.Repositories;
 using Abrasf.Core.ConsultarDadosCadastrais.Validator;
+using Abrasf.Core.Configuration;
 using Abrasf.Core.Helpers;
 using Abrasf.Core.Models.Response;
+using Microsoft.Extensions.Configuration;
 
 namespace Abrasf.Core.ConsultarDadosCadastrais.Handlers
 {
@@ -13,14 +15,18 @@ namespace Abrasf.Core.ConsultarDadosCadastrais.Handlers
         private readonly ICabecalhoValidator _cabecalhoValidator;
         private readonly IConsultarDadosCadastraisValidator _ConsultarUrlNfseValidator;
         private readonly IConsultarDadosCadastraisRepository _repository;
+        private readonly bool _apenasValidar;
 
         public ConsultarDadosCadastraisHandler(ICabecalhoValidator cabecalhoValidator,
           IConsultarDadosCadastraisValidator ConsultarUrlNfseValidator,
-          IConsultarDadosCadastraisRepository repository)
+          IConsultarDadosCadastraisRepository repository,
+          IConfiguration configuration)
         {
             _cabecalhoValidator = cabecalhoValidator;
             _ConsultarUrlNfseValidator = ConsultarUrlNfseValidator;
             _repository = repository;
+            var handlerConfig = configuration.GetSection("HandlerConfiguration").Get<HandlerConfiguration>() ?? new HandlerConfiguration();
+            _apenasValidar = handlerConfig.ApenasValidar;
         }
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
@@ -48,6 +54,12 @@ namespace Abrasf.Core.ConsultarDadosCadastrais.Handlers
                 if (erros.Length != 0)
                 {
                     var result = _repository.Find(string.Empty, string.Empty, erros,ipUsuario);
+                    return BuildResponse(result);
+                }
+
+                if (_apenasValidar)
+                {
+                    var result = _repository.Find(string.Empty, string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 

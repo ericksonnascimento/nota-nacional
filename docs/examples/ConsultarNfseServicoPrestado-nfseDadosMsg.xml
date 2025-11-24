@@ -1,0 +1,54 @@
+<ConsultarNfseServicoPrestadoEnvio xmlns="http://www.sped.fazenda.gov.br/nfse">
+   <Pedido Id="01">
+      <Prestador>
+         <CpfCnpj>
+            <Cnpj>?</Cnpj>
+            <Cpf>?</Cpf>
+         </CpfCnpj>
+         <InscricaoMunicipal>?</InscricaoMunicipal>
+      </Prestador>
+      <PeriodoEmissao>
+         <DataInicial>?</DataInicial>
+         <DataFinal>?</DataFinal>
+      </PeriodoEmissao>
+      <PeriodoCompetencia>
+         <DataInicial>?</DataInicial>
+         <DataFinal>?</DataFinal>
+      </PeriodoCompetencia>
+      <Tomador>
+         <CpfCnpj>
+            <Cnpj>?</Cnpj>
+            <Cpf>?</Cpf>
+         </CpfCnpj>
+         <InscricaoMunicipal>?</InscricaoMunicipal>
+      </Tomador>
+      <Intermediario>
+         <CpfCnpj>
+            <Cnpj>?</Cnpj>
+            <Cpf>?</Cpf>
+         </CpfCnpj>
+         <InscricaoMunicipal>?</InscricaoMunicipal>
+      </Intermediario>
+      <Pagina>1</Pagina>
+   </Pedido>
+   <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+      <SignedInfo>
+         <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+         <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+         <Reference URI="#01">
+            <Transforms>
+               <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+            </Transforms>
+            <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+            <DigestValue>?</DigestValue>
+         </Reference>
+      </SignedInfo>
+      <SignatureValue>?</SignatureValue>
+      <KeyInfo>
+         <X509Data>
+            <X509Certificate>?</X509Certificate>
+         </X509Data>
+      </KeyInfo>
+   </Signature>
+</ConsultarNfseServicoPrestadoEnvio>
+

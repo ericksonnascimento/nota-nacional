@@ -1,0 +1,16 @@
+<ConsultarDpsDisponivelEnvio xmlns="http://www.sped.fazenda.gov.br/nfse">
+   <Prestador>
+      <CpfCnpj>
+         <Cnpj>?</Cnpj>
+         <Cpf>?</Cpf>
+      </CpfCnpj>
+      <InscricaoMunicipal>?</InscricaoMunicipal>
+   </Prestador>
+   <IdentificacaoDps>
+      <Numero>?</Numero>
+      <Serie>?</Serie>
+      <Tipo>?</Tipo>
+   </IdentificacaoDps>
+   <Pagina>1</Pagina>
+</ConsultarDpsDisponivelEnvio>
+

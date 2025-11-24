@@ -3,8 +3,10 @@ using Abrasf.Core.Cabecalho.Validator;
 using Abrasf.Core.CancelarNfse.Models;
 using Abrasf.Core.CancelarNfse.Repositories;
 using Abrasf.Core.CancelarNfse.Validator;
+using Abrasf.Core.Configuration;
 using Abrasf.Core.Helpers;
 using Abrasf.Core.Models.Response;
+using Microsoft.Extensions.Configuration;
 
 namespace Abrasf.Core.CancelarNfse.Handlers
 {
@@ -14,14 +16,18 @@ namespace Abrasf.Core.CancelarNfse.Handlers
         private readonly ICabecalhoValidator _cabecalhoValidator;
         private readonly ICancelarNfseValidator _cancelarNfseValidator;
         private readonly ICancelarNfseRepository _repository;
+        private readonly bool _apenasValidar;
 
         public CancelarNfseHandler(ICabecalhoValidator cabecalhoValidator,
             ICancelarNfseValidator cancelarNfseValidator,
-            ICancelarNfseRepository repository)
+            ICancelarNfseRepository repository,
+            IConfiguration configuration)
         {
             _cabecalhoValidator = cabecalhoValidator;
             _cancelarNfseValidator = cancelarNfseValidator;
             _repository = repository;
+            var handlerConfig = configuration.GetSection("HandlerConfiguration").Get<HandlerConfiguration>() ?? new HandlerConfiguration();
+            _apenasValidar = handlerConfig.ApenasValidar;
         }
 
         public BaseResponse Handle(object header, object body, string ipUsuario)
@@ -49,6 +55,12 @@ namespace Abrasf.Core.CancelarNfse.Handlers
                 if (erros.Length != 0)
                 {
                     var result = _repository.Cancel(string.Empty, string.Empty, erros, ipUsuario);
+                    return BuildResponse(result);
+                }
+
+                if (_apenasValidar)
+                {
+                    var result = _repository.Cancel(string.Empty, string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 
