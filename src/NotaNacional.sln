@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotaNacional.Web", "NotaNacional.Web\NotaNacional.Web.csproj", "{6AAEE086-46A9-4929-87A0-FB99365CA1F9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotaNacional.Core", "NotaNacional.Core\NotaNacional.Core.csproj", "{3241DE69-7442-4E1C-ABA9-0531E5710C17}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotaNacional.Infra", "NotaNacional.Infra\NotaNacional.Infra.csproj", "{CC7C63C5-A577-4D38-B5F6-89BD3303BCBF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotaNacional.ServiceProcess", "NotaNacional.ServiceProcess\NotaNacional.ServiceProcess.csproj", "{498BF50F-8F6E-48A5-AA59-F6552E679441}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6AAEE086-46A9-4929-87A0-FB99365CA1F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AAEE086-46A9-4929-87A0-FB99365CA1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AAEE086-46A9-4929-87A0-FB99365CA1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AAEE086-46A9-4929-87A0-FB99365CA1F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3241DE69-7442-4E1C-ABA9-0531E5710C17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3241DE69-7442-4E1C-ABA9-0531E5710C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3241DE69-7442-4E1C-ABA9-0531E5710C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3241DE69-7442-4E1C-ABA9-0531E5710C17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC7C63C5-A577-4D38-B5F6-89BD3303BCBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC7C63C5-A577-4D38-B5F6-89BD3303BCBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC7C63C5-A577-4D38-B5F6-89BD3303BCBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC7C63C5-A577-4D38-B5F6-89BD3303BCBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{498BF50F-8F6E-48A5-AA59-F6552E679441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{498BF50F-8F6E-48A5-AA59-F6552E679441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{498BF50F-8F6E-48A5-AA59-F6552E679441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{498BF50F-8F6E-48A5-AA59-F6552E679441}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27A32EC2-27E8-45E0-9964-7C4BFE1C9B9E}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://nccgtfs01:8080/tfs/notacontrol
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = NotaNacional.Core\\NotaNacional.Core.csproj
+		SccProjectName1 = NotaNacional.Core
+		SccLocalPath1 = NotaNacional.Core
+		SccProjectUniqueName2 = NotaNacional.Infra\\NotaNacional.Infra.csproj
+		SccProjectName2 = NotaNacional.Infra
+		SccLocalPath2 = NotaNacional.Infra
+		SccProjectUniqueName3 = NotaNacional.ServiceProcess\\NotaNacional.ServiceProcess.csproj
+		SccProjectName3 = NotaNacional.ServiceProcess
+		SccLocalPath3 = NotaNacional.ServiceProcess
+		SccProjectUniqueName4 = NotaNacional.Web\\NotaNacional.Web.csproj
+		SccProjectName4 = NotaNacional.Web
+		SccLocalPath4 = NotaNacional.Web
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,11 @@
+using NotaNacional.Core.ConsultarLoteRps.Models;
+    
+
+namespace NotaNacional.Core.ConsultarLoteRps.Repositories
+{
+
+    public interface IConsultarLoteRpsRepository
+    {
+    WsNfseConsultarLoteRpsResult Find(string outerXml, string erros, string ipUsuario);
+    }
+}
