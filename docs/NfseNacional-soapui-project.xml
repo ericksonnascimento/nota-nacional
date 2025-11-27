@@ -277,7 +277,7 @@
       <soap:address location="Nfse.asmx"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>Nfse.asmx</con:endpoint></con:endpoints><con:operation id="69fe3f35-a2e0-4b93-b658-bb093fe11d9f" isOneWay="false" action="http://nfse.abrasf.org.br/CancelarNfse" name="CancelarNfse" bindingOperationName="CancelarNfse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c323d357-852f-461d-9691-575406c6aa67" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>Nfse.asmx</con:endpoint></con:endpoints><con:operation id="69fe3f35-a2e0-4b93-b658-bb093fe11d9f" isOneWay="false" action="http://nfse.abrasf.org.br/CancelarNfse" name="CancelarNfse" bindingOperationName="CancelarNfse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c323d357-852f-461d-9691-575406c6aa67" name="Exemplo"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:CancelarNfse>
@@ -288,42 +288,40 @@
          </nfseCabecMsg>
          <nfseDadosMsg>
             <CancelarNfseEnvio xmlns="http://www.sped.fazenda.gov.br/nfse">
-               <pedRegEvento Id="pedido01">
-                  <IdentificacaoEvento>
-                     <IdentificacaoNfse>
-                        <CodigoMunicipioGerador>?</CodigoMunicipioGerador>
-                        <NumeroNfse>?</NumeroNfse>
-                        <CodigoVerificacao>?</CodigoVerificacao>
-                     </IdentificacaoNfse>
-                  </IdentificacaoEvento>
-                  <CodigoCancelamento>?</CodigoCancelamento>
-                  <Prestador>
-                     <CpfCnpj>
-                        <Cnpj>?</Cnpj>
-                        <Cpf>?</Cpf>
-                     </CpfCnpj>
-                     <InscricaoMunicipal>?</InscricaoMunicipal>
-                  </Prestador>
+               <pedRegEvento versao="1.01">
+                  <infPedReg Id="PRE00000000000000000000000000000000000000000000000000000000000">
+                     <tpAmb>2</tpAmb>
+                     <verAplic>1.00</verAplic>
+                     <dhEvento>2024-01-01T10:00:00-03:00</dhEvento>
+                     <CNPJAutor>65660556000150</CNPJAutor>
+                     <chNFSe>00000000000000000000000000000000000000000000000000</chNFSe>
+                     <nPedRegEvento>1</nPedRegEvento>
+                     <e101101>
+                        <xDesc>Cancelamento de NFS-e</xDesc>
+                        <cMotivo>1</cMotivo>
+                        <xMotivo>Erro na emissão</xMotivo>
+                     </e101101>
+                  </infPedReg>
+                  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+                     <SignedInfo>
+                        <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                        <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256"/>
+                        <Reference URI="#PRE00000000000000000000000000000000000000000000000000000000000">
+                           <Transforms>
+                              <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                           </Transforms>
+                           <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+                           <DigestValue>R2VcLaRsgnJSABK6Ihfv0/JhTJAX1P5MHJz/1hKRzaU=</DigestValue>
+                        </Reference>
+                     </SignedInfo>
+                     <SignatureValue>gZG881+WDsO7a1q5HCO7K0oyBcMI4fA2D2/k9jAkYwy881XCnKtHBx3YghMG1ZtdIiSLTLLI7O1iWPXwW0XrgpHDR81W3xu756P6/W3s5bxyVguPOAV8ZlQxCsyoFiyXfDB5qMvPXDcnimyZJzRvFQrXqCsfcKKA+60efU+G40ktfgjOb2H/G6PJSZA+VXvXoQmC9b28zCJD+gut8JHgyHYl0KokdKpNXDpMfUnnFITbrlW/OtpMs54uEao9nL2sU2y0Khc+cKMKX/kgFAeT30MsFqUxOfMA7UxLgEs1wg3SvXoF+7LGc99/AuSz5o+/kxopVJGXtIxo2ZQEiDD1Zw==</SignatureValue>
+                     <KeyInfo>
+                        <X509Data>
+                           <X509Certificate>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</X509Certificate>
+                        </X509Data>
+                     </KeyInfo>
+                  </Signature>
                </pedRegEvento>
-               <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-                  <SignedInfo>
-                     <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-                     <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-                     <Reference URI="#pedido01">
-                        <Transforms>
-                           <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-                        </Transforms>
-                        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-                        <DigestValue>?</DigestValue>
-                     </Reference>
-                  </SignedInfo>
-                  <SignatureValue>?</SignatureValue>
-                  <KeyInfo>
-                     <X509Data>
-                        <X509Certificate>?</X509Certificate>
-                     </X509Data>
-                  </KeyInfo>
-               </Signature>
             </CancelarNfseEnvio>
          </nfseDadosMsg>
       </nfse:CancelarNfse>
