@@ -34,9 +34,15 @@ namespace Abrasf.Core.Cabecalho.Validator
         {
             try
             {
+                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/complexTypes.xsd";
                 var schema = "Schemas/nacional/cabecalho.xsd";
                 var cfg = new XmlReaderSettings() { ValidationType = ValidationType.Schema };
+                cfg.Schemas.Add(null, simpleTypes);
+                cfg.Schemas.Add(null, complexTypes);
                 cfg.Schemas.Add(null, schema);
+                cfg.Schemas.Add(null, signature);
                 cfg.Schemas.XmlResolver = new XmlUrlResolver();
                 var reader = XmlReader.Create(new StringReader(xml), cfg);
                 var document = new XmlDocument();
