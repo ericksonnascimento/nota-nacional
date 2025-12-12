@@ -5,11 +5,11 @@
   <!-- definition of simple elements -->
   <xsd:simpleType name="TVerNFSe">
     <xsd:annotation>
-      <xsd:documentation>Tipo Versão da NF-e - 1.01</xsd:documentation>
+      <xsd:documentation>Tipo Versão da NF-e - 1.00</xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
       <xsd:whiteSpace value="preserve"/>
-      <xsd:pattern value="1\.01"/>
+      <xsd:pattern value="1\.00"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="TSString">

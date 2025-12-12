@@ -37,6 +37,8 @@
     <xsd:element name="ConsultarDadosCadastraisResponse" type="ws:output" />
     <xsd:element name="ConsultarDpsDisponivel" type="ws:input" />
     <xsd:element name="ConsultarDpsDisponivelResponse" type="ws:output" />
+    <xsd:element name="ValidarXml" type="ws:input" />
+    <xsd:element name="ValidarXmlResponse" type="ws:output" />
 
   </xsd:schema>
   </wsdl:types>
@@ -64,6 +66,8 @@
   <wsdl:message name="ConsultarDadosCadastraisResponse"><wsdl:part element="ws:ConsultarDadosCadastraisResponse" name="parameters"/></wsdl:message>  
   <wsdl:message name="ConsultarDpsDisponivelRequest"><wsdl:part element="ws:ConsultarDpsDisponivel" name="parameters"/></wsdl:message> 
   <wsdl:message name="ConsultarDpsDisponivelResponse"><wsdl:part element="ws:ConsultarDpsDisponivelResponse" name="parameters"/></wsdl:message>  
+  <wsdl:message name="ValidarXmlRequest"><wsdl:part element="ws:ValidarXml" name="parameters"/></wsdl:message> 
+  <wsdl:message name="ValidarXmlResponse"><wsdl:part element="ws:ValidarXmlResponse" name="parameters"/></wsdl:message>  
 
 
     <wsdl:portType name="nfse">
@@ -114,6 +118,10 @@
       <wsdl:operation name="ConsultarDpsDisponivel">
         <wsdl:input message="ws:ConsultarDpsDisponivelRequest"/>
         <wsdl:output message="ws:ConsultarDpsDisponivelResponse"/>
+      </wsdl:operation>
+      <wsdl:operation name="ValidarXml">
+        <wsdl:input message="ws:ValidarXmlRequest"/>
+        <wsdl:output message="ws:ValidarXmlResponse"/>
       </wsdl:operation>
     </wsdl:portType>
 
@@ -176,6 +184,11 @@
    </wsdl:operation>     
      <wsdl:operation name="ConsultarDpsDisponivel">
       <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarDpsDisponivel"/>
+      <wsdl:input><soap:body use="literal"/></wsdl:input>
+      <wsdl:output><soap:body use="literal"/></wsdl:output>
+   </wsdl:operation> 
+     <wsdl:operation name="ValidarXml">
+      <soap:operation soapAction="http://nfse.abrasf.org.br/ValidarXml"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
    </wsdl:operation> 

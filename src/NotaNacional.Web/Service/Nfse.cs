@@ -27,7 +27,9 @@ using NotaNacional.Core.ConsultarRpsDisponivel.Validator;
 using NotaNacional.Core.Base.Validator;
 using NotaNacional.Core.Helpers;
 using NotaNacional.Core.Models;
+using System.Linq;
 using System.Xml.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace NotaNacional.Web.Service
 {
@@ -62,6 +64,8 @@ namespace NotaNacional.Web.Service
         private readonly IConsultarUrlNfseValidator _consultarUrlNfseValidator;
         private readonly IConsultarDadosCadastraisValidator _consultarDadosCadastraisValidator;
         private readonly IConsultarRpsDisponivelValidator _consultarRpsDisponivelValidator;
+        private readonly IConfiguration _configuration;
+        private const string OPERACAO_EM_CONSTRUCAO = "E999";
 
         public Nfse(
             ICancelarNfseHandler cancelarNfseHandler,
@@ -89,7 +93,8 @@ namespace NotaNacional.Web.Service
             IRecepcionarLoteRpsSincronoValidator recepcionarLoteRpsSincronoValidator,
             IConsultarUrlNfseValidator consultarUrlNfseValidator,
             IConsultarDadosCadastraisValidator consultarDadosCadastraisValidator,
-            IConsultarRpsDisponivelValidator consultarRpsDisponivelValidator)
+            IConsultarRpsDisponivelValidator consultarRpsDisponivelValidator,
+            IConfiguration configuration)
         {
             _cancelarNfseHandler = cancelarNfseHandler;
             _consultarLoteRpsHandler = consultarLoteRpsHandler;
@@ -119,67 +124,128 @@ namespace NotaNacional.Web.Service
             _consultarUrlNfseValidator = consultarUrlNfseValidator;
             _consultarDadosCadastraisValidator = consultarDadosCadastraisValidator;
             _consultarRpsDisponivelValidator = consultarRpsDisponivelValidator;
+            _configuration = configuration;
         }
 
 
         public BaseResponse CancelarNfse(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("CancelarNfse"))
+            {
+                return RetornarOperacaoIndisponivel("CancelarNfse");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _cancelarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse RecepcionarLoteDps(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("RecepcionarLoteDps"))
+            {
+                return RetornarOperacaoIndisponivel("RecepcionarLoteDps");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _recepcionarLoteRpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
 
         public BaseResponse ConsultarLoteDps(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("ConsultarLoteDps"))
+            {
+                return RetornarOperacaoIndisponivel("ConsultarLoteDps");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarLoteRpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarNfseServicoPrestado(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("ConsultarNfseServicoPrestado"))
+            {
+                return RetornarOperacaoIndisponivel("ConsultarNfseServicoPrestado");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarNfseServicoPrestadoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarNfseServicoTomado(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("ConsultarNfseServicoTomado"))
+            {
+                return RetornarOperacaoIndisponivel("ConsultarNfseServicoTomado");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarNfseServicoTomadoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarNfsePorFaixa(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("ConsultarNfsePorFaixa"))
+            {
+                return RetornarOperacaoIndisponivel("ConsultarNfsePorFaixa");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarNfseFaixaHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarNfseDps(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("ConsultarNfseDps"))
+            {
+                return RetornarOperacaoIndisponivel("ConsultarNfseDps");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarNfsePorRpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse GerarNfse(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("GerarNfse"))
+            {
+                return RetornarOperacaoIndisponivel("GerarNfse");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _gerarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse RecepcionarLoteDpsSincrono(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("RecepcionarLoteDpsSincrono"))
+            {
+                return RetornarOperacaoIndisponivel("RecepcionarLoteDpsSincrono");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _recepcionarLoteRpsSincronoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarUrlNfse(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("ConsultarUrlNfse"))
+            {
+                return RetornarOperacaoIndisponivel("ConsultarUrlNfse");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarUrlNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarDadosCadastrais(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("ConsultarDadosCadastrais"))
+            {
+                return RetornarOperacaoIndisponivel("ConsultarDadosCadastrais");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarDadosCadastraisHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarDpsDisponivel(object nfseCabecMsg, object nfseDadosMsg)
         {
+            if (!IsOperacaoHabilitada("ConsultarDpsDisponivel"))
+            {
+                return RetornarOperacaoIndisponivel("ConsultarDpsDisponivel");
+            }
+            
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarRpsDisponivelHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
@@ -191,6 +257,9 @@ namespace NotaNacional.Web.Service
                 // Validar cabeçalho
                 var headerValidationResult = _cabecalhoValidator.Validate(nfseCabecMsg);
                 
+                // Extrair versão do cabeçalho para usar como referência na validação do body
+                var headerVersion = ExtractVersionFromHeader(nfseCabecMsg);
+                
                 // Identificar operação pelo elemento raiz do XML do body
                 var bodyXml = ParseHelper.GetXml(nfseDadosMsg);
                 var operation = IdentifyOperation(bodyXml);
@@ -200,9 +269,20 @@ namespace NotaNacional.Web.Service
                     return BuildValidationResponse(headerValidationResult, null, "Operação não identificada no XML do body.");
                 }
                 
-                // Validar corpo usando o validator apropriado
+                // Validar corpo usando o validator apropriado, passando a versão do cabeçalho como preferencial
                 var bodyValidator = GetValidatorForOperation(operation);
-                var bodyValidationResult = bodyValidator?.Validate(nfseDadosMsg);
+                ValidationResult? bodyValidationResult = null;
+                
+                if (bodyValidator is BaseSchemaValidator baseValidator)
+                {
+                    // Usar o método sobrecarregado que aceita versão preferencial E captura detalhes dos erros
+                    bodyValidationResult = baseValidator.Validate(nfseDadosMsg, headerVersion, captureErrorDetails: true);
+                }
+                else
+                {
+                    // Fallback para o método padrão se não for BaseSchemaValidator
+                    bodyValidationResult = bodyValidator?.Validate(nfseDadosMsg);
+                }
                 
                 // Combinar resultados de validação
                 return BuildValidationResponse(headerValidationResult, bodyValidationResult, null);
@@ -317,8 +397,71 @@ namespace NotaNacional.Web.Service
                 });
             }
             
-            // Se não houver erros, ListaMensagemRetorno ficará vazia e não será serializada
+            // Se não houver erros, adicionar mensagem de sucesso
+            if (response.ListaMensagemRetorno.Count == 0)
+            {
+                response.ListaMensagemRetorno.Add(new TcMensagemRetorno
+                {
+                    Codigo = "S000",
+                    Mensagem = "XML válido. Validação realizada com sucesso."
+                });
+            }
+            
             return response;
+        }
+
+        private bool IsOperacaoHabilitada(string nomeOperacao)
+        {
+            return _configuration.GetValue<bool>($"OperacoesHabilitadas:{nomeOperacao}", false);
+        }
+
+        private BaseResponse RetornarOperacaoIndisponivel(string operacao)
+        {
+            var response = new ValidarXmlResposta();
+            response.ListaMensagemRetorno.Add(new TcMensagemRetorno
+            {
+                Codigo = OPERACAO_EM_CONSTRUCAO,
+                Mensagem = $"Operação {operacao} está temporariamente indisponível. Serviço em construção."
+            });
+            return response;
+        }
+
+        /// <summary>
+        /// Extrai a versão do cabeçalho (versaoDados ou versao) para usar como referência na validação do body
+        /// </summary>
+        private string? ExtractVersionFromHeader(object nfseCabecMsg)
+        {
+            try
+            {
+                var headerXml = ParseHelper.GetXml(nfseCabecMsg);
+                var doc = XDocument.Parse(headerXml);
+                
+                // Procurar por versaoDados (elemento) - prioridade 1
+                var versaoDados = doc.Descendants()
+                    .FirstOrDefault(e => e.Name.LocalName == "versaoDados")?.Value;
+                if (!string.IsNullOrEmpty(versaoDados))
+                {
+                    return versaoDados;
+                }
+                
+                // Procurar por versao (atributo no elemento cabecalho) - prioridade 2
+                var cabecalho = doc.Descendants()
+                    .FirstOrDefault(e => e.Name.LocalName == "cabecalho");
+                if (cabecalho != null)
+                {
+                    var versaoAttr = cabecalho.Attribute("versao")?.Value;
+                    if (!string.IsNullOrEmpty(versaoAttr))
+                    {
+                        return versaoAttr;
+                    }
+                }
+            }
+            catch
+            {
+                // Se não conseguir parsear, retorna null
+            }
+            
+            return null;
         }
 
         //public BaseResponse CancelarNfse(object nfseCabecMsg, object nfseDadosMsg)
