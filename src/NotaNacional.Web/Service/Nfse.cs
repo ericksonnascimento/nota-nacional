@@ -11,6 +11,23 @@ using NotaNacional.Core.RecepcionarLoteRpsSincrono.Handlers;
 using NotaNacional.Core.ConsultarUrlNfse.Handlers;
 using NotaNacional.Core.ConsultarDadosCadastrais.Handlers;
 using NotaNacional.Core.ConsultarRpsDisponivel.Handlers;
+using NotaNacional.Core.Cabecalho.Validator;
+using NotaNacional.Core.CancelarNfse.Validator;
+using NotaNacional.Core.ConsultarLoteRps.Validator;
+using NotaNacional.Core.ConsultarNfseFaixa.Validator;
+using NotaNacional.Core.ConsultarNfsePorRps.Validator;
+using NotaNacional.Core.ConsultarNfseServicoPrestado.Validator;
+using NotaNacional.Core.ConsultarNfseServicoTomado.Validator;
+using NotaNacional.Core.GerarNfse.Validator;
+using NotaNacional.Core.RecepcionarLoteRps.Validator;
+using NotaNacional.Core.RecepcionarLoteRpsSincrono.Validator;
+using NotaNacional.Core.ConsultarUrlNfse.Validator;
+using NotaNacional.Core.ConsultarDadosCadastrais.Validator;
+using NotaNacional.Core.ConsultarRpsDisponivel.Validator;
+using NotaNacional.Core.Base.Validator;
+using NotaNacional.Core.Helpers;
+using NotaNacional.Core.Models;
+using System.Xml.Linq;
 
 namespace NotaNacional.Web.Service
 {
@@ -30,6 +47,21 @@ namespace NotaNacional.Web.Service
         private IConsultarDadosCadastraisHandler _consultarDadosCadastraisHandler;
         private IConsultarRpsDisponivelHandler _consultarRpsDisponivelHandler;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        
+        // Validators para ValidarXml
+        private readonly ICabecalhoValidator _cabecalhoValidator;
+        private readonly ICancelarNfseValidator _cancelarNfseValidator;
+        private readonly IConsultarLoteRpsValidator _consultarLoteRpsValidator;
+        private readonly IConsultarNfseFaixaValidator _consultarNfseFaixaValidator;
+        private readonly IConsultarNfsePorRpsValidator _consultarNfsePorRpsValidator;
+        private readonly IConsultarNfseServicoPrestadoValidator _consultarNfseServicoPrestadoValidator;
+        private readonly IConsultarNfseServicoTomadoValidator _consultarNfseServicoTomadoValidator;
+        private readonly IGerarNfseValidator _gerarNfseValidator;
+        private readonly IRecepcionarLoteRpsValidator _recepcionarLoteRpsValidator;
+        private readonly IRecepcionarLoteRpsSincronoValidator _recepcionarLoteRpsSincronoValidator;
+        private readonly IConsultarUrlNfseValidator _consultarUrlNfseValidator;
+        private readonly IConsultarDadosCadastraisValidator _consultarDadosCadastraisValidator;
+        private readonly IConsultarRpsDisponivelValidator _consultarRpsDisponivelValidator;
 
         public Nfse(
             ICancelarNfseHandler cancelarNfseHandler,
@@ -44,7 +76,20 @@ namespace NotaNacional.Web.Service
             IConsultarUrlNfseHandler consultarUrlNfseHandler,
             IConsultarDadosCadastraisHandler consultarDadosCadastraisHandler,
             IConsultarRpsDisponivelHandler consultarRpsDisponivelHandler,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            ICabecalhoValidator cabecalhoValidator,
+            ICancelarNfseValidator cancelarNfseValidator,
+            IConsultarLoteRpsValidator consultarLoteRpsValidator,
+            IConsultarNfseFaixaValidator consultarNfseFaixaValidator,
+            IConsultarNfsePorRpsValidator consultarNfsePorRpsValidator,
+            IConsultarNfseServicoPrestadoValidator consultarNfseServicoPrestadoValidator,
+            IConsultarNfseServicoTomadoValidator consultarNfseServicoTomadoValidator,
+            IGerarNfseValidator gerarNfseValidator,
+            IRecepcionarLoteRpsValidator recepcionarLoteRpsValidator,
+            IRecepcionarLoteRpsSincronoValidator recepcionarLoteRpsSincronoValidator,
+            IConsultarUrlNfseValidator consultarUrlNfseValidator,
+            IConsultarDadosCadastraisValidator consultarDadosCadastraisValidator,
+            IConsultarRpsDisponivelValidator consultarRpsDisponivelValidator)
         {
             _cancelarNfseHandler = cancelarNfseHandler;
             _consultarLoteRpsHandler = consultarLoteRpsHandler;
@@ -59,6 +104,21 @@ namespace NotaNacional.Web.Service
             _consultarDadosCadastraisHandler = consultarDadosCadastraisHandler;
             _consultarRpsDisponivelHandler = consultarRpsDisponivelHandler;
             _httpContextAccessor = httpContextAccessor;
+            
+            // Validators
+            _cabecalhoValidator = cabecalhoValidator;
+            _cancelarNfseValidator = cancelarNfseValidator;
+            _consultarLoteRpsValidator = consultarLoteRpsValidator;
+            _consultarNfseFaixaValidator = consultarNfseFaixaValidator;
+            _consultarNfsePorRpsValidator = consultarNfsePorRpsValidator;
+            _consultarNfseServicoPrestadoValidator = consultarNfseServicoPrestadoValidator;
+            _consultarNfseServicoTomadoValidator = consultarNfseServicoTomadoValidator;
+            _gerarNfseValidator = gerarNfseValidator;
+            _recepcionarLoteRpsValidator = recepcionarLoteRpsValidator;
+            _recepcionarLoteRpsSincronoValidator = recepcionarLoteRpsSincronoValidator;
+            _consultarUrlNfseValidator = consultarUrlNfseValidator;
+            _consultarDadosCadastraisValidator = consultarDadosCadastraisValidator;
+            _consultarRpsDisponivelValidator = consultarRpsDisponivelValidator;
         }
 
 
@@ -122,6 +182,143 @@ namespace NotaNacional.Web.Service
         {
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
             return _consultarRpsDisponivelHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+        }
+
+        public BaseResponse ValidarXml(object nfseCabecMsg, object nfseDadosMsg)
+        {
+            try
+            {
+                // Validar cabeçalho
+                var headerValidationResult = _cabecalhoValidator.Validate(nfseCabecMsg);
+                
+                // Identificar operação pelo elemento raiz do XML do body
+                var bodyXml = ParseHelper.GetXml(nfseDadosMsg);
+                var operation = IdentifyOperation(bodyXml);
+                
+                if (operation == null)
+                {
+                    return BuildValidationResponse(headerValidationResult, null, "Operação não identificada no XML do body.");
+                }
+                
+                // Validar corpo usando o validator apropriado
+                var bodyValidator = GetValidatorForOperation(operation);
+                var bodyValidationResult = bodyValidator?.Validate(nfseDadosMsg);
+                
+                // Combinar resultados de validação
+                return BuildValidationResponse(headerValidationResult, bodyValidationResult, null);
+            }
+            catch (Exception ex)
+            {
+                // Em caso de erro, retornar resposta com erro genérico
+                var response = new ValidarXmlResposta();
+                response.ListaMensagemRetorno.Add(new TcMensagemRetorno
+                {
+                    Codigo = "E232",
+                    Mensagem = $"Ocorreu um erro no processamento do arquivo: {ex.Message}"
+                });
+                return response;
+            }
+        }
+
+        private string? IdentifyOperation(string xml)
+        {
+            try
+            {
+                var doc = XDocument.Parse(xml);
+                var rootElement = doc.Root;
+                
+                if (rootElement == null)
+                    return null;
+                
+                var elementName = rootElement.Name.LocalName;
+                
+                // Mapear elementos para operações
+                var operationMap = new Dictionary<string, string>
+                {
+                    { "CancelarNfseEnvio", "CancelarNfse" },
+                    { "ConsultarLoteDpsEnvio", "ConsultarLoteDps" },
+                    { "ConsultarNfseFaixaEnvio", "ConsultarNfsePorFaixa" },
+                    { "ConsultarNfseDpsEnvio", "ConsultarNfseDps" },
+                    { "ConsultarNfseServicoPrestadoEnvio", "ConsultarNfseServicoPrestado" },
+                    { "ConsultarNfseServicoTomadoEnvio", "ConsultarNfseServicoTomado" },
+                    { "GerarNfseEnvio", "GerarNfse" },
+                    { "RecepcionarLoteDpsEnvio", "RecepcionarLoteDps" },
+                    { "RecepcionarLoteDpsSincronoEnvio", "RecepcionarLoteDpsSincrono" },
+                    { "ConsultarUrlNfseEnvio", "ConsultarUrlNfse" },
+                    { "ConsultarDadosCadastraisEnvio", "ConsultarDadosCadastrais" },
+                    { "ConsultarDpsDisponivelEnvio", "ConsultarDpsDisponivel" }
+                };
+                
+                return operationMap.TryGetValue(elementName, out var operation) ? operation : null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        private IValidator? GetValidatorForOperation(string? operation)
+        {
+            return operation switch
+            {
+                "CancelarNfse" => _cancelarNfseValidator,
+                "ConsultarLoteDps" => _consultarLoteRpsValidator,
+                "ConsultarNfsePorFaixa" => _consultarNfseFaixaValidator,
+                "ConsultarNfseDps" => _consultarNfsePorRpsValidator,
+                "ConsultarNfseServicoPrestado" => _consultarNfseServicoPrestadoValidator,
+                "ConsultarNfseServicoTomado" => _consultarNfseServicoTomadoValidator,
+                "GerarNfse" => _gerarNfseValidator,
+                "RecepcionarLoteDps" => _recepcionarLoteRpsValidator,
+                "RecepcionarLoteDpsSincrono" => _recepcionarLoteRpsSincronoValidator,
+                "ConsultarUrlNfse" => _consultarUrlNfseValidator,
+                "ConsultarDadosCadastrais" => _consultarDadosCadastraisValidator,
+                "ConsultarDpsDisponivel" => _consultarRpsDisponivelValidator,
+                _ => null
+            };
+        }
+
+        private BaseResponse BuildValidationResponse(ValidationResult headerResult, ValidationResult? bodyResult, string? errorMessage)
+        {
+            var response = new ValidarXmlResposta();
+            
+            // Adicionar erros do cabeçalho
+            if (headerResult != null && !headerResult.IsValid)
+            {
+                foreach (var message in headerResult.Messages)
+                {
+                    response.ListaMensagemRetorno.Add(new TcMensagemRetorno
+                    {
+                        Codigo = message.Key,
+                        Mensagem = message.Value
+                    });
+                }
+            }
+            
+            // Adicionar erros do corpo
+            if (bodyResult != null && !bodyResult.IsValid)
+            {
+                foreach (var message in bodyResult.Messages)
+                {
+                    response.ListaMensagemRetorno.Add(new TcMensagemRetorno
+                    {
+                        Codigo = message.Key,
+                        Mensagem = message.Value
+                    });
+                }
+            }
+            
+            // Adicionar erro genérico se fornecido
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                response.ListaMensagemRetorno.Add(new TcMensagemRetorno
+                {
+                    Codigo = "E232",
+                    Mensagem = errorMessage
+                });
+            }
+            
+            // Se não houver erros, ListaMensagemRetorno ficará vazia e não será serializada
+            return response;
         }
 
         //public BaseResponse CancelarNfse(object nfseCabecMsg, object nfseDadosMsg)

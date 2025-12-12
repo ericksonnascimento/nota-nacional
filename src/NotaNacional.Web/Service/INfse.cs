@@ -54,5 +54,9 @@ namespace NotaNacional.Web.Service
         [OperationContract(Name = "ConsultarDpsDisponivel")]
         [XmlSerializerFormat]
         BaseResponse ConsultarDpsDisponivel(object nfseCabecMsg, object nfseDadosMsg);
+
+        [OperationContract(Name = "ValidarXml")]
+        [XmlSerializerFormat]
+        BaseResponse ValidarXml(object nfseCabecMsg, object nfseDadosMsg);
     }
 }
