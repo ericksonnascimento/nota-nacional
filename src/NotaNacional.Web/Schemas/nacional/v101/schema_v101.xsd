@@ -5,11 +5,11 @@
   <!-- definition of simple elements -->
   <xsd:simpleType name="TVerNFSe">
     <xsd:annotation>
-      <xsd:documentation>Tipo Versão da NF-e - 1.00</xsd:documentation>
+      <xsd:documentation>Tipo Versão da NF-e - 1.01</xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
       <xsd:whiteSpace value="preserve"/>
-      <xsd:pattern value="1\.00"/>
+      <xsd:pattern value="1\.01"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="TSString">
@@ -377,6 +377,7 @@
     <xsd:restriction base="xsd:string">
       <xsd:whiteSpace value="preserve"/>
       <xsd:maxLength value="11"/>
+      <xsd:maxLength value="11"/>
       <xsd:pattern value="[0-9]{11}"/>
     </xsd:restriction>
   </xsd:simpleType>
@@ -407,7 +408,6 @@
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
       <xsd:whiteSpace value="preserve"/>
-      <!-- <xsd:enumeration value="0"/> -->
       <xsd:enumeration value="1"/>
       <xsd:enumeration value="2"/>
     </xsd:restriction>
@@ -613,6 +613,7 @@
         4 - Matriz;
         5 - Filial ou sucursal;
         6 - Outro vínculo;
+        <!--9 - Desconhecido.-->
       </xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
@@ -624,6 +625,7 @@
       <xsd:enumeration value="4"/>
       <xsd:enumeration value="5"/>
       <xsd:enumeration value="6"/>
+      <!--<xsd:enumeration value="9"/>-->
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="TSMecAFComExPrest">
@@ -913,13 +915,18 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
   <xsd:simpleType name="TSIdeDedRed">
     <xsd:annotation>
       <xsd:documentation>
-  Identificação da Dedução/Redução:
+        Identificação da Dedução/Redução:
         1 – Alimentação e bebidas/frigobar;
         2 – Materiais;
+        <!--
+        3 – Produção externa; (entra no repasse, ressarcimento e reembolso a partir de 01/01/2026)
+        4 – Reembolso de despesas;(entra no repasse, ressarcimento e reembolso a partir de 01/01/2026) 
+        -->
         5 – Repasse consorciado;
         6 – Repasse plano de saúde;
         7 – Serviços;
         8 – Subempreitada de mão de obra;
+        <!--9 - Profissional Parceiro;-->
         99 – Outras deduções;
       </xsd:documentation>
     </xsd:annotation>
@@ -927,10 +934,15 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       <xsd:whiteSpace value="preserve"/>
       <xsd:enumeration value="1"/>
       <xsd:enumeration value="2"/>
+      <!--
+      <xsd:enumeration value="3"/>
+      <xsd:enumeration value="4"/>
+      -->
       <xsd:enumeration value="5"/>
       <xsd:enumeration value="6"/>
       <xsd:enumeration value="7"/>
       <xsd:enumeration value="8"/>
+      <!--<xsd:enumeration value="9"/>-->
       <xsd:enumeration value="99"/>
     </xsd:restriction>
   </xsd:simpleType>
@@ -1743,7 +1755,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   
   <xsd:simpleType name="tsCodigoMensagemAlerta">
     <xsd:restriction base="xsd:string">
-      <xsd:maxLength value="4" />
+      <xsd:maxLength value="5" />
       <xsd:minLength value="1" />
       <xsd:whiteSpace value="collapse" />
     </xsd:restriction>
@@ -1756,12 +1768,111 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
       <xsd:whiteSpace value="collapse" />
     </xsd:restriction>
   </xsd:simpleType>
+  <!--
+  <xsd:simpleType name="TSCodNCM">
+    <xsd:restriction base="xsd:string">
+      <xsd:whiteSpace value="preserve"/>
+      <xsd:length value="8"/>
+      <xsd:pattern value="[0-9]{8}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TSQtdeNCM">
+    <xsd:restriction base="xsd:string">
+      <xsd:whiteSpace value="preserve"/>
+      <xsd:length value="3"/>
+      <xsd:pattern value="[0-9]{3}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TSTipoDedRedIBSCBS">
+    <xsd:annotation>
+      <xsd:documentation>
+        Tipo de parcela não integrante da base de cálculo do IBS e da CBS 
+        01 = Tributos inclusos no aluguel ou equivalente (Ex.: IPTU, Contribuição de melhoria) - apenas para NBS 1.1002.10.00 ou 1.1002.20.00
+        02 = Emolumento incluso no aluguel ou equivalente - apenas para NBS 1.1002.10.00 ou 1.1002.20.00
+        03 = Condomínio incluso no aluguel ou equivalente - apenas para NBS 1.1002.10.00 ou 1.1002.20.00
+        04 = Redutor Social - apenas para a NBS 1.1002.10.00
+        05 = Glosa de Serviços Médicos
+        99 = Outras parcelas inclusas no aluguel ou equivalente
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:whiteSpace value="preserve"/>
+      <xsd:enumeration value="01"/>
+      <xsd:enumeration value="02"/>
+      <xsd:enumeration value="03"/>
+      <xsd:enumeration value="04"/>
+      <xsd:enumeration value="05"/>
+      <xsd:enumeration value="99"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TSRTCIndDoacao">
+    <xsd:annotation>
+      <xsd:documentation>
+        Indica uma Operação de Doação
+        1)Doação com contraprestação; 
+            - NFS-e deve ser emitida a valor de mercado.
+            indDoacao: Não deve ser informado;
+            gEstornoCred: Não deve ser informado;
+            cClassTrib: Tributação Regular.
+        2) Doação sem contraprestação;
+        2.1) Quando não houve apropriação de créditos anteriores: 
+            - Deve-se emitir NFS-e a valor de mercado. Como não houve créditos na entrada, deve-se realizar a doação sem qualquer estorno.
+            indDoacao: Deve ser informado;
+            gEstornoCred: Não deve ser informado;
+            cClassTrib: ""410003 - Doações sem contraprestação em benefício do doador"";
+        2.2) Quando houve apropriação de créditos anteriores:
+        2.2.a) Pode-se estornar os créditos de entrada ao informar valores de IBS e de CBS no grupo gEstornoCred. Nesse caso, deve-se realizar um cálculo dos créditos obtidos na entrada para serem informados no grupo de estorno;
+            indDoacao: Deve ser informado;
+            gEstornoCred: Deve ser informado;
+            cClassTrib: ""410026 - Doação com anulação de crédito"";
+        2.2.b) Pode-se tributar a operação de doação de forma equivalente a uma operação com incidência regular. Nesse caso, não há estorno e a NFS-e deve ser emitida a valor de mercado;
+            indDoacao: Deve ser informado;
+            gEstornoCred: Não deve ser informado;
+            cClassTrib: Tributação regular.
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:whiteSpace value="preserve"/>
+      <xsd:enumeration value="1"/>
+      <xsd:enumeration value="2"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  -->
   
   <!-- definition of complex elements -->
   
   <!-- ==================================================================================================================================================================================
   INÍCIO ESTRUTURA NFS-E
   ======================================================================================================================================================================================== -->
+  <!--TIPO COMPLEXO INFORMAÇÕES DE REFERENIAMENTOO DAS NFS-E DE PAGAMENTO ANTECIPADO PARA ABATIMENTO-->
+  <!--
+  <xsd:complexType name="TCRTCInfoTributosPagAntecipado">
+    <xsd:sequence>
+      <xsd:element name="refNFSe" type="TSChaveNFSe" minOccurs="1" maxOccurs="99">
+        <xsd:annotation>
+          <xsd:documentation>Chave da NFS-e de pagamento antecipado referenciada.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  -->
+  <!--TIPO COMPLEXO INFORMAÇÕES RELACIONADAS AOS ESTORNOS DE CRÉDITOS DO IBS E CBS-->
+  <!--
+  <xsd:complexType name="TCRTCInfoTributosEstornoCred">
+    <xsd:sequence>
+      <xsd:element name="vIBSEstCred" type="TSDec15V2" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Valor do IBS a ser estornado.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="vCBSEstCred" type="TSDec15V2" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Valor da CBS a ser estornado.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  -->
   <!--TIPO COMPLEXO INFORMAÇÕES RELACIONADAS AO DIFERIMENTO PARA IBS E CBS-->
   <xsd:complexType name="TCRTCInfoTributosDif">
     <xsd:sequence>
@@ -1825,6 +1936,18 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:documentation>Grupo de informações relacionadas ao diferimento para IBS e CBS</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+	  <!--
+      <xsd:element name="gEstornoCred" type="TCRTCInfoTributosEstornoCred" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Grupo de informações relacionadas aos estornos de créditos do IBS e da CBS.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="gPagAntecipado" type="TCRTCInfoTributosPagAntecipado" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Grupo de referenciamento das NFS-e de pagamento antecipado para abatimento.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    -->
     </xsd:sequence>
   </xsd:complexType>
   <!--TIPO COMPLEXO INFORMAÇÕES DO FORNECEDOR DO DOCUMENTO REFERENCIADO-->
@@ -2009,6 +2132,42 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
+  <!--TIPO COMPLEXO INFORMAÇÕES RELATIVAS DEDUÇÃO E REDUÇÃO BASE DE CÁLCULO IBSCBS-->
+  <!--
+  <xsd:complexType name="TCRTCInfoDedRedIBSCBS">
+    <xsd:sequence>
+      <xsd:element name="tpDedRedIBSCBS" type="TSTipoDedRedIBSCBS" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Tipo de parcela não integrante da base de cálculo do IBS e da CBS 
+            01 = Tributos inclusos no aluguel ou equivalente (Ex.: IPTU, Contribuição de melhoria) - apenas para NBS 1.1002.10.00 ou 1.1002.20.00
+            02 = Emolumento incluso no aluguel ou equivalente - apenas para NBS 1.1002.10.00 ou 1.1002.20.00
+            03 = Condomínio incluso no aluguel ou equivalente - apenas para NBS 1.1002.10.00 ou 1.1002.20.00
+            04 = Redutor Social - apenas para a NBS 1.1002.10.00
+            05 = Glosa de Serviços Médicos
+            99 = Outras parcelas inclusas no aluguel ou equivalente
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="xTpDedRedIBSCBS" type="TSDesc150" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Descrição do tipo de parcela não integrante da base de cálculo do IBS e da CBS quando a opção for "99  = Outras 
+            parcelas inclusas no aluguel ou equivalente".
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="vlrDedRedIBSCBS" type="TSDec15V2" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Valor monetário (total ou parcial) utilizado para não inclusão na base de cálculo do IBS e da CBS da NFS-e que está 
+            sendo emitida (R$).
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  -->
   <!--TIPO COMPLEXO INFORMAÇÕES RELATIVAS AOS VALORES DO SERVIÇO PRESTADO IBSCBS-->
   <xsd:complexType name="TCRTCInfoValoresIBSCBS">
     <xsd:sequence>
@@ -2020,6 +2179,16 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+	  <!--
+      <xsd:element name="gDedRedIBSCBS" type="TCRTCInfoDedRedIBSCBS" minOccurs="0" maxOccurs="1000">
+        <xsd:annotation>
+          <xsd:documentation>
+            Grupo de informações relativas a valores de dedução e redução da Base de Cálculo do IBS e da CBS referentes 
+            às operações de locação, cessão onerosa ou arrendamento de bens imóveis, e serviços médicos.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      -->
       <xsd:element name="trib" type="TCRTCInfoTributosIBSCBS" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Grupo de informações relacionados aos tributos IBS e CBS</xsd:documentation>
@@ -2027,6 +2196,28 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
+  <!--TIPO COMPLEXO INFORMAÇÕES RELATIVAS A BENS MÓVEIS IBSCBS-->
+  <!--
+  <xsd:complexType name="TCRTCInfoLocBensMoveis">
+    <xsd:sequence>
+      <xsd:element name="cNCMBemMovel" type="TSCodNCM" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Código da Nomenclatura Comum do Mercosul (NCM) do bem móvel objeto da locação.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="xNCMBemMovel" type="TSDesc150" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Descrição do Bem Móvel objeto da locação.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="qtdNCMBemMovel" type="TSQtdeNCM" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Quantidade do Bem Móvel objeto da locação.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  -->
   <!--TIPO COMPLEXO INFORMAÇÕES RELATIVAS A BENS IMÓVEIS IBSCBS-->
   <xsd:complexType name="TCRTCInfoImovel">
     <xsd:sequence>
@@ -2072,7 +2263,6 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:annotation>
             <xsd:documentation>
               Motivo para não informação do NIF:
-              0 - Não informado na nota de origem;
               1 - Dispensado do NIF;
               2 - Não exigência do NIF;
             </xsd:documentation>
@@ -2148,6 +2338,13 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:documentation>Tipo de ente governamental</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+      <!--
+      <xsd:element name="indDoacao" type="TSRTCIndDoacao" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Indica uma Operação de Doação</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      -->
       <xsd:element name="indDest" type="TSRTCIndDest" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>A respeito do Destinatário dos serviços</xsd:documentation>
@@ -2163,6 +2360,13 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:documentation>Grupo de informações de operações relacionadas a bens imóveis, exceto obras</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+      <!--
+      <xsd:element name="gLocBensMoveis" type="TCRTCInfoLocBensMoveis" minOccurs="0" maxOccurs="99">
+        <xsd:annotation>
+          <xsd:documentation>Grupo de informações relativas aos bens móveis objetos de locação</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      -->
       <xsd:element name="valores" type="TCRTCInfoValoresIBSCBS" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Grupo de informações relativas aos valores do serviço prestado para IBS e CBS</xsd:documentation>
@@ -2889,6 +3093,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
             4 - Matriz;
             5 - Filial ou sucursal;
             6 - Outro vínculo;
+            9 - Desconhecido.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
@@ -3316,7 +3521,6 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:annotation>
             <xsd:documentation>
               Motivo para não informação do NIF:
-              0 - Não informado na nota de origem;
               1 - Dispensado do NIF;
               2 - Não exigência do NIF;
             </xsd:documentation>
@@ -3425,7 +3629,6 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:annotation>
             <xsd:documentation>
               Motivo para não informação do NIF:
-              0 - Não informado na nota de origem;
               1 - Dispensado do NIF;
               2 - Não exigência do NIF;
             </xsd:documentation>
@@ -3723,7 +3926,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:documentation>Grupo de valores referentes ao crédito presumido para CBS</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="vDifCBS" type="TSDec15V2" minOccurs="1" maxOccurs="1">
+      <xsd:element name="vDifCBS" type="TSDec15V2" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Total do Diferimento CBS (vDifCBS = vCBS x pDifCBS)</xsd:documentation>
         </xsd:annotation>
@@ -3738,7 +3941,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <!--TIPO COMPLEXO DE TOTALIZADORES DOS VALORES IBS MUNICIPAL-->
   <xsd:complexType name="TCRTCTotalIBSMun">
     <xsd:sequence>
-      <xsd:element name="vDifMun" type="TSDec15V2" minOccurs="1" maxOccurs="1">
+      <xsd:element name="vDifMun" type="TSDec15V2" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Total do Diferimento do IBS municipal (vDifMun = vIBSMun x pDifMun)</xsd:documentation>
         </xsd:annotation>
@@ -3753,7 +3956,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <!--TIPO COMPLEXO DE TOTALIZADORES DOS VALORES IBS ESTADUAL-->
   <xsd:complexType name="TCRTCTotalIBSUF">
     <xsd:sequence>
-      <xsd:element name="vDifUF" type="TSDec15V2" minOccurs="1" maxOccurs="1">
+      <xsd:element name="vDifUF" type="TSDec15V2" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Total do Diferimento do IBS estadual (vDifUF = vIBSUF x pDifUF)</xsd:documentation>
         </xsd:annotation>
@@ -3914,9 +4117,16 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
     <xsd:sequence>
       <xsd:element name="vBC" type="TSDec15V2" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
+          <!--
           <xsd:documentation>
-            Valor da base de cálculo (BC) do IBS/CBS antes das reduções para cálculo do tributo bruto
-            vBC = vServ - descIncond – vCalcReeRepRes – vISSQN – vPIS - vCOFINS (até 2026) ou
+            Valor da base de cálculo (BC) do IBS/CBS antes das reduções para cálculo do tributo bruto. 
+            vBC = vServ - descIncond – vCalcReeRepRes - vCalcDedRedIBSCBS – vISSQN – vPIS - vCOFINS (até 2026) Ou
+            vBC = vServ - descIncond – vCalcReeRepRes – vCalcDedRedIBSCBS – vISSQN (até 2032)
+          </xsd:documentation>
+          -->
+          <xsd:documentation>
+            Valor da base de cálculo (BC) do IBS/CBS antes das reduções para cálculo do tributo bruto. 
+            vBC = vServ - descIncond – vCalcReeRepRes - vISSQN – vPIS - vCOFINS (até 2026) Ou
             vBC = vServ - descIncond – vCalcReeRepRes – vISSQN (até 2032)
           </xsd:documentation>
         </xsd:annotation>
@@ -3930,6 +4140,16 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+      <!--
+      <xsd:element name="vCalcDedRedIBSCBS" type="TSDec15V2" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Valor monetário (R$) total relativo aos valores de dedução e redução da Base de Cálculo do IBS e da CBS referentes às 
+            operações de locação, cessão onerosa ou arrendamento de bens imóveis, e serviços médicos.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      -->
       <xsd:element name="uf" type="TCRTCValoresIBSCBSUF" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Grupo de Informações relativas aos valores do IBS Estadual</xsd:documentation>
@@ -3960,7 +4180,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:documentation>Nome da localidade de incidência do IBS/CBS</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="pRedutor" type="TSDec2V2" minOccurs="1" maxOccurs="1">
+      <xsd:element name="pRedutor" type="TSDec2V2" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Percentual de redução de aliquota em compra governamental</xsd:documentation>
         </xsd:annotation>
@@ -3977,8 +4197,8 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
-  <!--TIPO COMPLEXO DOS VALORES PARA CÁLCULO ISSQN-->
-  <xsd:complexType name="TCIssqn">
+  <!--TIPO COMPLEXO DOS VALORES DA NFS-e-->
+  <xsd:complexType name="TCValoresNFSe">
     <xsd:sequence>
       <xsd:element name="vCalcDR" type="TSDec15V2" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
@@ -4040,16 +4260,6 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
       <xsd:element name="xOutInf" type="TSDesc2000" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Uso da Administração Tributária Municipal.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-    </xsd:sequence>
-  </xsd:complexType>
-  <!--TIPO COMPLEXO DOS VALORES DA NFS-e-->
-  <xsd:complexType name="TCValoresNFSe">
-    <xsd:sequence>
-      <xsd:element name="issqn" type="TCIssqn" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Grupo de valores referentes ao Serviço Prestado</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -4886,10 +5096,16 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   FIM ESTRUTURA EVENTOS
   ======================================================================================================================================================================================== -->
 
+  <xsd:complexType name="tcListaEvento">
+    <xsd:sequence>
+      <xsd:element name="Evento" type="TCEvento" minOccurs="1" maxOccurs="10" />
+    </xsd:sequence>
+  </xsd:complexType>
+
   <xsd:complexType name="tcCompNfse">
     <xsd:sequence>
       <xsd:element name="Nfse" type="TCNFSe" minOccurs="1" maxOccurs="1" />
-      <xsd:element name="Evento" type="TCEvento" minOccurs="0" maxOccurs="1" />
+      <xsd:element name="ListaEvento" type="tcListaEvento" minOccurs="0" maxOccurs="1" />
     </xsd:sequence>
   </xsd:complexType>
   
@@ -4906,6 +5122,16 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
         <xsd:element name="CNPJ" type="TSCNPJ" minOccurs="1" maxOccurs="1" />
         <xsd:element name="CPF" type="TSCPF" minOccurs="1" maxOccurs="1" />
       </xsd:choice>
+      <xsd:element name="IM" type="TSInscMun" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="tcIdentificacaoPessoaEmpresaComIM">
+    <xsd:sequence>
+      <xsd:choice minOccurs="1" maxOccurs="1">
+        <xsd:element name="CNPJ" type="TSCNPJ" minOccurs="1" maxOccurs="1" />
+        <xsd:element name="CPF" type="TSCPF" minOccurs="1" maxOccurs="1" />
+      </xsd:choice>
       <xsd:element name="IM" type="TSInscMun" minOccurs="1" maxOccurs="1" />
     </xsd:sequence>
   </xsd:complexType>
@@ -4913,12 +5139,12 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <xsd:complexType name="tcLoteDps">
     <xsd:sequence>
       <xsd:element name="NumeroLote" type="TSNum15Dig" minOccurs="1" maxOccurs="1" />
-      <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
       <xsd:element name="QuantidadeDps" type="TSNum3Dig" minOccurs="1" maxOccurs="1" />
       <xsd:element name="ListaDps" minOccurs="1" maxOccurs="1">
         <xsd:complexType>
           <xsd:sequence>
-            <xsd:element name="Dps" type="TCDPS" minOccurs="1" maxOccurs="unbounded" />
+            <xsd:element name="DPS" type="TCDPS" minOccurs="1" maxOccurs="unbounded" />
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
@@ -5117,6 +5343,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:element name="Protocolo" type="TSDesc50" minOccurs="1" maxOccurs="1" />
         </xsd:sequence>
         <xsd:element ref="ListaMensagemRetorno" minOccurs="1" maxOccurs="1" />
+        <xsd:element ref="ListaMensagemRetornoLote" minOccurs="1" maxOccurs="1" />
       </xsd:choice>
     </xsd:complexType>
   </xsd:element>
@@ -5166,7 +5393,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <xsd:element name="GerarNfseEnvio">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="Dps" type="TCDPS" minOccurs="1" maxOccurs="1" />      
+        <xsd:element name="DPS" type="TCDPS" minOccurs="1" maxOccurs="1" />
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -5211,7 +5438,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <xsd:element name="ConsultarLoteDpsEnvio">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
         <xsd:element name="Protocolo" type="TSDesc50" minOccurs="1" maxOccurs="1" />
       </xsd:sequence>
     </xsd:complexType>
@@ -5241,7 +5468,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <xsd:element name="ConsultarNfseFaixaEnvio">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
         <xsd:element name="Faixa" minOccurs="1" maxOccurs="1">
           <xsd:complexType>
             <xsd:sequence>
@@ -5277,7 +5504,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
     <xsd:complexType>
       <xsd:sequence>
         <xsd:element name="IdentificacaoDps" type="tcIdentificacaoDps" minOccurs="1" maxOccurs="1" />
-        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -5295,8 +5522,8 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <xsd:element name="ConsultarNfseServicoPrestadoEnvio">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
-        <xsd:choice>
+        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
+        <xsd:choice minOccurs="1" maxOccurs="1">
           <xsd:element name="NumeroNfse" type="TSNNFSe" minOccurs="1" maxOccurs="1" />
           <xsd:element name="PeriodoEmissao" minOccurs="1" maxOccurs="1">
             <xsd:complexType>
@@ -5343,7 +5570,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
     <xsd:complexType>
     <xsd:sequence>
       <xsd:element name="Consulente" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
-      <xsd:choice>
+      <xsd:choice minOccurs="1" maxOccurs="1">
         <xsd:element name="NumeroNfse" type="TSNNFSe" minOccurs="1" maxOccurs="1" />
         <xsd:element name="PeriodoEmissao" minOccurs="1" maxOccurs="1">
           <xsd:complexType>
@@ -5363,8 +5590,10 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
         </xsd:element>
       </xsd:choice>
       <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="0" maxOccurs="1" />
-      <xsd:element name="Tomador" type="tcIdentificacaoPessoaEmpresa" minOccurs="0" maxOccurs="1" />
-      <xsd:element name="Intermediario" type="tcIdentificacaoPessoaEmpresa" minOccurs="0" maxOccurs="1" />
+      <xsd:choice minOccurs="1" maxOccurs="1">
+        <xsd:element name="Tomador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+        <xsd:element name="Intermediario" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+      </xsd:choice>
       <xsd:element name="Pagina" type="TSNum7Dig" minOccurs="1" maxOccurs="1"/>
     </xsd:sequence>
     </xsd:complexType>
@@ -5390,7 +5619,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <xsd:element name="ConsultarDadosCadastraisEnvio">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
@@ -5408,7 +5637,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <xsd:element name="ConsultarDpsDisponivelEnvio">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
         <xsd:element name="IdentificacaoDps" type="tcIdentificacaoDps" minOccurs="0" maxOccurs="1" />
         <xsd:element name="Pagina" type="TSNum7Dig" minOccurs="1" maxOccurs="1"/>
       </xsd:sequence>
@@ -5421,7 +5650,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
         <xsd:element name="ListaDpsDisponivel" minOccurs="1" maxOccurs="1">
           <xsd:complexType>
             <xsd:sequence>
-              <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+              <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
               <xsd:element name="DpsDisponivel" type="tcIdentificacaoDps" minOccurs="1" maxOccurs="50" />
               <xsd:element name="Pagina" type="TSNum7Dig" minOccurs="1" maxOccurs="1" />
             </xsd:sequence>
@@ -5436,7 +5665,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <xsd:element name="ConsultarUrlNfseEnvio">
     <xsd:complexType>
     <xsd:sequence>
-      <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresa" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
       <xsd:choice>
 		  <xsd:element name="NumeroNfse" type="TSNNFSe" minOccurs="1" maxOccurs="1" />
 		  <xsd:element name="PeriodoEmissao" minOccurs="1" maxOccurs="1">

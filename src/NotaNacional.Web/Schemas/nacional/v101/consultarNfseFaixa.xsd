@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.sped.fazenda.gov.br/nfse" xmlns="http://www.sped.fazenda.gov.br/nfse" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+  
+
+<xsd:element name="ListaMensagemRetorno">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="MensagemRetorno" type="tcMensagemRetorno"
+                         minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+  <!-- Consulta de NFS-e por faixa - ConsultarNfseFaixa -->  
+  <xsd:element name="ConsultarNfseFaixaEnvio">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
+        <xsd:element name="Faixa" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="NumeroNfseInicial" type="TSNNFSe" minOccurs="1" maxOccurs="1" />
+              <xsd:element name="NumeroNfseFinal" type="TSNNFSe" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="Pagina" type="TSNum7Dig" minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+  <!-- 50 registros por página -->
+  <xsd:element name="ConsultarNfseFaixaResposta">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="ListaNfse" minOccurs="1" maxOccurs="1">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element ref="CompNfse" minOccurs="1" maxOccurs="50"/>
+              <xsd:element name="Pagina" type="TSNum7Dig" minOccurs="1" maxOccurs="1" />
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element ref="ListaMensagemRetorno" minOccurs="1" maxOccurs="1" />
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  
+</xsd:schema>

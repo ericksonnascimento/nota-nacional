@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.sped.fazenda.gov.br/nfse" xmlns="http://www.sped.fazenda.gov.br/nfse" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+  
+
+<xsd:element name="ListaMensagemRetorno">
+    <xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="MensagemRetorno" type="tcMensagemRetorno"
+                         minOccurs="1" maxOccurs="unbounded" />
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:element>
+
+  <!-- Servico Cancelamento de NFS-e - CancelarNfse -->  
+  <xsd:element name="CancelarNfseEnvio">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="pedRegEvento" type="TCPedRegEvt" minOccurs="1" maxOccurs="1" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="CancelarNfseResposta">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element name="Evento" type="TCEvento" minOccurs="1" maxOccurs="1" />
+        <xsd:element ref="ListaMensagemRetorno" minOccurs="1" maxOccurs="1" />
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  
+</xsd:schema>
