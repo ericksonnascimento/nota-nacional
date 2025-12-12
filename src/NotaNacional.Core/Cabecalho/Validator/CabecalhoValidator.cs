@@ -34,10 +34,10 @@ namespace NotaNacional.Core.Cabecalho.Validator
         {
             try
             {
-                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
-                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
-                var complexTypes = "Schemas/nacional/complexTypes.xsd";
-                var schema = "Schemas/nacional/cabecalho.xsd";
+                var signature = "Schemas/nacional/v100/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/v100/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/v100/complexTypes.xsd";
+                var schema = "Schemas/nacional/v100/cabecalho.xsd";
                 var cfg = new XmlReaderSettings() { ValidationType = ValidationType.Schema };
                 cfg.Schemas.Add(null, simpleTypes);
                 cfg.Schemas.Add(null, complexTypes);

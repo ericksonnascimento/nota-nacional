@@ -45,4 +45,10 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Schemas\nacional\v100\*.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

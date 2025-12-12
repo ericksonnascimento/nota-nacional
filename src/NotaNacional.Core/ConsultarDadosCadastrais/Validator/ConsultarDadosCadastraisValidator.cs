@@ -37,10 +37,10 @@ namespace NotaNacional.Core.ConsultarDadosCadastrais.Validator
         {
             try
             {
-                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
-                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
-                var complexTypes = "Schemas/nacional/complexTypes.xsd";
-                var ConsultarDadosCadastrais = "Schemas/nacional/consultarDadosCadastrais.xsd";
+                var signature = "Schemas/nacional/v100/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/v100/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/v100/complexTypes.xsd";
+                var ConsultarDadosCadastrais = "Schemas/nacional/v100/consultarDadosCadastrais.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema

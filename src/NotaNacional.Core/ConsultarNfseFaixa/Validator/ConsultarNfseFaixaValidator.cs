@@ -37,10 +37,10 @@ namespace NotaNacional.Core.ConsultarNfseFaixa.Validator
         {
             try
             {
-                var signature = "Schemas/nacional/xmldsig-core-schema.xsd";
-                var simpleTypes = "Schemas/nacional/simpleTypes.xsd";
-                var complexTypes = "Schemas/nacional/complexTypes.xsd";
-                var consultarNfseFaixa = "Schemas/nacional/consultarNfseFaixa.xsd";
+                var signature = "Schemas/nacional/v100/xmldsig-core-schema.xsd";
+                var simpleTypes = "Schemas/nacional/v100/simpleTypes.xsd";
+                var complexTypes = "Schemas/nacional/v100/complexTypes.xsd";
+                var consultarNfseFaixa = "Schemas/nacional/v100/consultarNfseFaixa.xsd";
                 var cfg = new XmlReaderSettings()
                 {
                     ValidationType = ValidationType.Schema
