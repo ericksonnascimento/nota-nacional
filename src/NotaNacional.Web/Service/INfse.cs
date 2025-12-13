@@ -4,7 +4,7 @@ using NotaNacional.Core.Models.Response;
 namespace NotaNacional.Web.Service
 {
 
-    [ServiceContract(Namespace = "http://nfse.abrasf.org.br")]
+    [ServiceContract(Namespace = "http://www.sped.fazenda.gov.br/nfse")]
     public interface INfse
     {
         [OperationContract(Name = "CancelarNfse")]

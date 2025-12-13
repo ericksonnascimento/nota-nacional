@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="0ae52e50-9053-44b2-9421-9e5cbed003ee" activeEnvironment="Default" name="NfseNacional" resourceRoot="" soapui-version="5.9.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="44596881-dd29-465f-afd9-e26c8eb15bdb" wsaVersion="NONE" name="nfseSOAP" type="wsdl" bindingName="{http://nfse.abrasf.org.br}nfseSOAP" soapVersion="1_1" anonymous="optional" definition="http://localhost:5245/Nfse.asmx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:5245/Nfse.asmx"><con:part><con:url>http://localhost:5245/Nfse.asmx</con:url><con:content><![CDATA[<wsdl:definitions name="nfse" targetNamespace="http://nfse.abrasf.org.br" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ws="http://nfse.abrasf.org.br" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<con:soapui-project id="0ae52e50-9053-44b2-9421-9e5cbed003ee" activeEnvironment="Default" name="NfseNacional" resourceRoot="" soapui-version="5.9.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="44596881-dd29-465f-afd9-e26c8eb15bdb" wsaVersion="NONE" name="nfseSOAP" type="wsdl" bindingName="{http://www.sped.fazenda.gov.br/nfse}nfseSOAP" soapVersion="1_1" anonymous="optional" definition="http://localhost:5245/Nfse.asmx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:5245/Nfse.asmx"><con:part><con:url>http://localhost:5245/Nfse.asmx</con:url><con:content><![CDATA[<wsdl:definitions name="nfse" targetNamespace="http://www.sped.fazenda.gov.br/nfse" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ws="http://www.sped.fazenda.gov.br/nfse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <wsdl:types>
-    <xsd:schema targetNamespace="http://nfse.abrasf.org.br">
+    <xsd:schema targetNamespace="http://www.sped.fazenda.gov.br/nfse">
       <xsd:complexType name="input">
         <xsd:sequence>
           <xsd:element name="nfseCabecMsg" type="xsd:string" minOccurs="1" maxOccurs="1"/>
@@ -176,7 +176,7 @@
   <wsdl:binding name="nfseSOAP" type="ws:nfse">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="CancelarNfse">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/CancelarNfse"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/CancelarNfse"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -185,7 +185,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarLoteDps">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarLoteDps"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarLoteDps"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -194,7 +194,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarNfseServicoPrestado">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarNfseServicoPrestado"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseServicoPrestado"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -203,7 +203,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarNfseServicoTomado">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarNfseServicoTomado"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseServicoTomado"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -212,7 +212,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarNfsePorFaixa">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarNfsePorFaixa"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarNfsePorFaixa"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -221,7 +221,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarNfseDps">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarNfseDps"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseDps"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -230,7 +230,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RecepcionarLoteDps">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/RecepcionarLoteDps"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDps"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -239,7 +239,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="GerarNfse">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/GerarNfse"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/GerarNfse"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -248,7 +248,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RecepcionarLoteDpsSincrono">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/RecepcionarLoteDpsSincrono"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDpsSincrono"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -257,7 +257,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarUrlNfse">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarUrlNfse"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarUrlNfse"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -266,7 +266,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarDadosCadastrais">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarDadosCadastrais"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarDadosCadastrais"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -275,7 +275,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarDpsDisponivel">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarDpsDisponivel"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarDpsDisponivel"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -284,7 +284,7 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ValidarXml">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ValidarXml"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ValidarXml"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -295,10 +295,10 @@
   </wsdl:binding>
   <wsdl:service name="NfseWSService">
     <wsdl:port binding="ws:nfseSOAP" name="nfseSOAP">
-      <soap:address location="Nfse.asmx"/>
+      <soap:address location="http://localhost:5245/Nfse.asmx"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>Nfse.asmx</con:endpoint></con:endpoints><con:operation id="69fe3f35-a2e0-4b93-b658-bb093fe11d9f" isOneWay="false" action="http://nfse.abrasf.org.br/CancelarNfse" name="CancelarNfse" bindingOperationName="CancelarNfse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c323d357-852f-461d-9691-575406c6aa67" name="Exemplo"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>Nfse.asmx</con:endpoint><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint></con:endpoints><con:operation id="69fe3f35-a2e0-4b93-b658-bb093fe11d9f" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/CancelarNfse" name="CancelarNfse" bindingOperationName="CancelarNfse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c323d357-852f-461d-9691-575406c6aa67" name="Exemplo"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:CancelarNfse>
@@ -347,7 +347,7 @@
          </nfseDadosMsg>
       </nfse:CancelarNfse>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/CancelarNfse"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="734426d8-6c63-4bdc-beb9-cabe1b31477b" isOneWay="false" action="http://nfse.abrasf.org.br/ConsultarDadosCadastrais" name="ConsultarDadosCadastrais" bindingOperationName="ConsultarDadosCadastrais" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b07ed07e-fba5-4aeb-8acf-cb02d18d2f61" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/CancelarNfse"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="734426d8-6c63-4bdc-beb9-cabe1b31477b" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarDadosCadastrais" name="ConsultarDadosCadastrais" bindingOperationName="ConsultarDadosCadastrais" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b07ed07e-fba5-4aeb-8acf-cb02d18d2f61" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ConsultarDadosCadastrais>
@@ -355,7 +355,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:ConsultarDadosCadastrais>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarDadosCadastrais"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="4f5cb108-84fa-445c-9e31-9b71e8b08dbc" isOneWay="false" action="http://nfse.abrasf.org.br/ConsultarDpsDisponivel" name="ConsultarDpsDisponivel" bindingOperationName="ConsultarDpsDisponivel" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="667a4e1e-efd3-4d32-9037-536bea17abe2" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarDadosCadastrais"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="4f5cb108-84fa-445c-9e31-9b71e8b08dbc" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarDpsDisponivel" name="ConsultarDpsDisponivel" bindingOperationName="ConsultarDpsDisponivel" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="667a4e1e-efd3-4d32-9037-536bea17abe2" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ConsultarDpsDisponivel>
@@ -363,7 +363,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:ConsultarDpsDisponivel>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarDpsDisponivel"/></con:call></con:operation><con:operation id="8b4405e5-2fe1-4118-a355-05396ffa8e83" isOneWay="false" action="http://nfse.abrasf.org.br/ConsultarLoteDps" name="ConsultarLoteDps" bindingOperationName="ConsultarLoteDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="60a1c3e4-1ee9-4930-8553-9062ce8f9fa5" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarDpsDisponivel"/></con:call></con:operation><con:operation id="8b4405e5-2fe1-4118-a355-05396ffa8e83" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarLoteDps" name="ConsultarLoteDps" bindingOperationName="ConsultarLoteDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="60a1c3e4-1ee9-4930-8553-9062ce8f9fa5" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ConsultarLoteDps>
@@ -371,7 +371,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:ConsultarLoteDps>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarLoteDps"/></con:call></con:operation><con:operation id="bcff58d5-2f85-4a70-9591-d54f2fb87c31" isOneWay="false" action="http://nfse.abrasf.org.br/ConsultarNfseDps" name="ConsultarNfseDps" bindingOperationName="ConsultarNfseDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="96ba0385-14bb-47a6-8e59-a6ca5185cb1e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarLoteDps"/></con:call></con:operation><con:operation id="bcff58d5-2f85-4a70-9591-d54f2fb87c31" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseDps" name="ConsultarNfseDps" bindingOperationName="ConsultarNfseDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="96ba0385-14bb-47a6-8e59-a6ca5185cb1e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ConsultarNfseDps>
@@ -379,7 +379,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:ConsultarNfseDps>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarNfseDps"/></con:call></con:operation><con:operation id="514b59dd-ccce-41aa-95e5-92d5bf200918" isOneWay="false" action="http://nfse.abrasf.org.br/ConsultarNfsePorFaixa" name="ConsultarNfsePorFaixa" bindingOperationName="ConsultarNfsePorFaixa" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="76d6cc43-7269-425a-ab09-45ad08b12b94" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarNfseDps"/></con:call></con:operation><con:operation id="514b59dd-ccce-41aa-95e5-92d5bf200918" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarNfsePorFaixa" name="ConsultarNfsePorFaixa" bindingOperationName="ConsultarNfsePorFaixa" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="76d6cc43-7269-425a-ab09-45ad08b12b94" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ConsultarNfsePorFaixa>
@@ -387,7 +387,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:ConsultarNfsePorFaixa>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarNfsePorFaixa"/></con:call></con:operation><con:operation id="921c0822-27cb-4ee6-8571-b7ad1bade62c" isOneWay="false" action="http://nfse.abrasf.org.br/ConsultarNfseServicoPrestado" name="ConsultarNfseServicoPrestado" bindingOperationName="ConsultarNfseServicoPrestado" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="74d1d55e-5dc5-46a1-a2e2-9a5c270d7337" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarNfsePorFaixa"/></con:call></con:operation><con:operation id="921c0822-27cb-4ee6-8571-b7ad1bade62c" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseServicoPrestado" name="ConsultarNfseServicoPrestado" bindingOperationName="ConsultarNfseServicoPrestado" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="74d1d55e-5dc5-46a1-a2e2-9a5c270d7337" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ConsultarNfseServicoPrestado>
@@ -395,7 +395,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:ConsultarNfseServicoPrestado>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarNfseServicoPrestado"/></con:call></con:operation><con:operation id="3a8fb39b-cbf1-42fc-8ee3-9501f28c59d1" isOneWay="false" action="http://nfse.abrasf.org.br/ConsultarNfseServicoTomado" name="ConsultarNfseServicoTomado" bindingOperationName="ConsultarNfseServicoTomado" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fcc19e2d-676b-465a-99bd-fde574feec0c" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarNfseServicoPrestado"/></con:call></con:operation><con:operation id="3a8fb39b-cbf1-42fc-8ee3-9501f28c59d1" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseServicoTomado" name="ConsultarNfseServicoTomado" bindingOperationName="ConsultarNfseServicoTomado" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fcc19e2d-676b-465a-99bd-fde574feec0c" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ConsultarNfseServicoTomado>
@@ -403,7 +403,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:ConsultarNfseServicoTomado>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarNfseServicoTomado"/></con:call></con:operation><con:operation id="40fd4f14-0e86-4f3f-90f2-dfa154c2d725" isOneWay="false" action="http://nfse.abrasf.org.br/ConsultarUrlNfse" name="ConsultarUrlNfse" bindingOperationName="ConsultarUrlNfse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a115697f-42e5-4d32-8416-b4184d7df862" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarNfseServicoTomado"/></con:call></con:operation><con:operation id="40fd4f14-0e86-4f3f-90f2-dfa154c2d725" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarUrlNfse" name="ConsultarUrlNfse" bindingOperationName="ConsultarUrlNfse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a115697f-42e5-4d32-8416-b4184d7df862" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ConsultarUrlNfse>
@@ -411,7 +411,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:ConsultarUrlNfse>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarUrlNfse"/></con:call></con:operation><con:operation id="f33c357f-5bfb-4968-bf32-84b4e857769e" isOneWay="false" action="http://nfse.abrasf.org.br/GerarNfse" name="GerarNfse" bindingOperationName="GerarNfse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ebec51f9-1c56-4ad8-961d-640ef000a851" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ConsultarUrlNfse"/></con:call></con:operation><con:operation id="f33c357f-5bfb-4968-bf32-84b4e857769e" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/GerarNfse" name="GerarNfse" bindingOperationName="GerarNfse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ebec51f9-1c56-4ad8-961d-640ef000a851" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:GerarNfse>
@@ -419,7 +419,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:GerarNfse>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/GerarNfse"/></con:call></con:operation><con:operation id="d8342367-ef10-441f-9048-6fbc1c4ecbe1" isOneWay="false" action="http://nfse.abrasf.org.br/RecepcionarLoteDps" name="RecepcionarLoteDps" bindingOperationName="RecepcionarLoteDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a8ce5b00-5152-4d0e-87a2-66673cf53795" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/GerarNfse"/></con:call></con:operation><con:operation id="d8342367-ef10-441f-9048-6fbc1c4ecbe1" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDps" name="RecepcionarLoteDps" bindingOperationName="RecepcionarLoteDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a8ce5b00-5152-4d0e-87a2-66673cf53795" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:RecepcionarLoteDps>
@@ -427,7 +427,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:RecepcionarLoteDps>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/RecepcionarLoteDps"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="025d4efd-2590-480f-99f8-d05f85dc7d18" isOneWay="false" action="http://nfse.abrasf.org.br/RecepcionarLoteDpsSincrono" name="RecepcionarLoteDpsSincrono" bindingOperationName="RecepcionarLoteDpsSincrono" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cd3d9883-e889-4e59-b92f-dcfd6e6f16aa" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/RecepcionarLoteDps"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="025d4efd-2590-480f-99f8-d05f85dc7d18" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDpsSincrono" name="RecepcionarLoteDpsSincrono" bindingOperationName="RecepcionarLoteDpsSincrono" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cd3d9883-e889-4e59-b92f-dcfd6e6f16aa" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:RecepcionarLoteDpsSincrono>
@@ -435,7 +435,7 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:RecepcionarLoteDpsSincrono>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/RecepcionarLoteDpsSincrono"/></con:call></con:operation><con:operation id="80a69272-7976-4fe1-86a4-b09315c88452" isOneWay="false" action="http://nfse.abrasf.org.br/ValidarXml" name="ValidarXml" bindingOperationName="ValidarXml" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="dd1dade6-e14f-4d74-9674-bd906b95189b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://nfse.abrasf.org.br">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/RecepcionarLoteDpsSincrono"/></con:call></con:operation><con:operation id="80a69272-7976-4fe1-86a4-b09315c88452" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ValidarXml" name="ValidarXml" bindingOperationName="ValidarXml" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="dd1dade6-e14f-4d74-9674-bd906b95189b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ValidarXml>
@@ -446,7 +446,7 @@
          </nfseCabecMsg>
          <nfseDadosMsg>
             <CancelarNfseEnvio xmlns="http://www.sped.fazenda.gov.br/nfse">
-               <pedRegEvento versao="1.00">
+               <pedRegEvento versao="1.01">
                   <infPedReg Id="PRE00000000000000000000000000000000000000000000000000000000000">
                      <tpAmb>2</tpAmb>
                      <verAplic>1.00</verAplic>
@@ -484,4 +484,4 @@
          </nfseDadosMsg>
       </nfse:ValidarXml>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/ValidarXml"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/ValidarXml"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

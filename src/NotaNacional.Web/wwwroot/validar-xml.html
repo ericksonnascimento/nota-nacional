@@ -381,15 +381,17 @@
 
             // Enviar o XML diretamente sem escape, para que o SoapCore possa parseá-lo como XML
             // O SoapCore espera receber XmlNode[], então precisamos enviar XML válido, não texto escapado
+            // Usar prefixo de namespace (nfse:) para compatibilidade com SoapCore XmlSerializer
             return `<?xml version="1.0" encoding="UTF-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <ValidarXml xmlns="http://nfse.abrasf.org.br">
-      <nfseCabecMsg>${cabecalhoLimpo}</nfseCabecMsg>
-      <nfseDadosMsg>${corpoLimpo}</nfseDadosMsg>
-    </ValidarXml>
-  </soap:Body>
-</soap:Envelope>`;
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <nfse:ValidarXml>
+         <nfseCabecMsg>${cabecalhoLimpo}</nfseCabecMsg>
+         <nfseDadosMsg>${corpoLimpo}</nfseDadosMsg>
+      </nfse:ValidarXml>
+   </soapenv:Body>
+</soapenv:Envelope>`;
         }
 
         // Função para fazer a chamada SOAP
@@ -401,7 +403,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'text/xml; charset=utf-8',
-                        'SOAPAction': 'http://nfse.abrasf.org.br/ValidarXml'
+                        'SOAPAction': 'http://www.sped.fazenda.gov.br/nfse/ValidarXml'
                     },
                     body: soapEnvelope
                 });

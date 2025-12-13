@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ws="http://nfse.abrasf.org.br" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="nfse" targetNamespace="http://nfse.abrasf.org.br">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ws="http://www.sped.fazenda.gov.br/nfse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="nfse" targetNamespace="http://www.sped.fazenda.gov.br/nfse">
   <wsdl:types>
-	<xsd:schema targetNamespace="http://nfse.abrasf.org.br">
+	<xsd:schema targetNamespace="http://www.sped.fazenda.gov.br/nfse">
 		<xsd:complexType name="input">
 			<xsd:sequence>
 				<xsd:element name="nfseCabecMsg" type="xsd:string" minOccurs="1" maxOccurs="1"/>
@@ -128,67 +128,67 @@
   <wsdl:binding name="nfseSOAP" type="ws:nfse">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="CancelarNfse">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/CancelarNfse"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/CancelarNfse"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarLoteDps">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarLoteDps"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarLoteDps"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarNfseServicoPrestado">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarNfseServicoPrestado"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseServicoPrestado"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarNfseServicoTomado">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarNfseServicoTomado"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseServicoTomado"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarNfsePorFaixa">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarNfsePorFaixa"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarNfsePorFaixa"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ConsultarNfseDps">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarNfseDps"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseDps"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RecepcionarLoteDps">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/RecepcionarLoteDps"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDps"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
    <wsdl:operation name="GerarNfse">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/GerarNfse"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/GerarNfse"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
     </wsdl:operation>
    <wsdl:operation name="RecepcionarLoteDpsSincrono">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/RecepcionarLoteDpsSincrono"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDpsSincrono"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
    </wsdl:operation>     
     <wsdl:operation name="ConsultarUrlNfse">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarUrlNfse"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarUrlNfse"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
    </wsdl:operation>    
     <wsdl:operation name="ConsultarDadosCadastrais">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarDadosCadastrais"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarDadosCadastrais"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
    </wsdl:operation>     
      <wsdl:operation name="ConsultarDpsDisponivel">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ConsultarDpsDisponivel"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ConsultarDpsDisponivel"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
    </wsdl:operation> 
      <wsdl:operation name="ValidarXml">
-      <soap:operation soapAction="http://nfse.abrasf.org.br/ValidarXml"/>
+      <soap:operation soapAction="http://www.sped.fazenda.gov.br/nfse/ValidarXml"/>
       <wsdl:input><soap:body use="literal"/></wsdl:input>
       <wsdl:output><soap:body use="literal"/></wsdl:output>
    </wsdl:operation> 
