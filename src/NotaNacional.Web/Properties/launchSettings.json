@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "Abrasf.Web": {
+    "NotaNacional.Web": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
