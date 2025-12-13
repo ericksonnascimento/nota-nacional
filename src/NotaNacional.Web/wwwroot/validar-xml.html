@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de XML - Nota Nacional</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 10px;
+        }
+
+        .instructions {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #0066cc;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .instructions p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+        }
+
+        .field-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .field-buttons button {
+            padding: 6px 12px;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            resize: vertical;
+        }
+
+        #cabecalhoXml {
+            min-height: 100px;
+        }
+
+        #corpoXml {
+            min-height: 300px;
+        }
+
+        .button-group {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        button {
+            background-color: #0066cc;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0052a3;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #resultado {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        #resultado.valido {
+            background-color: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+        }
+
+        #resultado.invalido {
+            background-color: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+        }
+
+        #resultado.erro {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            color: #856404;
+        }
+
+        .resultado-titulo {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .mensagens {
+            list-style: none;
+            padding: 0;
+        }
+
+        .mensagem {
+            padding: 10px;
+            margin: 8px 0;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 4px;
+            border-left: 4px solid;
+        }
+
+        .mensagem.codigo-S000 {
+            border-left-color: #28a745;
+        }
+
+        .mensagem.codigo-E {
+            border-left-color: #dc3545;
+        }
+
+        .codigo {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0066cc;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Validador de XML - Nota Nacional</h1>
+        
+        <div class="instructions">
+            <p><strong>1.</strong> Cole no quadro abaixo o conteúdo do arquivo XML a ser validado.</p>
+            <p><strong>2.</strong> Após inserir o conteúdo, clique em "Validar XML" para iniciar o processo de validação.</p>
+            <p><strong>3.</strong> Confira o resultado da validação abaixo, e a lista de erros encontrados.</p>
+            <p><strong>Nota:</strong> Esta ferramenta avalia a estrutura do texto usando o XSD e autenticidade das assinaturas caso houver.</p>
+        </div>
+        
+        <form id="validationForm">
+            <div class="form-group">
+                <div class="form-group-header">
+                    <label for="cabecalhoXml">Cabeçalho XML (webservice)</label>
+                    <div class="field-buttons">
+                        <button type="button" class="btn-formatar" data-field="cabecalhoXml">Formatar XML</button>
+                        <button type="button" class="btn-limpar-campo" data-field="cabecalhoXml">Limpar</button>
+                    </div>
+                </div>
+                <textarea id="cabecalhoXml" name="cabecalhoXml" placeholder='<cabecalho versao="1.00" xmlns="http://www.abrasf.org.br/nfse.xsd"><versaoDados>1.00</versaoDados></cabecalho>'></textarea>
+            </div>
+            
+            <div class="form-group">
+                <div class="form-group-header">
+                    <label for="corpoXml">Corpo XML</label>
+                    <div class="field-buttons">
+                        <button type="button" class="btn-formatar" data-field="corpoXml">Formatar XML</button>
+                        <button type="button" class="btn-limpar-campo" data-field="corpoXml">Limpar</button>
+                    </div>
+                </div>
+                <textarea id="corpoXml" name="corpoXml" placeholder="Cole aqui o XML do corpo da mensagem..."></textarea>
+            </div>
+            
+            <div class="button-group">
+                <button type="submit" id="btnValidar">Validar XML</button>
+                <button type="button" id="btnLimpar">Limpar Tudo</button>
+            </div>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px;">Validando XML...</p>
+        </div>
+        
+        <div id="resultado">
+            <div class="resultado-titulo" id="resultadoTitulo"></div>
+            <ul class="mensagens" id="listaMensagens"></ul>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('validationForm');
+        const btnValidar = document.getElementById('btnValidar');
+        const btnLimpar = document.getElementById('btnLimpar');
+        const loading = document.getElementById('loading');
+        const resultado = document.getElementById('resultado');
+        const resultadoTitulo = document.getElementById('resultadoTitulo');
+        const listaMensagens = document.getElementById('listaMensagens');
+
+        // Função para formatar/indentar XML
+        function formatarXml(xmlString) {
+            try {
+                // Remover espaços em branco extras e quebras de linha
+                const xml = xmlString.trim().replace(/>\s+</g, '><');
+                
+                // Criar um parser para validar e formatar
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xml, 'text/xml');
+                
+                // Verificar se há erros de parsing
+                const parserError = xmlDoc.getElementsByTagName('parsererror');
+                if (parserError.length > 0) {
+                    const errorText = parserError[0].textContent || 'XML inválido';
+                    throw new Error('XML inválido: ' + errorText.substring(0, 100));
+                }
+                
+                // Função recursiva para formatar o XML
+                function formatNode(node, indent = '') {
+                    let formatted = '';
+                    const indentSize = '  '; // 2 espaços por nível
+                    const newIndent = indent + indentSize;
+                    
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        // Abrir tag
+                        formatted += indent + '<' + node.nodeName;
+                        
+                        // Adicionar atributos
+                        if (node.attributes && node.attributes.length > 0) {
+                            for (let i = 0; i < node.attributes.length; i++) {
+                                const attr = node.attributes[i];
+                                formatted += ' ' + attr.name + '="' + 
+                                    attr.value.replace(/"/g, '&quot;') + '"';
+                            }
+                        }
+                        
+                        // Verificar se tem filhos (elementos ou texto não vazio)
+                        const childElements = Array.from(node.childNodes).filter(n => 
+                            n.nodeType === Node.ELEMENT_NODE
+                        );
+                        const textNodes = Array.from(node.childNodes).filter(n => 
+                            n.nodeType === Node.TEXT_NODE && n.textContent.trim().length > 0
+                        );
+                        const hasChildren = childElements.length > 0 || textNodes.length > 0;
+                        
+                        if (hasChildren) {
+                            formatted += '>\n';
+                            
+                            // Processar filhos
+                            for (let i = 0; i < node.childNodes.length; i++) {
+                                const child = node.childNodes[i];
+                                if (child.nodeType === Node.ELEMENT_NODE) {
+                                    formatted += formatNode(child, newIndent);
+                                } else if (child.nodeType === Node.TEXT_NODE) {
+                                    const text = child.textContent.trim();
+                                    if (text.length > 0) {
+                                        // Se há elementos filhos, colocar texto em nova linha
+                                        if (childElements.length > 0) {
+                                            formatted += newIndent + text + '\n';
+                                        } else {
+                                            // Se só tem texto, manter inline
+                                            formatted = formatted.replace('>\n', '>');
+                                            formatted += text;
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            // Se tinha elementos filhos, fechar em nova linha
+                            if (childElements.length > 0) {
+                                formatted += indent + '</' + node.nodeName + '>\n';
+                            } else {
+                                formatted += '</' + node.nodeName + '>\n';
+                            }
+                        } else {
+                            formatted += '/>\n';
+                        }
+                    }
+                    
+                    return formatted;
+                }
+                
+                // Formatar o documento
+                let formattedXml = '';
+                
+                // Verificar se tem declaração XML
+                if (xml.trim().startsWith('<?xml')) {
+                    formattedXml += '<?xml version="1.0" encoding="UTF-8"?>\n';
+                }
+                
+                if (xmlDoc.documentElement) {
+                    formattedXml += formatNode(xmlDoc.documentElement);
+                }
+                
+                return formattedXml.trim();
+            } catch (error) {
+                throw new Error('Erro ao formatar XML: ' + error.message);
+            }
+        }
+
+        // Função para limpar um campo específico
+        function limparCampo(fieldId) {
+            const campo = document.getElementById(fieldId);
+            if (campo) {
+                campo.value = '';
+                campo.focus();
+            }
+        }
+
+        // Função para construir o envelope SOAP
+        // Envia o XML diretamente dentro dos elementos para que o SoapCore possa deserializar como XmlNode[]
+        function buildSoapEnvelope(cabecalhoXml, corpoXml) {
+            const cabecalhoLimpo = cabecalhoXml.trim();
+            const corpoLimpo = corpoXml.trim();
+
+            // Enviar o XML diretamente sem escape, para que o SoapCore possa parseá-lo como XML
+            // O SoapCore espera receber XmlNode[], então precisamos enviar XML válido, não texto escapado
+            return `<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <ValidarXml xmlns="http://nfse.abrasf.org.br">
+      <nfseCabecMsg>${cabecalhoLimpo}</nfseCabecMsg>
+      <nfseDadosMsg>${corpoLimpo}</nfseDadosMsg>
+    </ValidarXml>
+  </soap:Body>
+</soap:Envelope>`;
+        }
+
+        // Função para fazer a chamada SOAP
+        async function validarXml(cabecalhoXml, corpoXml) {
+            const soapEnvelope = buildSoapEnvelope(cabecalhoXml, corpoXml);
+            console.log(soapEnvelope);
+            try {
+                const response = await fetch('/Nfse.asmx', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/xml; charset=utf-8',
+                        'SOAPAction': 'http://nfse.abrasf.org.br/ValidarXml'
+                    },
+                    body: soapEnvelope
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status} ${response.statusText}`);
+                }
+
+                const responseText = await response.text();
+                return parseSoapResponse(responseText);
+            } catch (error) {
+                throw new Error(`Erro ao validar XML: ${error.message}`);
+            }
+        }
+
+        // Função para parsear a resposta SOAP
+        function parseSoapResponse(soapResponse) {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(soapResponse, 'text/xml');
+            
+            // Verificar se há erro SOAP
+            const fault = xmlDoc.getElementsByTagNameNS('http://schemas.xmlsoap.org/soap/envelope/', 'Fault');
+            if (fault.length > 0) {
+                const faultString = xmlDoc.getElementsByTagNameNS('http://schemas.xmlsoap.org/soap/envelope/', 'faultstring')[0];
+                const faultCode = xmlDoc.getElementsByTagNameNS('http://schemas.xmlsoap.org/soap/envelope/', 'faultcode')[0];
+                throw new Error(faultString ? faultString.textContent : (faultCode ? faultCode.textContent : 'Erro SOAP desconhecido'));
+            }
+
+            // Verificar erro de parsing XML
+            const parserError = xmlDoc.getElementsByTagName('parsererror');
+            if (parserError.length > 0) {
+                throw new Error('Erro ao processar resposta XML do servidor');
+            }
+
+            const mensagens = [];
+            const namespaceNfse = 'http://www.sped.fazenda.gov.br/nfse';
+            
+            // Tentar múltiplas formas de encontrar as mensagens
+            // 1. Procurar dentro do Body SOAP com namespace
+            let mensagemNodes = xmlDoc.getElementsByTagNameNS(namespaceNfse, 'MensagemRetorno');
+            
+            // 2. Se não encontrou, procurar sem namespace (pode estar no Body)
+            if (mensagemNodes.length === 0) {
+                mensagemNodes = xmlDoc.getElementsByTagName('MensagemRetorno');
+            }
+            
+            // 3. Se ainda não encontrou, procurar dentro de ValidarXmlResposta
+            if (mensagemNodes.length === 0) {
+                const respostaNodes = xmlDoc.getElementsByTagNameNS(namespaceNfse, 'ValidarXmlResposta');
+                if (respostaNodes.length > 0) {
+                    mensagemNodes = respostaNodes[0].getElementsByTagNameNS(namespaceNfse, 'MensagemRetorno');
+                }
+            }
+            
+            // 4. Última tentativa: procurar em qualquer lugar
+            if (mensagemNodes.length === 0) {
+                const allNodes = xmlDoc.getElementsByTagName('*');
+                for (let i = 0; i < allNodes.length; i++) {
+                    if (allNodes[i].localName === 'MensagemRetorno' || allNodes[i].nodeName === 'MensagemRetorno') {
+                        mensagemNodes = [allNodes[i]];
+                        break;
+                    }
+                }
+            }
+
+            // Extrair mensagens
+            for (let i = 0; i < mensagemNodes.length; i++) {
+                const node = mensagemNodes[i];
+                
+                // Tentar encontrar Codigo e Mensagem com namespace
+                let codigo = node.getElementsByTagNameNS(namespaceNfse, 'Codigo')[0]?.textContent || '';
+                let mensagem = node.getElementsByTagNameNS(namespaceNfse, 'Mensagem')[0]?.textContent || '';
+                
+                // Se não encontrou com namespace, tentar sem namespace
+                if (!codigo) {
+                    codigo = node.getElementsByTagName('Codigo')[0]?.textContent || '';
+                }
+                if (!mensagem) {
+                    mensagem = node.getElementsByTagName('Mensagem')[0]?.textContent || '';
+                }
+                
+                // Se ainda não encontrou, procurar em elementos filhos diretos
+                if (!codigo || !mensagem) {
+                    const children = node.children || node.childNodes;
+                    for (let j = 0; j < children.length; j++) {
+                        const child = children[j];
+                        const tagName = child.localName || child.nodeName;
+                        if (tagName === 'Codigo' && !codigo) {
+                            codigo = child.textContent || '';
+                        }
+                        if (tagName === 'Mensagem' && !mensagem) {
+                            mensagem = child.textContent || '';
+                        }
+                    }
+                }
+                
+                if (codigo || mensagem) {
+                    mensagens.push({ codigo: codigo.trim(), mensagem: mensagem.trim() });
+                }
+            }
+
+            return mensagens;
+        }
+
+        // Função para exibir resultados
+        function exibirResultado(mensagens) {
+            listaMensagens.innerHTML = '';
+            
+            if (mensagens.length === 0) {
+                resultado.className = 'erro';
+                resultadoTitulo.textContent = 'Erro na validação';
+                const li = document.createElement('li');
+                li.className = 'mensagem';
+                li.innerHTML = '<span class="codigo">ERRO</span>Nenhuma mensagem retornada pelo servidor.';
+                listaMensagens.appendChild(li);
+                resultado.style.display = 'block';
+                return;
+            }
+
+            // Verificar se há erros (códigos que começam com 'E') ou apenas sucesso (S000)
+            const temErros = mensagens.some(m => m.codigo && m.codigo.startsWith('E'));
+            const apenasSucesso = mensagens.length === 1 && mensagens[0].codigo === 'S000';
+
+            if (apenasSucesso) {
+                resultado.className = 'valido';
+                resultadoTitulo.textContent = 'XML válido';
+            } else if (temErros) {
+                resultado.className = 'invalido';
+                resultadoTitulo.textContent = 'XML inválido';
+            } else {
+                resultado.className = 'valido';
+                resultadoTitulo.textContent = 'Validação concluída';
+            }
+
+            mensagens.forEach(msg => {
+                const li = document.createElement('li');
+                const classeCodigo = msg.codigo ? `codigo-${msg.codigo.charAt(0)}` : '';
+                li.className = `mensagem ${classeCodigo}`;
+                li.innerHTML = `<span class="codigo">${msg.codigo || 'N/A'}</span>${msg.mensagem || 'Sem mensagem'}`;
+                listaMensagens.appendChild(li);
+            });
+
+            resultado.style.display = 'block';
+            resultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Event listener para o formulário
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const cabecalhoXml = document.getElementById('cabecalhoXml').value.trim();
+            const corpoXml = document.getElementById('corpoXml').value.trim();
+
+            if (!cabecalhoXml || !corpoXml) {
+                alert('Por favor, preencha ambos os campos (Cabeçalho XML e Corpo XML).');
+                return;
+            }
+
+            // Mostrar loading e desabilitar botão
+            loading.classList.add('active');
+            resultado.style.display = 'none';
+            btnValidar.disabled = true;
+
+            try {
+                const mensagens = await validarXml(cabecalhoXml, corpoXml);
+                exibirResultado(mensagens);
+            } catch (error) {
+                resultado.className = 'erro';
+                resultadoTitulo.textContent = 'Erro na validação';
+                listaMensagens.innerHTML = '';
+                const li = document.createElement('li');
+                li.className = 'mensagem';
+                li.innerHTML = `<span class="codigo">ERRO</span>${error.message}`;
+                listaMensagens.appendChild(li);
+                resultado.style.display = 'block';
+            } finally {
+                loading.classList.remove('active');
+                btnValidar.disabled = false;
+            }
+        });
+
+        // Event listeners para botões de limpar campos individuais
+        document.querySelectorAll('.btn-limpar-campo').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const fieldId = btn.getAttribute('data-field');
+                limparCampo(fieldId);
+            });
+        });
+
+        // Event listeners para botões de formatar XML
+        document.querySelectorAll('.btn-formatar').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const fieldId = btn.getAttribute('data-field');
+                const campo = document.getElementById(fieldId);
+                
+                if (!campo || !campo.value.trim()) {
+                    alert('O campo está vazio. Não há XML para formatar.');
+                    return;
+                }
+                
+                try {
+                    const xmlFormatado = formatarXml(campo.value);
+                    campo.value = xmlFormatado;
+                    campo.focus();
+                } catch (error) {
+                    alert(error.message);
+                }
+            });
+        });
+
+        // Event listener para limpar tudo
+        btnLimpar.addEventListener('click', () => {
+            document.getElementById('cabecalhoXml').value = '';
+            document.getElementById('corpoXml').value = '';
+            resultado.style.display = 'none';
+            listaMensagens.innerHTML = '';
+        });
+    </script>
+</body>
+</html>
