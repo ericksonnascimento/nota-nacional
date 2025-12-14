@@ -394,12 +394,29 @@
 </soapenv:Envelope>`;
         }
 
+        // Variável global para armazenar a URL do serviço
+        let nfseServiceUrl = '/Nfse.asmx'; // Valor padrão para desenvolvimento
+
+        // Função para obter a URL do serviço baseado no ambiente
+        async function obterUrlServico() {
+            try {
+                const response = await fetch('/api/nfse-service-url');
+                if (response.ok) {
+                    const data = await response.json();
+                    nfseServiceUrl = data.url;
+                }
+            } catch (error) {
+                console.warn('Não foi possível obter a URL do serviço, usando padrão:', error);
+                // Mantém o valor padrão em caso de erro
+            }
+        }
+
         // Função para fazer a chamada SOAP
         async function validarXml(cabecalhoXml, corpoXml) {
             const soapEnvelope = buildSoapEnvelope(cabecalhoXml, corpoXml);
             console.log(soapEnvelope);
             try {
-                const response = await fetch('/Nfse.asmx', {
+                const response = await fetch(nfseServiceUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'text/xml; charset=utf-8',
@@ -550,6 +567,9 @@
             resultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
+        // Carregar a URL do serviço quando a página carregar
+        obterUrlServico();
+
         // Event listener para o formulário
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -561,6 +581,9 @@
                 alert('Por favor, preencha ambos os campos (Cabeçalho XML e Corpo XML).');
                 return;
             }
+
+            // Garantir que a URL do serviço está atualizada
+            await obterUrlServico();
 
             // Mostrar loading e desabilitar botão
             loading.classList.add('active');

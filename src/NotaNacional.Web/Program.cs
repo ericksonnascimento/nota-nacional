@@ -23,6 +23,20 @@ if (app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseRouting();
 
+// Endpoint para retornar a URL do serviço SOAP baseado no ambiente
+app.MapGet("/api/nfse-service-url", () =>
+{
+    var baseUrl = app.Configuration["NfseService:BaseUrl"];
+    
+    // Se não estiver configurado ou estiver em desenvolvimento, usar URL relativa
+    if (string.IsNullOrEmpty(baseUrl) || app.Environment.IsDevelopment())
+    {
+        return Results.Ok(new { url = "/Nfse.asmx" });
+    }
+    
+    return Results.Ok(new { url = $"{baseUrl}/nfse.asmx" });
+});
+
 var encoder = new SoapEncoderOptions()
 {
     MessageVersion = MessageVersion.Soap11,
