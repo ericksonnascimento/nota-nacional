@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
+using System.IO;
 using NotaNacional.Core.Helpers;
 
 namespace NotaNacional.Core.Base.Validator
@@ -155,6 +156,45 @@ namespace NotaNacional.Core.Base.Validator
         }
 
         /// <summary>
+        /// Indica se deve incluir o schema complexTypes.xsd na validação
+        /// Por padrão retorna true, mas pode ser sobrescrito para retornar false quando há conflito de definições
+        /// </summary>
+        protected virtual bool ShouldIncludeComplexTypes()
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Obtém o caminho base onde os schemas estão localizados
+        /// </summary>
+        protected virtual string GetSchemaBasePath()
+        {
+            // Tenta encontrar o diretório de execução da aplicação
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory ?? AppContext.BaseDirectory ?? Directory.GetCurrentDirectory();
+            
+            // Procura pelo diretório Schemas a partir do diretório base
+            var schemaPath = Path.Combine(baseDirectory, "Schemas");
+            if (Directory.Exists(schemaPath))
+            {
+                return schemaPath;
+            }
+            
+            // Se não encontrar, tenta subir um nível (para projetos de teste ou desenvolvimento)
+            var parentDir = Directory.GetParent(baseDirectory)?.FullName;
+            if (parentDir != null)
+            {
+                schemaPath = Path.Combine(parentDir, "Schemas");
+                if (Directory.Exists(schemaPath))
+                {
+                    return schemaPath;
+                }
+            }
+            
+            // Fallback: retorna o diretório base
+            return baseDirectory;
+        }
+
+        /// <summary>
         /// Valida o schema XML, opcionalmente capturando detalhes dos erros
         /// </summary>
         /// <param name="xml">XML para validar</param>
@@ -167,22 +207,59 @@ namespace NotaNacional.Core.Base.Validator
             
             try
             {
-                var basePath = $"Schemas/nacional/{schemaVersion}";
-                var signature = $"{basePath}/xmldsig-core-schema.xsd";
-                var simpleTypes = $"{basePath}/simpleTypes.xsd";
-                var complexTypes = $"{basePath}/complexTypes.xsd";
-                var schema = $"{basePath}/{SchemaFileName}";
+                var schemaBasePath = GetSchemaBasePath();
+                var basePath = Path.Combine(schemaBasePath, "nacional", schemaVersion);
+                var signature = Path.Combine(basePath, "xmldsig-core-schema.xsd");
+                var simpleTypes = Path.Combine(basePath, "simpleTypes.xsd");
+                var schema = Path.Combine(basePath, SchemaFileName);
+                
+                // Verificar se os arquivos existem
+                if (!File.Exists(simpleTypes))
+                {
+                    throw new FileNotFoundException($"Schema não encontrado: {simpleTypes}");
+                }
+                if (!File.Exists(schema))
+                {
+                    throw new FileNotFoundException($"Schema não encontrado: {schema}");
+                }
+                if (!File.Exists(signature))
+                {
+                    throw new FileNotFoundException($"Schema não encontrado: {signature}");
+                }
                 
                 var cfg = new XmlReaderSettings() 
                 { 
                     ValidationType = ValidationType.Schema 
                 };
                 
-                cfg.Schemas.Add(null, simpleTypes);
-                cfg.Schemas.Add(null, complexTypes);
-                cfg.Schemas.Add(null, schema);
-                cfg.Schemas.Add(null, signature);
-                cfg.Schemas.XmlResolver = new XmlUrlResolver();
+                // Criar um resolver customizado que resolve caminhos relativos corretamente
+                var resolver = new SchemaPathResolver(basePath);
+                cfg.Schemas.XmlResolver = resolver;
+                
+                // Converter para caminhos absolutos e adicionar os schemas
+                // A ordem importa: primeiro os schemas de dependência, depois o schema principal
+                var simpleTypesUri = new Uri(Path.GetFullPath(simpleTypes));
+                var signatureUri = new Uri(Path.GetFullPath(signature));
+                var schemaUri = new Uri(Path.GetFullPath(schema));
+                
+                // Adicionar schemas na ordem correta (dependências primeiro)
+                // Usar null como namespace para que seja determinado pelo próprio schema
+                cfg.Schemas.Add(null, simpleTypesUri.ToString());
+                
+                // Adicionar complexTypes apenas se necessário (evita conflitos de definições duplicadas)
+                if (ShouldIncludeComplexTypes())
+                {
+                    var complexTypes = Path.Combine(basePath, "complexTypes.xsd");
+                    if (!File.Exists(complexTypes))
+                    {
+                        throw new FileNotFoundException($"Schema não encontrado: {complexTypes}");
+                    }
+                    var complexTypesUri = new Uri(Path.GetFullPath(complexTypes));
+                    cfg.Schemas.Add(null, complexTypesUri.ToString());
+                }
+                
+                cfg.Schemas.Add(null, signatureUri.ToString());
+                cfg.Schemas.Add(null, schemaUri.ToString());
                 
                 // Se precisamos capturar detalhes, configurar o ValidationEventHandler
                 if (captureErrorDetails)
@@ -240,6 +317,83 @@ namespace NotaNacional.Core.Base.Validator
                 }
                 return false;
             }
+        }
+    }
+
+    /// <summary>
+    /// Resolver customizado para resolver caminhos de schemas relativos
+    /// </summary>
+    internal class SchemaPathResolver : XmlUrlResolver
+    {
+        private readonly string _basePath;
+
+        public SchemaPathResolver(string basePath)
+        {
+            _basePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
+        }
+
+        public override object? GetEntity(Uri absoluteUri, string? role, Type? ofObjectToReturn)
+        {
+            try
+            {
+                // Se for um caminho de arquivo local, garantir que está resolvido corretamente
+                if (absoluteUri.IsFile)
+                {
+                    var localPath = absoluteUri.LocalPath;
+                    if (File.Exists(localPath))
+                    {
+                        return base.GetEntity(absoluteUri, role, ofObjectToReturn);
+                    }
+                }
+
+                return base.GetEntity(absoluteUri, role, ofObjectToReturn);
+            }
+            catch
+            {
+                // Se falhar, tentar resolver em relação ao basePath
+                var fileName = Path.GetFileName(absoluteUri.ToString());
+                if (!string.IsNullOrEmpty(fileName))
+                {
+                    var resolvedPath = Path.Combine(_basePath, fileName);
+                    if (File.Exists(resolvedPath))
+                    {
+                        var resolvedUri = new Uri(Path.GetFullPath(resolvedPath));
+                        return base.GetEntity(resolvedUri, role, ofObjectToReturn);
+                    }
+                }
+                throw;
+            }
+        }
+
+        public override Uri ResolveUri(Uri? baseUri, string? relativeUri)
+        {
+            if (string.IsNullOrEmpty(relativeUri))
+            {
+                return base.ResolveUri(baseUri, relativeUri);
+            }
+
+            // Se há um baseUri, usar o diretório dele como base
+            if (baseUri != null && baseUri.IsFile)
+            {
+                var baseDir = Path.GetDirectoryName(baseUri.LocalPath);
+                if (!string.IsNullOrEmpty(baseDir))
+                {
+                    var resolvedPath = Path.Combine(baseDir, relativeUri);
+                    if (File.Exists(resolvedPath))
+                    {
+                        return new Uri(Path.GetFullPath(resolvedPath));
+                    }
+                }
+            }
+
+            // Se não há baseUri ou não encontrou, tentar resolver em relação ao basePath
+            var resolvedPathFromBase = Path.Combine(_basePath, relativeUri);
+            if (File.Exists(resolvedPathFromBase))
+            {
+                return new Uri(Path.GetFullPath(resolvedPathFromBase));
+            }
+
+            return base.ResolveUri(baseUri, relativeUri);
         }
     }
 }
