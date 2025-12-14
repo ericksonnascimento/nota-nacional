@@ -1,9 +1,15 @@
+@page
+@model NotaNacional.Web.Pages.ValidarXmlModel
+@{
+    ViewData["Title"] = "Validador de XML - Nota Nacional";
+}
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validador de XML - Nota Nacional</title>
+    <title>@ViewData["Title"]</title>
     <style>
         * {
             margin: 0;
@@ -198,7 +204,7 @@
             margin: 0 auto;
         }
 
-        @keyframes spin {
+        @@keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
@@ -263,6 +269,9 @@
         const resultado = document.getElementById('resultado');
         const resultadoTitulo = document.getElementById('resultadoTitulo');
         const listaMensagens = document.getElementById('listaMensagens');
+
+        // URL do serviço injetada diretamente do Model
+        const nfseServiceUrl = @Html.Raw(Json.Serialize(Model.NfseServiceUrl));
 
         // Função para formatar/indentar XML
         function formatarXml(xmlString) {
@@ -394,27 +403,10 @@
 </soapenv:Envelope>`;
         }
 
-        // Variável global para armazenar a URL do serviço
-        let nfseServiceUrl = '/Nfse.asmx'; // Valor padrão para desenvolvimento
-
-        // Função para obter a URL do serviço baseado no ambiente
-        async function obterUrlServico() {
-            try {
-                const response = await fetch('/api/nfse-service-url');
-                if (response.ok) {
-                    const data = await response.json();
-                    nfseServiceUrl = data.url;
-                }
-            } catch (error) {
-                console.warn('Não foi possível obter a URL do serviço, usando padrão:', error);
-                // Mantém o valor padrão em caso de erro
-            }
-        }
-
         // Função para fazer a chamada SOAP
         async function validarXml(cabecalhoXml, corpoXml) {
             const soapEnvelope = buildSoapEnvelope(cabecalhoXml, corpoXml);
-            console.log(soapEnvelope);
+            
             try {
                 const response = await fetch(nfseServiceUrl, {
                     method: 'POST',
@@ -567,9 +559,6 @@
             resultado.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        // Carregar a URL do serviço quando a página carregar
-        obterUrlServico();
-
         // Event listener para o formulário
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -581,9 +570,6 @@
                 alert('Por favor, preencha ambos os campos (Cabeçalho XML e Corpo XML).');
                 return;
             }
-
-            // Garantir que a URL do serviço está atualizada
-            await obterUrlServico();
 
             // Mostrar loading e desabilitar botão
             loading.classList.add('active');
