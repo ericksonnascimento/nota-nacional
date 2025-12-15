@@ -435,13 +435,13 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:RecepcionarLoteDpsSincrono>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/RecepcionarLoteDpsSincrono"/></con:call></con:operation><con:operation id="80a69272-7976-4fe1-86a4-b09315c88452" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ValidarXml" name="ValidarXml" bindingOperationName="ValidarXml" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="dd1dade6-e14f-4d74-9674-bd906b95189b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://nfse.abrasf.org.br/RecepcionarLoteDpsSincrono"/></con:call></con:operation><con:operation id="80a69272-7976-4fe1-86a4-b09315c88452" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ValidarXml" name="ValidarXml" bindingOperationName="ValidarXml" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="dd1dade6-e14f-4d74-9674-bd906b95189b" name="CancelarNfse_Sucesso"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ValidarXml>
          <nfseCabecMsg>
-            <cabecalho versao="1.00" xmlns="http://www.abrasf.org.br/nfse.xsd">
-               <versaoDados>1.00</versaoDados>
+            <cabecalho versao="1.01" xmlns="http://www.abrasf.org.br/nfse.xsd">
+               <versaoDados>1.01</versaoDados>
             </cabecalho>
          </nfseCabecMsg>
          <nfseDadosMsg>

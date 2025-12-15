@@ -207,7 +207,8 @@ namespace NotaNacional.Core.Base.Validator
             try
             {
                 var schemaBasePath = GetSchemaBasePath();
-                var basePath = Path.Combine(schemaBasePath, "nacional", schemaVersion);
+                // Todos os schemas estão agora diretamente em Schemas/nacional/
+                var basePath = Path.Combine(schemaBasePath, "nacional");
                 var mainSchema = Path.Combine(basePath, GetMainSchemaFileName(schemaVersion));
                 
                 // Verificar se o schema principal existe
@@ -222,6 +223,7 @@ namespace NotaNacional.Core.Base.Validator
                 };
                 
                 // Criar um resolver customizado que resolve caminhos relativos corretamente
+                // O resolver usa a pasta nacional como base para resolver imports relativos (ex: xmldsig-core-schema.xsd)
                 var resolver = new SchemaPathResolver(basePath);
                 cfg.Schemas.XmlResolver = resolver;
                 
