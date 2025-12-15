@@ -159,10 +159,9 @@
   </xsd:simpleType>
   <xsd:simpleType name="TSSerieDPS">
     <xsd:restriction base="xsd:string">
-      <xsd:whiteSpace value="preserve"/>
-      <xsd:minLength value="1"/>
       <xsd:maxLength value="5"/>
-      <xsd:pattern value="[0-9]{1,5}"/>
+      <xsd:pattern value="^(?!0{1,5}$)\d{1,5}$"/>
+      <xsd:whiteSpace value="preserve"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="TSEmitenteDPS">
@@ -376,6 +375,7 @@
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
       <xsd:whiteSpace value="preserve"/>
+      <xsd:minLength value="11"/>
       <xsd:maxLength value="11"/>
       <xsd:pattern value="[0-9]{11}"/>
     </xsd:restriction>
@@ -566,11 +566,10 @@
     <xsd:annotation>
       <xsd:documentation>Código de tributação municipal do ISSQN</xsd:documentation>
     </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:whiteSpace value="preserve"/>
-      <xsd:pattern value="[0-9]{10}"/>
+    <xsd:restriction base="xsd:int">
+      <xsd:totalDigits value="10"/>
     </xsd:restriction>
-  </xsd:simpleType>
+  </xsd:simpleType>  
   <xsd:simpleType name="TSCodMoeda">
     <xsd:annotation>
       <xsd:documentation>Tipo com código que identifica a moeda conforme tabela do BACEN</xsd:documentation>
@@ -612,7 +611,7 @@
         4 - Matriz;
         5 - Filial ou sucursal;
         6 - Outro vínculo;
-        <!--9 - Desconhecido.-->
+        9 - Desconhecido.
       </xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
@@ -624,7 +623,7 @@
       <xsd:enumeration value="4"/>
       <xsd:enumeration value="5"/>
       <xsd:enumeration value="6"/>
-      <!--<xsd:enumeration value="9"/>-->
+      <xsd:enumeration value="9"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="TSMecAFComExPrest">
@@ -1767,6 +1766,22 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
       <xsd:whiteSpace value="collapse" />
     </xsd:restriction>
   </xsd:simpleType>
+  <xsd:simpleType name="TSNumLote">
+    <xsd:annotation>
+      <xsd:documentation>Número identificador do Lote de Envio</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:totalDigits value="15"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TSQuantidadeDps">
+    <xsd:annotation>
+      <xsd:documentation>Quantidade de Dps no Lote</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:int">
+      <xsd:totalDigits value="3"/>
+    </xsd:restriction>
+  </xsd:simpleType>
   <!--
   <xsd:simpleType name="TSCodNCM">
     <xsd:restriction base="xsd:string">
@@ -2312,7 +2327,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:documentation>Indicador da finalidade da emissão de NFS-e</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="indFinal" type="TSRTCIndFinal" minOccurs="1" maxOccurs="1">
+      <xsd:element name="indFinal" type="TSRTCIndFinal" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Indica operação de uso ou consumo pessoal (art. 57)</xsd:documentation>
         </xsd:annotation>
@@ -2987,6 +3002,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
     </xsd:sequence>
   </xsd:complexType>
   <!--TIPO COMPLEXO PARA INFORMAÇÕES DE LOCAÇÃO, SUBLOCAÇÃO, ARRENDAMENTO, DIRETO DE PASSAGEM OU PERMISSÃO DE USO-->
+  <!--
   <xsd:complexType name="TCLocacaoSublocacao">
     <xsd:sequence>
       <xsd:element name="categ" type="TSCategoriaServico" minOccurs="1" maxOccurs="1">
@@ -3011,6 +3027,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
+  -->
   <!--TIPO COMPLEXO PARA INFORMAÇÕES DE PEDÁGIO-->
   <!--
   <xsd:complexType name="TCExploracaoRodoviaria">
@@ -3254,11 +3271,13 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           <xsd:documentation>Grupo de informações relativas à exportação/importação de serviço prestado</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+	  <!--
       <xsd:element name="lsadppu" type="TCLocacaoSublocacao" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Grupo de informações relativas a atividades de Locação, sublocação, arrendamento, direito de passagem ou permissão de uso, compartilhado ou não, de ferrovia, rodovia, postes, cabos, dutos e condutos de qualquer natureza</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+	  -->
       <xsd:element name="obra" type="TCInfoObra" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Grupo de informações do DPS relativas à serviço de obra</xsd:documentation>
@@ -5137,9 +5156,9 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   
   <xsd:complexType name="tcLoteDps">
     <xsd:sequence>
-      <xsd:element name="NumeroLote" type="TSNum15Dig" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="NumeroLote" type="TSNumLote" minOccurs="1" maxOccurs="1" />
       <xsd:element name="Prestador" type="tcIdentificacaoPessoaEmpresaComIM" minOccurs="1" maxOccurs="1" />
-      <xsd:element name="QuantidadeDps" type="TSNum3Dig" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="QuantidadeDps" type="TSQuantidadeDps" minOccurs="1" maxOccurs="1" />
       <xsd:element name="ListaDps" minOccurs="1" maxOccurs="1">
         <xsd:complexType>
           <xsd:sequence>
@@ -5337,7 +5356,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
     <xsd:complexType>
       <xsd:choice>
         <xsd:sequence>
-          <xsd:element name="NumeroLote" type="TSNum15Dig" minOccurs="1" maxOccurs="1" />
+          <xsd:element name="NumeroLote" type="TSNumLote" minOccurs="1" maxOccurs="1" />
           <xsd:element name="DataRecebimento" type="xsd:dateTime" minOccurs="1" maxOccurs="1" />
           <xsd:element name="Protocolo" type="TSDesc50" minOccurs="1" maxOccurs="1" />
         </xsd:sequence>
@@ -5369,7 +5388,7 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
   <xsd:element name="EnviarLoteDpsSincronoResposta">
     <xsd:complexType>
       <xsd:sequence>
-        <xsd:element name="NumeroLote" type="TSNum15Dig" minOccurs="0" maxOccurs="1" />
+        <xsd:element name="NumeroLote" type="TSNumLote" minOccurs="0" maxOccurs="1" />
         <xsd:element name="DataRecebimento" type="xsd:dateTime" minOccurs="0" maxOccurs="1" />
         <xsd:element name="Protocolo" type="TSDesc50" minOccurs="0" maxOccurs="1" />
         <xsd:choice>
