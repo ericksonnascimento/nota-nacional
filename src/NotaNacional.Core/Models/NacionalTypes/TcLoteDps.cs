@@ -34,7 +34,7 @@ namespace NotaNacional.Core.Models
         
         [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=true)]
         [System.Xml.Serialization.XmlElementAttribute("Prestador")]
-        public TcIdentificacaoPessoaEmpresa Prestador { get; set; }
+        public TcIdentificacaoPessoaEmpresaComIM Prestador { get; set; }
         
         /// <summary>
         /// <para>Número com 3 dígitos</para>

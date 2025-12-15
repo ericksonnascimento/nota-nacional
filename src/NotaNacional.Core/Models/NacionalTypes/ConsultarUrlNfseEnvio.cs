@@ -15,19 +15,38 @@ namespace NotaNacional.Core.Models
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("XmlSchemaClassGenerator", "3.0.1188.0")]
     [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute("ConsultarDpsDisponivelEnvio", Namespace="http://www.sped.fazenda.gov.br/nfse", AnonymousType=true)]
+    [System.Xml.Serialization.XmlTypeAttribute("ConsultarUrlNfseEnvio", Namespace="http://www.sped.fazenda.gov.br/nfse", AnonymousType=true)]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlRootAttribute("ConsultarDpsDisponivelEnvio", Namespace="http://www.sped.fazenda.gov.br/nfse")]
-    public partial class ConsultarDpsDisponivelEnvio
+    [System.Xml.Serialization.XmlRootAttribute("ConsultarUrlNfseEnvio", Namespace="http://www.sped.fazenda.gov.br/nfse")]
+    public partial class ConsultarUrlNfseEnvio
     {
         
         [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=true)]
         [System.Xml.Serialization.XmlElementAttribute("Prestador")]
-        public TcIdentificacaoPessoaEmpresa Prestador { get; set; }
+        public TcIdentificacaoPessoaEmpresaComIM Prestador { get; set; }
         
-        [System.Xml.Serialization.XmlElementAttribute("IdentificacaoDps")]
-        public TcIdentificacaoDps IdentificacaoDps { get; set; }
+        /// <summary>
+        /// <para>Tipo Número sequencial do documento</para>
+        /// <para xml:lang="en">Maximum length: 13.</para>
+        /// <para xml:lang="en">Pattern: [1-9]{1}[0-9]{0,12}.</para>
+        /// </summary>
+        [System.ComponentModel.DataAnnotations.MaxLengthAttribute(13)]
+        [System.ComponentModel.DataAnnotations.RegularExpressionAttribute("[1-9]{1}[0-9]{0,12}")]
+        [System.Xml.Serialization.XmlElementAttribute("NumeroNfse")]
+        public string NumeroNfse { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("PeriodoEmissao")]
+        public ConsultarUrlNfseEnvioPeriodoEmissao PeriodoEmissao { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("PeriodoCompetencia")]
+        public ConsultarUrlNfseEnvioPeriodoCompetencia PeriodoCompetencia { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("Tomador")]
+        public TcIdentificacaoPessoaEmpresa Tomador { get; set; }
+        
+        [System.Xml.Serialization.XmlElementAttribute("Intermediario")]
+        public TcIdentificacaoPessoaEmpresa Intermediario { get; set; }
         
         /// <summary>
         /// <para>Número com 7 dígitos</para>
