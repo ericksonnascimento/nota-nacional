@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 using System.Data.SqlClient;
 using NotaNacional.Core.ConsultarUrlNfse.Models;
 using NotaNacional.Core.ConsultarUrlNfse.Repositories;
@@ -42,7 +42,7 @@ namespace NotaNacional.Infra.Repositories
 
             if (xmlResult.FieldCount > 0)    
             {              
-                retorno = "<ConsultarUrlNfseResposta xmlns=\"http://www.abrasf.org.br/nfse.xsd\">";
+                retorno = "<ConsultarUrlNfseResposta xmlns=\"http://www.sped.fazenda.gov.br/nfse\">";
                 retorno +="<ListaLinks>";
                 var pagina = string.Empty;                    
 

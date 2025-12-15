@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using NotaNacional.Core.Helpers;
+using NotaNacional.Core.Models;
 
 namespace NotaNacional.Core.Base
 {

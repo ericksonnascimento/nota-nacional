@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -11,7 +12,6 @@ namespace NotaNacional.Core.Base.Validator
     public abstract class BaseSchemaValidator : IValidator
     {
         protected abstract string DefaultSchemaVersion { get; }
-        protected abstract string SchemaFileName { get; }
         protected abstract string OperationName { get; }
         
         /// <summary>
@@ -156,12 +156,11 @@ namespace NotaNacional.Core.Base.Validator
         }
 
         /// <summary>
-        /// Indica se deve incluir o schema complexTypes.xsd na validação
-        /// Por padrão retorna true, mas pode ser sobrescrito para retornar false quando há conflito de definições
+        /// Obtém o nome do schema principal baseado na versão
         /// </summary>
-        protected virtual bool ShouldIncludeComplexTypes()
+        protected virtual string GetMainSchemaFileName(string schemaVersion)
         {
-            return true;
+            return $"schema_{schemaVersion}.xsd";
         }
 
         /// <summary>
@@ -208,23 +207,14 @@ namespace NotaNacional.Core.Base.Validator
             try
             {
                 var schemaBasePath = GetSchemaBasePath();
-                var basePath = Path.Combine(schemaBasePath, "nacional", schemaVersion);
-                var signature = Path.Combine(basePath, "xmldsig-core-schema.xsd");
-                var simpleTypes = Path.Combine(basePath, "simpleTypes.xsd");
-                var schema = Path.Combine(basePath, SchemaFileName);
+                // Todos os schemas estão agora diretamente em Schemas/nacional/
+                var basePath = Path.Combine(schemaBasePath, "nacional");
+                var mainSchema = Path.Combine(basePath, GetMainSchemaFileName(schemaVersion));
                 
-                // Verificar se os arquivos existem
-                if (!File.Exists(simpleTypes))
+                // Verificar se o schema principal existe
+                if (!File.Exists(mainSchema))
                 {
-                    throw new FileNotFoundException($"Schema não encontrado: {simpleTypes}");
-                }
-                if (!File.Exists(schema))
-                {
-                    throw new FileNotFoundException($"Schema não encontrado: {schema}");
-                }
-                if (!File.Exists(signature))
-                {
-                    throw new FileNotFoundException($"Schema não encontrado: {signature}");
+                    throw new FileNotFoundException($"Schema não encontrado: {mainSchema}");
                 }
                 
                 var cfg = new XmlReaderSettings() 
@@ -233,33 +223,16 @@ namespace NotaNacional.Core.Base.Validator
                 };
                 
                 // Criar um resolver customizado que resolve caminhos relativos corretamente
+                // O resolver usa a pasta nacional como base para resolver imports relativos (ex: xmldsig-core-schema.xsd)
                 var resolver = new SchemaPathResolver(basePath);
                 cfg.Schemas.XmlResolver = resolver;
                 
-                // Converter para caminhos absolutos e adicionar os schemas
-                // A ordem importa: primeiro os schemas de dependência, depois o schema principal
-                var simpleTypesUri = new Uri(Path.GetFullPath(simpleTypes));
-                var signatureUri = new Uri(Path.GetFullPath(signature));
-                var schemaUri = new Uri(Path.GetFullPath(schema));
+                // Converter para caminho absoluto e adicionar o schema principal
+                // O schema principal já inclui todas as definições necessárias
+                var mainSchemaUri = new Uri(Path.GetFullPath(mainSchema));
                 
-                // Adicionar schemas na ordem correta (dependências primeiro)
-                // Usar null como namespace para que seja determinado pelo próprio schema
-                cfg.Schemas.Add(null, simpleTypesUri.ToString());
-                
-                // Adicionar complexTypes apenas se necessário (evita conflitos de definições duplicadas)
-                if (ShouldIncludeComplexTypes())
-                {
-                    var complexTypes = Path.Combine(basePath, "complexTypes.xsd");
-                    if (!File.Exists(complexTypes))
-                    {
-                        throw new FileNotFoundException($"Schema não encontrado: {complexTypes}");
-                    }
-                    var complexTypesUri = new Uri(Path.GetFullPath(complexTypes));
-                    cfg.Schemas.Add(null, complexTypesUri.ToString());
-                }
-                
-                cfg.Schemas.Add(null, signatureUri.ToString());
-                cfg.Schemas.Add(null, schemaUri.ToString());
+                // Adicionar apenas o schema principal (ele já inclui tudo que precisa)
+                cfg.Schemas.Add(null, mainSchemaUri.ToString());
                 
                 // Se precisamos capturar detalhes, configurar o ValidationEventHandler
                 if (captureErrorDetails)

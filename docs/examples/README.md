@@ -61,7 +61,7 @@ Cada operação possui dois arquivos:
 ## Observações Importantes
 
 1. **Cabeçalho (nfseCabecMsg)**: Todos os exemplos usam o mesmo cabeçalho padrão com versão 1.00
-2. **Namespace**: Os elementos principais usam o namespace `http://www.sped.fazenda.gov.br/nfse` ou `http://www.abrasf.org.br/nfse.xsd` conforme o padrão
+2. **Namespace**: Os elementos principais usam o namespace `http://www.sped.fazenda.gov.br/nfse`
 3. **Assinatura Digital**: Os arquivos que requerem assinatura digital incluem a estrutura básica do elemento `Signature`
 4. **Valores Placeholder**: Os valores marcados com `?` devem ser substituídos pelos dados reais
 5. **Schemas Complexos**: Para operações como `GerarNfse` e `RecepcionarLoteDps`, consulte o schema completo em `complexTypes.xsd` para a estrutura completa do DPS
