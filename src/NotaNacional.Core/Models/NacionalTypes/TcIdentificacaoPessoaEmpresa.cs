@@ -49,7 +49,6 @@ namespace NotaNacional.Core.Models
         /// </summary>
         [System.ComponentModel.DataAnnotations.MinLengthAttribute(1)]
         [System.ComponentModel.DataAnnotations.MaxLengthAttribute(15)]
-        [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=false)]
         [System.Xml.Serialization.XmlElementAttribute("IM")]
         public string Im { get; set; }
     }

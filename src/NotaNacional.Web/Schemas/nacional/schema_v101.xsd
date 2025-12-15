@@ -4275,11 +4275,6 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="xOutInf" type="TSDesc2000" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Uso da Administração Tributária Municipal.</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
   <!--TIPO COMPLEXO DO EMITENTE DA NFS-e-->
@@ -4442,6 +4437,11 @@ O identificador do pedido de registro do evento é formado conforme a concatena�
       <xsd:element name="emit" type="TCEmitente" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Grupo de informações da DPS relativas ao emitente da NFS-e</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="xOutInf" type="TSDesc2000" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Uso da Administração Tributária Municipal.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="valores" type="TCValoresNFSe" minOccurs="1" maxOccurs="1">
