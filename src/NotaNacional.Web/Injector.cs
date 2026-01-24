@@ -3,27 +3,27 @@ using NotaNacional.Core.CancelarNfse.Handlers;
 using NotaNacional.Core.CancelarNfse.Validator;
 using NotaNacional.Core.ConsultarDadosCadastrais.Handlers;
 using NotaNacional.Core.ConsultarDadosCadastrais.Validator;
-using NotaNacional.Core.ConsultarLoteRps.Handlers;
-using NotaNacional.Core.ConsultarLoteRps.Validator;
+using NotaNacional.Core.ConsultarLoteDps.Handlers;
+using NotaNacional.Core.ConsultarLoteDps.Validator;
 using NotaNacional.Core.ConsultarNfseFaixa.Handlers;
 using NotaNacional.Core.ConsultarNfseFaixa.Validator;
-using NotaNacional.Core.ConsultarNfsePorRps.Handlers;
-using NotaNacional.Core.ConsultarNfsePorRps.Validator;
+using NotaNacional.Core.ConsultarNfseDps.Handlers;
+using NotaNacional.Core.ConsultarNfseDps.Validator;
 using NotaNacional.Core.ConsultarNfseServicoPrestado.Handlers;
 using NotaNacional.Core.ConsultarNfseServicoPrestado.Validator;
 using NotaNacional.Core.ConsultarNfseServicoTomado.Handlers;
 using NotaNacional.Core.ConsultarNfseServicoTomado.Validator;
 using NotaNacional.Core.ConsultarUrlNfse.Handlers;
 using NotaNacional.Core.ConsultarUrlNfse.Validator;
-using NotaNacional.Core.ConsultarRpsDisponivel.Handlers;
-using NotaNacional.Core.ConsultarRpsDisponivel.Validator;
+using NotaNacional.Core.ConsultarDpsDisponivel.Handlers;
+using NotaNacional.Core.ConsultarDpsDisponivel.Validator;
 using NotaNacional.Core.GerarNfse.Handlers;
 using NotaNacional.Core.GerarNfse.Validator;
-using NotaNacional.Core.RecepcionarLoteRps.Handlers;
-using NotaNacional.Core.RecepcionarLoteRps.Repositories;
-using NotaNacional.Core.RecepcionarLoteRps.Validator;
-using NotaNacional.Core.RecepcionarLoteRpsSincrono.Handlers;
-using NotaNacional.Core.RecepcionarLoteRpsSincrono.Validator;
+using NotaNacional.Core.RecepcionarLoteDps.Handlers;
+using NotaNacional.Core.RecepcionarLoteDps.Repositories;
+using NotaNacional.Core.RecepcionarLoteDps.Validator;
+using NotaNacional.Core.RecepcionarLoteDpsSincrono.Handlers;
+using NotaNacional.Core.RecepcionarLoteDpsSincrono.Validator;
 // SubstituirNfse não existe no padrão Nacional v101 - removido
 
 using NotaNacional.Infra.Repositories;
@@ -42,17 +42,17 @@ public static class Injector
         services.AddScoped<ICancelarNfseValidator, CancelarNfseValidator>();
         services.AddScoped<ICancelarNfseHandler, CancelarNfseHandler>();
         
-        //ConsultarLoteRps
-        services.AddScoped<IConsultarLoteRpsValidator, ConsultarLoteRpsValidator>();
-        services.AddScoped<IConsultarLoteRpsHandler, ConsultarLoteRpsHandler>();
+        //ConsultarLoteDps
+        services.AddScoped<IConsultarLoteDpsValidator, ConsultarLoteDpsValidator>();
+        services.AddScoped<IConsultarLoteDpsHandler, ConsultarLoteDpsHandler>();
         
         //ConsultarNfseFaixa
         services.AddScoped<IConsultarNfseFaixaValidator, ConsultarNfseFaixaValidator>();
         services.AddScoped<IConsultarNfseFaixaHandler, ConsultarNfseFaixaHandler>();
         
-        //ConsultarNfsePorRps
-        services.AddScoped<IConsultarNfsePorRpsValidator, ConsultarNfsePorRpsValidator>();
-        services.AddScoped<IConsultarNfsePorRpsHandler, ConsultarNfsePorRpsHandler>();
+        //ConsultarNfseDps
+        services.AddScoped<IConsultarNfseDpsValidator, ConsultarNfseDpsValidator>();
+        services.AddScoped<IConsultarNfseDpsHandler, ConsultarNfseDpsHandler>();
         
         //ConsultarNfseServicoPrestado
         services.AddScoped<IConsultarNfseServicoPrestadoValidator, ConsultarNfseServicoPrestadoValidator>();
@@ -66,15 +66,15 @@ public static class Injector
         services.AddScoped<IGerarNfseValidator, GerarNfseValidator>();
         services.AddScoped<IGerarNfseHandler, GerarNfseHandler>();
         
-        //RecepcionarLoteRps
-        services.AddScoped<IRecepcionarLoteRpsValidator, RecepcionarLoteRpsValidator>();
-        services.AddScoped<IRecepcionarLoteRpsRepository, RecepcionarLoteRpsRepository>();
-        services.AddScoped<IRecepcionarLoteRpsHandler, RecepcionarLoteRpsHandler>();
+        //RecepcionarLoteDps
+        services.AddScoped<IRecepcionarLoteDpsValidator, RecepcionarLoteDpsValidator>();
+        services.AddScoped<IRecepcionarLoteDpsRepository, RecepcionarLoteDpsRepository>();
+        services.AddScoped<IRecepcionarLoteDpsHandler, RecepcionarLoteDpsHandler>();
         
         
-        //RecepcionarLoteRpsSincrono
-        services.AddScoped<IRecepcionarLoteRpsSincronoValidator, RecepcionarLoteRpsSincronoValidator>();
-        services.AddScoped<IRecepcionarLoteRpsSincronoHandler, RecepcionarLoteRpsSincronoHandler>();
+        //RecepcionarLoteDpsSincrono
+        services.AddScoped<IRecepcionarLoteDpsSincronoValidator, RecepcionarLoteDpsSincronoValidator>();
+        services.AddScoped<IRecepcionarLoteDpsSincronoHandler, RecepcionarLoteDpsSincronoHandler>();
 
         //ConsultarUrlNfse
         services.AddScoped<IConsultarUrlNfseValidator, ConsultarUrlNfseValidator>();
@@ -84,9 +84,9 @@ public static class Injector
         services.AddScoped<IConsultarDadosCadastraisValidator, ConsultarDadosCadastraisValidator>();
         services.AddScoped<IConsultarDadosCadastraisHandler, ConsultarDadosCadastraisHandler>();
 
-        //ConsultarRpsDisponivel
-        services.AddScoped<IConsultarRpsDisponivelValidator, ConsultarRpsDisponivelValidator>();
-        services.AddScoped<IConsultarRpsDisponivelHandler, ConsultarRpsDisponivelHandler>();
+        //ConsultarDpsDisponivel
+        services.AddScoped<IConsultarDpsDisponivelValidator, ConsultarDpsDisponivelValidator>();
+        services.AddScoped<IConsultarDpsDisponivelHandler, ConsultarDpsDisponivelHandler>();
 
         //Main
         services.AddScoped<INfse, Nfse>();
