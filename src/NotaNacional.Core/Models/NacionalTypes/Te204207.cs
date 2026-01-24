@@ -22,19 +22,32 @@ namespace NotaNacional.Core.Models
     {
         
         /// <summary>
-        /// <para>Descrição do evento: "Rejeição do Intermediário".</para>
+        /// <para>Descrição do evento: "Manifestação de NFS-e - Rejeição do Intermediário".</para>
         /// </summary>
-        [System.ComponentModel.DescriptionAttribute("Descrição do evento: \"Rejeição do Intermediário\".")]
+        [System.ComponentModel.DescriptionAttribute("Descrição do evento: \"Manifestação de NFS-e - Rejeição do Intermediário\".")]
         [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=true)]
         [System.Xml.Serialization.XmlElementAttribute("xDesc")]
         public Te204207XDesc XDesc { get; set; }
         
         /// <summary>
-        /// <para>Informações do evento de rejeição da NFS-e.</para>
+        /// <para>Motivo da Rejeição da NFS-e:
+        ///            1 - NFS-e em duplicidade;
+        ///            2 - NFS-e já emitida pelo tomador;
+        ///            3 - Não ocorrência do fato gerador;
+        ///            4 - Erro quanto a responsabilidade tributária;
+        ///            5 - Erro quanto ao valor do serviço, valor das deduções ou serviço prestado ou data do fato gerador;
+        ///            9 - Outros;</para>
         /// </summary>
-        [System.ComponentModel.DescriptionAttribute("Informações do evento de rejeição da NFS-e.")]
+        [System.ComponentModel.DescriptionAttribute(@"Motivo da Rejeição da NFS-e: 1 - NFS-e em duplicidade; 2 - NFS-e já emitida pelo tomador; 3 - Não ocorrência do fato gerador; 4 - Erro quanto a responsabilidade tributária; 5 - Erro quanto ao valor do serviço, valor das deduções ou serviço prestado ou data do fato gerador; 9 - Outros;")]
         [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=true)]
-        [System.Xml.Serialization.XmlElementAttribute("infRej")]
-        public TcInfoEventoRejeicao InfRej { get; set; }
+        [System.Xml.Serialization.XmlElementAttribute("cMotivo")]
+        public TsCodMotivoRejeicao CMotivo { get; set; }
+        
+        /// <summary>
+        /// <para>Descrição para explicitar o motivo indicado neste evento</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("Descrição para explicitar o motivo indicado neste evento")]
+        [System.Xml.Serialization.XmlElementAttribute("xMotivo")]
+        public string XMotivo { get; set; }
     }
 }

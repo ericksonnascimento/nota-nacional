@@ -83,10 +83,10 @@ namespace NotaNacional.Core.Models
         public string Id { get; set; }
         
         /// <summary>
-        /// <para>Tipo Versão da NF-e - 1.01</para>
-        /// <para xml:lang="en">Pattern: 1\.01.</para>
+        /// <para>Tipo Versão da NF-e - 1.00|1.01</para>
+        /// <para xml:lang="en">Pattern: 1\.00|1\.01.</para>
         /// </summary>
-        [System.ComponentModel.DataAnnotations.RegularExpressionAttribute("1\\.01")]
+        [System.ComponentModel.DataAnnotations.RegularExpressionAttribute("1\\.00|1\\.01")]
         [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=true)]
         [System.Xml.Serialization.XmlAttributeAttribute("versao")]
         public string Versao { get; set; }

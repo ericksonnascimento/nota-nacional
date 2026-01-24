@@ -35,11 +35,11 @@ namespace NotaNacional.Core.Models
         /// <summary>
         /// <para xml:lang="en">Minimum length: 1.</para>
         /// <para xml:lang="en">Maximum length: 5.</para>
-        /// <para xml:lang="en">Pattern: [0-9]{1,5}.</para>
+        /// <para xml:lang="en">Pattern: ^0{0,4}\d{1,5}$.</para>
         /// </summary>
         [System.ComponentModel.DataAnnotations.MinLengthAttribute(1)]
         [System.ComponentModel.DataAnnotations.MaxLengthAttribute(5)]
-        [System.ComponentModel.DataAnnotations.RegularExpressionAttribute("[0-9]{1,5}")]
+        [System.ComponentModel.DataAnnotations.RegularExpressionAttribute("^0{0,4}\\d{1,5}$")]
         [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=false)]
         [System.Xml.Serialization.XmlElementAttribute("SerieDPS")]
         public string SerieDps { get; set; }

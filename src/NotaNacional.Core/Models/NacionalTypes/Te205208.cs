@@ -22,19 +22,42 @@ namespace NotaNacional.Core.Models
     {
         
         /// <summary>
-        /// <para>Descrição do evento: "Anulação da Rejeição".</para>
+        /// <para>Descrição do evento: "Manifestação de NFS-e - Anulação da Rejeição".</para>
         /// </summary>
-        [System.ComponentModel.DescriptionAttribute("Descrição do evento: \"Anulação da Rejeição\".")]
+        [System.ComponentModel.DescriptionAttribute("Descrição do evento: \"Manifestação de NFS-e - Anulação da Rejeição\".")]
         [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=true)]
         [System.Xml.Serialization.XmlElementAttribute("xDesc")]
         public Te205208XDesc XDesc { get; set; }
         
         /// <summary>
-        /// <para>Informações do evento de anulação de rejeição da NFS-e.</para>
+        /// <para>CPF do agente da administração tributária municipal que efetuou o anulação da manifestação de rejeição da NFS-e</para>
+        /// <para>Tipo Número do CPF</para>
+        /// <para xml:lang="en">Maximum length: 11.</para>
+        /// <para xml:lang="en">Pattern: [0-9]{11}.</para>
         /// </summary>
-        [System.ComponentModel.DescriptionAttribute("Informações do evento de anulação de rejeição da NFS-e.")]
+        [System.ComponentModel.DescriptionAttribute("CPF do agente da administração tributária municipal que efetuou o anulação da manifestação de rejeição da NFS-e")]
+        [System.ComponentModel.DataAnnotations.MaxLengthAttribute(11)]
+        [System.ComponentModel.DataAnnotations.RegularExpressionAttribute("[0-9]{11}")]
         [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=true)]
-        [System.Xml.Serialization.XmlElementAttribute("infAnRej")]
-        public TcInfoEventoAnulacaoRejeicao InfAnRej { get; set; }
+        [System.Xml.Serialization.XmlElementAttribute("CPFAgTrib")]
+        public string CpfAgTrib { get; set; }
+        
+        /// <summary>
+        /// <para>Referência ao "id" do Evento de Manifestação de NFS-e - Rejeição, que originou o presente evento de anulação</para>
+        /// <para xml:lang="en">Pattern: [0-9]{59}.</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("Referência ao \"id\" do Evento de Manifestação de NFS-e - Rejeição, que originou o presente evento de anulação")]
+        [System.ComponentModel.DataAnnotations.RegularExpressionAttribute("[0-9]{59}")]
+        [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=true)]
+        [System.Xml.Serialization.XmlElementAttribute("idEvManifRej")]
+        public string IdEvManifRej { get; set; }
+        
+        /// <summary>
+        /// <para>Descrição para explicitar o motivo indicado neste evento</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("Descrição para explicitar o motivo indicado neste evento")]
+        [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=false)]
+        [System.Xml.Serialization.XmlElementAttribute("xMotivo")]
+        public string XMotivo { get; set; }
     }
 }

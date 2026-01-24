@@ -34,6 +34,17 @@ namespace NotaNacional.Core.Models
         public string InscImobFisc { get; set; }
         
         /// <summary>
+        /// <para>Número de processo da obra cadastrado no sistema municipal</para>
+        /// <para xml:lang="en">Minimum length: 1.</para>
+        /// <para xml:lang="en">Maximum length: 20.</para>
+        /// </summary>
+        [System.ComponentModel.DescriptionAttribute("Número de processo da obra cadastrado no sistema municipal")]
+        [System.ComponentModel.DataAnnotations.MinLengthAttribute(1)]
+        [System.ComponentModel.DataAnnotations.MaxLengthAttribute(20)]
+        [System.Xml.Serialization.XmlElementAttribute("nProcessoObra")]
+        public string NProcessoObra { get; set; }
+        
+        /// <summary>
         /// <para>Número de identificação da obra. Cadastro Nacional de Obras (CNO) ou Cadastro Específico do INSS (CEI).</para>
         /// <para xml:lang="en">Minimum length: 1.</para>
         /// <para xml:lang="en">Maximum length: 30.</para>

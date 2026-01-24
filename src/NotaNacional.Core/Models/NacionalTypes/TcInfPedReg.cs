@@ -226,11 +226,11 @@ namespace NotaNacional.Core.Models
         /// <summary>
         /// <para>O identificador do pedido de registro do evento é formado conforme a concatenação dos seguintes campos:
         ///"PRE" + Chave de Acesso NFS-e + Tipo do evento + Número do Pedido de Registro do Evento (nPedRegEvento)</para>
-        /// <para xml:lang="en">Maximum length: 62.</para>
-        /// <para xml:lang="en">Pattern: PRE[0-9]{59}.</para>
+        /// <para xml:lang="en">Maximum length: 59.</para>
+        /// <para xml:lang="en">Pattern: PRE[0-9]{56}.</para>
         /// </summary>
-        [System.ComponentModel.DataAnnotations.MaxLengthAttribute(62)]
-        [System.ComponentModel.DataAnnotations.RegularExpressionAttribute("PRE[0-9]{59}")]
+        [System.ComponentModel.DataAnnotations.MaxLengthAttribute(59)]
+        [System.ComponentModel.DataAnnotations.RegularExpressionAttribute("PRE[0-9]{56}")]
         [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=true)]
         [System.Xml.Serialization.XmlAttributeAttribute("Id")]
         public string Id { get; set; }

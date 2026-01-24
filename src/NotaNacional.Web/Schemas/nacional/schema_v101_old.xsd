@@ -5,11 +5,11 @@
   <!-- definition of simple elements -->
   <xsd:simpleType name="TVerNFSe">
     <xsd:annotation>
-      <xsd:documentation>Tipo Versão da NF-e - 1.00|1.01</xsd:documentation>
+      <xsd:documentation>Tipo Versão da NF-e - 1.01</xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
       <xsd:whiteSpace value="preserve"/>
-      <xsd:pattern value="1\.00|1\.01"/>
+      <xsd:pattern value="1\.01"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="TSString">
@@ -160,7 +160,7 @@
   <xsd:simpleType name="TSSerieDPS">
     <xsd:restriction base="xsd:string">
       <xsd:maxLength value="5"/>
-      <xsd:pattern value="^0{0,4}\d{1,5}$"/>
+      <xsd:pattern value="^(?!0{1,5}$)\d{1,5}$"/>
       <xsd:whiteSpace value="preserve"/>
     </xsd:restriction>
   </xsd:simpleType>
@@ -168,18 +168,19 @@
     <xsd:annotation>
       <xsd:documentation>
         Emitente da DPS:
-        1 - Prestador;
-        2 - Tomador; 
-        3 - Intermediário 
+        1 - Prestador
       </xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
       <xsd:whiteSpace value="preserve"/>
       <xsd:enumeration value="1"/>
+      <!--
       <xsd:enumeration value="2"/>
       <xsd:enumeration value="3"/>
+      -->
     </xsd:restriction>
   </xsd:simpleType>
+  <!--
   <xsd:simpleType name="TSMotivoEmisTI">
     <xsd:annotation>
       <xsd:documentation>
@@ -198,6 +199,7 @@
       <xsd:enumeration value="4"/>
     </xsd:restriction>
   </xsd:simpleType>
+  -->
   <xsd:simpleType name="TSChaveNFSe">
     <xsd:annotation>
       <xsd:documentation>Tipo Chave da Nota Fiscal de Serviço Eletrônica</xsd:documentation>
@@ -914,13 +916,15 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
         Identificação da Dedução/Redução:
         1 – Alimentação e bebidas/frigobar;
         2 – Materiais;
-        3 – Produção externa;
-        4 – Reembolso de despesas;
+        <!--
+        3 – Produção externa; (entra no repasse, ressarcimento e reembolso a partir de 01/01/2026)
+        4 – Reembolso de despesas;(entra no repasse, ressarcimento e reembolso a partir de 01/01/2026) 
+        -->
         5 – Repasse consorciado;
         6 – Repasse plano de saúde;
         7 – Serviços;
         8 – Subempreitada de mão de obra;
-        9 - Profissional Parceiro;
+        <!--9 - Profissional Parceiro;-->
         99 – Outras deduções;
       </xsd:documentation>
     </xsd:annotation>
@@ -928,13 +932,15 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       <xsd:whiteSpace value="preserve"/>
       <xsd:enumeration value="1"/>
       <xsd:enumeration value="2"/>
+      <!--
       <xsd:enumeration value="3"/>
       <xsd:enumeration value="4"/>
+      -->
       <xsd:enumeration value="5"/>
       <xsd:enumeration value="6"/>
       <xsd:enumeration value="7"/>
       <xsd:enumeration value="8"/>
-      <xsd:enumeration value="9"/>
+      <!--<xsd:enumeration value="9"/>-->
       <xsd:enumeration value="99"/>
     </xsd:restriction>
   </xsd:simpleType>
@@ -1009,7 +1015,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
         Opção para que o contribuinte optante pelo Simples Nacional ME/EPP (opSimpNac = 3) possa indicar, ao emitir o documento fiscal, em qual regime de apuração os tributos federais e municipal estão inseridos, caso tenha ultrapassado algum sublimite ou limite definido para o Simples Nacional.
         1 – Regime de apuração dos tributos federais e municipal pelo SN;
         2 – Regime de apuração dos tributos federais pelo SN e ISSQN  por fora do SN conforme respectiva legislação municipal do tributo;
-        3 – Regime de apuração dos tributos federais e municipal por fora do SN conforme respectivas legislações federal e municipal de cada tributo;
+        3 – Regime de apuração dos tributos federais e municipal por fora do SN conforme respectivas legilações federal e municipal de cada tributo;
       </xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
@@ -1030,7 +1036,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
         4 - Notário ou Registrador;
         5 - Profissional Autônomo;
         6 - Sociedade de Profissionais;
-        9 - Outros;
       </xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
@@ -1042,7 +1047,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       <xsd:enumeration value="4"/>
       <xsd:enumeration value="5"/>
       <xsd:enumeration value="6"/>
-      <xsd:enumeration value="9"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="TSTribISSQN">
@@ -1070,7 +1074,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
 
             Tipos de Imunidades:
             
-            0 - Imunidade;
+            0 - Imunidade (tipo não informado na nota de origem);
             1 - Patrimônio, renda ou serviços, uns dos outros (CF88, Art 150, VI, a);
             2 - Templos de qualquer culto (CF88, Art 150, VI, b);
             3 - Patrimônio, renda ou serviços dos partidos políticos, inclusive suas fundações, das entidades sindicais dos trabalhadores, das instituições de educação e de assistência social, sem fins lucrativos, atendidos os requisitos da lei (CF88, Art 150, VI, c);
@@ -1115,7 +1119,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
         04 - Operação Tributável monofásica - Revenda a Alíquota Zero;
         05 - Operação Tributável por Substituição Tributária;
         06 - Operação Tributável a Alíquota Zero;
-        07 - Operação Isenta da Contribuição;
+        07 - Operação Tributável da Contribuição;
         08 - Operação sem Incidência da Contribuição;
         09 - Operação com Suspensão da Contribuição;
       </xsd:documentation>
@@ -1378,24 +1382,23 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       <xsd:pattern value="[0-9]{15}"/>
     </xsd:restriction>
   </xsd:simpleType>
-  <xsd:simpleType name="TSIdPedRegEvt">
+  <xsd:simpleType name="TSIdPedRefEvt">
     <xsd:annotation>
       <xsd:documentation>
-        O identificador do pedido de registro do evento é formado conforme a concatenação dos seguintes campos:
-        "PRE" + Chave de Acesso NFS-e + Tipo do evento + Número do Pedido de Registro do Evento (nPedRegEvento)
+O identificador do pedido de registro do evento é formado conforme a concatenação dos seguintes campos:
+"PRE" + Chave de Acesso NFS-e + Tipo do evento + Número do Pedido de Registro do Evento (nPedRegEvento)
       </xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
       <xsd:whiteSpace value="preserve"/>
-      <xsd:maxLength value="59"/>
-	  <xsd:pattern value="PRE[0-9]{56}"/>
+      <xsd:maxLength value="62"/>
+      <xsd:pattern value="PRE[0-9]{59}"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="TSIdEvento">
     <xsd:annotation>
       <xsd:documentation>
-      Identificador do evento é formado conforme a concatenação dos seguintes campos:
-      "EVT" + Chave de acesso(50) + Tipo do evento (6) + Pedido de Registro do Evento (3) (nPedRegEvento)
+      Identificador do evento: "EVT" + Chave de acesso(50) Tipo do evento (6) + Pedido de Registro do Evento(3) (nPedRegEvento)
       </xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
@@ -1413,6 +1416,8 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       e105104 - Cancelamento de NFS-e Deferido por Análise Fiscal;
       e105105 - Cancelamento de NFS-e Indeferido por Análise Fiscal;
       e305101 - Cancelamento de NFS-e por Ofício;
+      e907202 - ???????????????????????????????
+      e967203 - Tributos de NFS-e Recolhidos;
       </xsd:documentation>
     </xsd:annotation>
     <xsd:restriction base="xsd:string">
@@ -1421,6 +1426,8 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       <xsd:enumeration value="e105104"/>
       <xsd:enumeration value="e105105"/>
       <xsd:enumeration value="e305101"/>
+      <!--<xsd:enumeration value="e907202"/>-->
+      <xsd:enumeration value="e967203"/>
     </xsd:restriction>
   </xsd:simpleType>
   <xsd:simpleType name="TSIdNumEvento">
@@ -1773,13 +1780,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     </xsd:annotation>
     <xsd:restriction base="xsd:int">
       <xsd:totalDigits value="3"/>
-    </xsd:restriction>
-  </xsd:simpleType>
-  <xsd:simpleType name="TSNuProcObra">
-    <xsd:restriction base="xsd:string">
-      <xsd:whiteSpace value="preserve"/>
-      <xsd:minLength value="1"/>
-      <xsd:maxLength value="20"/>
     </xsd:restriction>
   </xsd:simpleType>
   <!--
@@ -2231,44 +2231,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
--->
-  <!--TIPO COMPLEXO PARA ENDEREÇO DE OBRA-->
-  <xsd:complexType name="TCEnderObraEvento">
-    <xsd:sequence>
-      <xsd:choice minOccurs="1" maxOccurs="1">
-        <xsd:element name="CEP" type="TSCEP" minOccurs="1" maxOccurs="1">
-          <xsd:annotation>
-            <xsd:documentation>Número do CEP</xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        <xsd:element name="endExt" type="TCEnderExtSimples" minOccurs="1" maxOccurs="1">
-          <xsd:annotation>
-            <xsd:documentation>Grupo de informações específicas de endereço no exterior</xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-      </xsd:choice>
-      <xsd:element name="xLgr" type="TSLogradouro" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Tipo e nome do logradouro da localização do imóvel</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="nro" type="TSNumeroEndereco" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Número do imóvel</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="xCpl" type="TSComplementoEndereco" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Complemento do endereço</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="xBairro" type="TSBairro" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Bairro</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-    </xsd:sequence>
-  </xsd:complexType>
+  -->
   <!--TIPO COMPLEXO INFORMAÇÕES RELATIVAS A BENS IMÓVEIS IBSCBS-->
   <xsd:complexType name="TCRTCInfoImovel">
     <xsd:sequence>
@@ -2277,7 +2240,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           <xsd:documentation>Inscrição imobiliária fiscal (código fornecido pela Prefeitura Municipal para a identificação da obra ou para fins de recolhimento do IPTU)</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <!--
       <xsd:choice minOccurs="1" maxOccurs="1">
         <xsd:element name="cCIB" type="TSCodCIB" minOccurs="1" maxOccurs="1">
           <xsd:annotation>
@@ -2290,12 +2252,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           </xsd:annotation>
         </xsd:element>
       </xsd:choice>
-      -->
-      <xsd:element name="end" type="TCEnderObraEvento" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Grupo de informações do endereço da obra do serviço prestado</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
   <!--TIPO COMPLEXO INFORMAÇÕES RELATIVAS AO DESTINATÁRIO DO SERVIÇO IBSCBS-->
@@ -2517,7 +2473,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
             04 - Operação Tributável monofásica - Revenda a Alíquota Zero;
             05 - Operação Tributável por Substituição Tributária;
             06 - Operação Tributável a Alíquota Zero;
-            07 - Operação Isenta da Contribuição;
+            07 - Operação Tributável da Contribuição;
             08 - Operação sem Incidência da Contribuição;
             09 - Operação com Suspensão da Contribuição;
           </xsd:documentation>
@@ -2661,7 +2617,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           <xsd:documentation>
             Identificação da Imunidade do ISSQN – somente para o caso de Imunidade.
             Tipos de Imunidades:            
-            0 - Imunidade;
+            0 - Imunidade (tipo não informado na nota de origem);
             1 - Patrimônio, renda ou serviços, uns dos outros (CF88, Art 150, VI, a);
             2 - Templos de qualquer culto (CF88, Art 150, VI, b);
             3 - Patrimônio, renda ou serviços dos partidos políticos, inclusive suas fundações, das entidades sindicais dos trabalhadores, das instituições de educação e de assistência social, sem fins lucrativos, atendidos os requisitos da lei (CF88, Art 150, VI, c);
@@ -2747,74 +2703,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
-  <!--TIPO COMPLEXO PARA INFORMAÇÕES DE UMA PESSOA ENVOLVIDA NA NFS-E (TOMADOR, INTERMEDIÁRIO E FORNECEDOR PARA DEDUÇÃO)-->
-  <xsd:complexType name="TCInfoPessoa">
-    <xsd:annotation>
-      <xsd:documentation>Informações das pessoas envolvidas na NFS-e. Pode ser o tomador, o intermediário ou o fornecedor (dedução/redução)</xsd:documentation>
-    </xsd:annotation>
-    <xsd:sequence>
-      <xsd:choice minOccurs="1" maxOccurs="1">
-        <xsd:element name="CNPJ" type="TSCNPJ" minOccurs="1" maxOccurs="1">
-          <xsd:annotation>
-            <xsd:documentation>Número do CNPJ</xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        <xsd:element name="CPF" type="TSCPF" minOccurs="1" maxOccurs="1">
-          <xsd:annotation>
-            <xsd:documentation>Número do CPF</xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        <xsd:element name="NIF" type="TSNIF" minOccurs="1" maxOccurs="1">
-          <xsd:annotation>
-            <xsd:documentation>Número de Identificação Fiscal fornecido por órgão de administração tributária no exterior</xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        <xsd:element name="cNaoNIF" type="TSCodNaoNIF" minOccurs="1" maxOccurs="1">
-          <xsd:annotation>
-            <xsd:documentation>
-              Motivo para não informação do NIF:
-              1 - Dispensado do NIF;
-              2 - Não exigência do NIF;
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-      </xsd:choice>
-      <xsd:element name="CAEPF" type="TSCAEPF" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Número do Cadastro de Atividade Econômica da Pessoa Física (CAEPF)</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="IM" type="TSInscMun" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Número da inscrição municipal</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="xNome" type="TSNomeRazaoSocial" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Nome/Nome Empresarial</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="end" type="TCEndereco" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Dados de endereço</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="fone" type="TSTelefone" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            Número do telefone do prestador:
-            Preencher com o Código DDD + número do telefone.
-            Nas operações com exterior é permitido informar o código do país + código da localidade + número do telefone)
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="email" type="TSEmail" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>E-mail</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-    </xsd:sequence>
-  </xsd:complexType>
   <!--TIPO COMPLEXO PARA INFORMAÇÕES DE DOCUMENTO INFORMADO PARA DEDUÇÃO/REDUÇÃO-->
   <xsd:complexType name="TCDocDedRed">
     <xsd:sequence>
@@ -2856,13 +2744,10 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
             Identificação da Dedução/Redução:
             1 – Alimentação e bebidas/frigobar;
             2 – Materiais;
-            3 - Produção Externa;
-            4 - Reembolso de despesas;
             5 – Repasse consorciado;
             6 – Repasse plano de saúde;
             7 – Serviços;
             8 – Subempreitada de mão de obra;
-            9 - Profissional parceiro;
             99 – Outras deduções;
           </xsd:documentation>
         </xsd:annotation>
@@ -3065,13 +2950,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           <xsd:documentation>Inscrição imobiliária fiscal (código fornecido pela Prefeitura Municipal para a identificação da obra ou para fins de recolhimento do IPTU)</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="nProcessoObra" type="TSNuProcObra" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Número de processo da obra cadastrado no sistema municipal</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-	  
-	  <!--
       <xsd:choice minOccurs="1" maxOccurs="1">
         <xsd:element name="cObra" type="TSCodObra" minOccurs="1" maxOccurs="1">
           <xsd:annotation>
@@ -3089,12 +2967,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           </xsd:annotation>
         </xsd:element>
       </xsd:choice>
-	  -->
-      <xsd:element name="end" type="TCEnderObraEvento" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Grupo de informações do endereço da obra do serviço prestado</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
   <!--TIPO COMPLEXO PARA INFORMAÇÕES DE ATIVIDADE DE EVENTO-->
@@ -3115,7 +2987,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           <xsd:documentation>Data de fim da atividade de evento. Ano, Mês e Dia (AAAA-MM-DD)</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <!--
       <xsd:choice minOccurs="1" maxOccurs="1">
         <xsd:element name="idAtvEvt" type="TSIdeEvento" minOccurs="1" maxOccurs="1">
           <xsd:annotation>
@@ -3128,12 +2999,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           </xsd:annotation>
         </xsd:element>
       </xsd:choice>
-      -->
-      <xsd:element name="end" type="TCEnderecoSimples" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Grupo de informações relativas ao endereço da atividade, evento ou local do serviço prestado</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
   <!--TIPO COMPLEXO PARA INFORMAÇÕES DE LOCAÇÃO, SUBLOCAÇÃO, ARRENDAMENTO, DIRETO DE PASSAGEM OU PERMISSÃO DE USO-->
@@ -3158,6 +3023,61 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       <xsd:element name="nPostes" type="TSNumeroPostes" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Número total de postes</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  -->
+  <!--TIPO COMPLEXO PARA INFORMAÇÕES DE PEDÁGIO-->
+  <!--
+  <xsd:complexType name="TCExploracaoRodoviaria">
+    <xsd:sequence>
+      <xsd:element name="categVeic" type="TSCategVeic" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Categorias de veículos para cobrança:
+            00 - Categoria de veículos (tipo não informado na nota de origem)
+            01 - Automóvel, caminhonete e furgão;
+            02 - Caminhão leve, ônibus, caminhão trator e furgão;
+            03 - Automóvel e caminhonete com semireboque;
+            04 - Caminhão, caminhão-trator, caminhão-trator com semi-reboque e ônibus;
+            05 - Automóvel e caminhonete com reboque;
+            06 - Caminhão com reboque;
+            07 - Caminhão trator com semi-reboque;
+            08 - Motocicletas, motonetas e bicicletas motorizadas;
+            09 - Veículo especial;
+            10 - Veículo Isento;
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="nEixos" type="TSNumEixos" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Número de eixos para fins de cobrança</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="rodagem" type="TSRodagem" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Tipo de rodagem</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="sentido" type="TSSentido" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Placa do veículo</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="placa" type="TSPlaca" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Placa do veículo</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="codAcessoPed" type="TSCodAcessoPed" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Código de acesso gerado automaticamente pelo sistema emissor da concessionária.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="codContrato" type="TSCodContrato" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Código de contrato gerado automaticamente pelo sistema nacional no cadastro da concessionária.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -3306,7 +3226,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           <xsd:documentation>Descrição completa do serviço prestado</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="cNBS" type="TSCodNBS" minOccurs="0" maxOccurs="1">
+      <xsd:element name="cNBS" type="TSCodNBS" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Código NBS correspondente ao serviço prestado, seguindo a versão 2.0, conforme Anexo B</xsd:documentation>
         </xsd:annotation>
@@ -3368,9 +3288,53 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           <xsd:documentation>Grupo de informações do DPS relativas à Evento</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+	  <!--
+      <xsd:element name="explRod" type="TCExploracaoRodoviaria" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Grupo de informações relativas a pedágio</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+	  -->
       <xsd:element name="infoCompl" type="TCInfoCompl" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Grupo de informações complementares disponível para todos os serviços prestados</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <!--TIPO COMPLEXO PARA ENDEREÇO DE OBRA-->
+  <xsd:complexType name="TCEnderObraEvento">
+    <xsd:sequence>
+      <xsd:choice minOccurs="1" maxOccurs="1">
+        <xsd:element name="CEP" type="TSCEP" minOccurs="1" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation>Número do CEP</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="endExt" type="TCEnderExtSimples" minOccurs="1" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation>Grupo de informações específicas de endereço no exterior</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:choice>
+      <xsd:element name="xLgr" type="TSLogradouro" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Tipo e nome do logradouro da localização do imóvel</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="nro" type="TSNumeroEndereco" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Número do imóvel</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="xCpl" type="TSComplementoEndereco" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Complemento do endereço</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="xBairro" type="TSBairro" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Bairro</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -3549,50 +3513,10 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:element>
     </xsd:sequence>
   </xsd:complexType>
-  <!--TIPO COMPLEXO PARA INFORMAÇÕES DE REGIMES DE TRIBUTAÇÃO ESPECÍFICOS DO CONTRIBUINTE-->
-  <xsd:complexType name="TCRegTrib">
-    <xsd:sequence>
-      <xsd:element name="opSimpNac" type="TSOpSimpNac" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            Situação perante o Simples Nacional:
-            1 - Não Optante;
-            2 - Optante - Microempreendedor Individual (MEI);
-            3 - Optante - Microempresa ou Empresa de Pequeno Porte (ME/EPP);
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="regApTribSN" type="TSRegimeApuracaoSimpNac" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            Opção para que o contribuinte optante pelo Simples Nacional ME/EPP (opSimpNac = 3) possa indicar, ao emitir o documento fiscal, em qual regime de apuração os tributos federais e municipal estão inseridos, caso tenha ultrapassado algum sublimite ou limite definido para o Simples Nacional.
-            1 – Regime de apuração dos tributos federais e municipal pelo SN;
-            2 – Regime de apuração dos tributos federais pelo SN e ISSQN  por fora do SN conforme respectiva legislação municipal do tributo;
-            3 – Regime de apuração dos tributos federais e municipal por fora do SN conforme respectivas legislações federal e municipal de cada tributo;
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="regEspTrib" type="TSRegEspTrib" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            Tipos de Regimes Especiais de Tributação:
-            0 - Nenhum;
-            1 - Ato Cooperado (Cooperativa);
-            2 - Estimativa;
-            3 - Microempresa Municipal;
-            4 - Notário ou Registrador;
-            5 - Profissional Autônomo;
-            6 - Sociedade de Profissionais;
-            9 - Outros;
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-    </xsd:sequence>
-  </xsd:complexType>
   <!--TIPO COMPLEXO PARA INFORMAÇÕES DE UMA PESSOA ENVOLVIDA NA NFS-E (TOMADOR, INTERMEDIÁRIO E FORNECEDOR PARA DEDUÇÃO)-->
-  <xsd:complexType name="TCInfoPrestador">
+  <xsd:complexType name="TCInfoPessoa">
     <xsd:annotation>
-      <xsd:documentation>Informações do prestador da NFS-e. Difere das demais pessoas por causa das informações de regimes de tributação</xsd:documentation>
+      <xsd:documentation>Informações das pessoas envolvidas na NFS-e. Pode ser o tomador, o intermediário ou o fornecedor (dedução/redução)</xsd:documentation>
     </xsd:annotation>
     <xsd:sequence>
       <xsd:choice minOccurs="1" maxOccurs="1">
@@ -3623,6 +3547,115 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:choice>
       <xsd:element name="CAEPF" type="TSCAEPF" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
+          <xsd:documentation>Número do Cadastro de Atividade Econômica da Pessoa Física (CAEPF) do tomador, intermediário ou fornecedor do serviço.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="IM" type="TSInscMun" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Número da inscrição municipal</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="xNome" type="TSNomeRazaoSocial" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Nome/Nome Empresarial</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="end" type="TCEndereco" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Dados de endereço</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="fone" type="TSTelefone" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Número do telefone do prestador:
+            Preencher com o Código DDD + número do telefone.
+            Nas operações com exterior é permitido informar o código do país + código da localidade + número do telefone)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="email" type="TSEmail" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>E-mail</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <!--TIPO COMPLEXO PARA INFORMAÇÕES DE REGIMES DE TRIBUTAÇÃO ESPECÍFICOS DO CONTRIBUINTE-->
+  <xsd:complexType name="TCRegTrib">
+    <xsd:sequence>
+      <xsd:element name="opSimpNac" type="TSOpSimpNac" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Situação perante o Simples Nacional:
+            1 - Não Optante;
+            2 - Optante - Microempreendedor Individual (MEI);
+            3 - Optante - Microempresa ou Empresa de Pequeno Porte (ME/EPP);
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="regApTribSN" type="TSRegimeApuracaoSimpNac" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Opção para que o contribuinte optante pelo Simples Nacional ME/EPP (opSimpNac = 3) possa indicar, ao emitir o documento fiscal, em qual regime de apuração os tributos federais e municipal estão inseridos, caso tenha ultrapassado algum sublimite ou limite definido para o Simples Nacional.
+            1 – Regime de apuração dos tributos federais e municipal pelo SN;
+            2 – Regime de apuração dos tributos federais pelo SN e ISSQN  por fora do SN conforme respectiva legislação municipal do tributo;
+            3 – Regime de apuração dos tributos federais e municipal por fora do SN conforme respectivas legilações federal e municipal de cada tributo;
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="regEspTrib" type="TSRegEspTrib" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Tipos de Regimes Especiais de Tributação:
+            0 - Nenhum;
+            1 - Ato Cooperado (Cooperativa);
+            2 - Estimativa;
+            3 - Microempresa Municipal;
+            4 - Notário ou Registrador;
+            5 - Profissional Autônomo;
+            6 - Sociedade de Profissionais;
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <!--TIPO COMPLEXO PARA INFORMAÇÕES DE UMA PESSOA ENVOLVIDA NA NFS-E (TOMADOR, INTERMEDIÁRIO E FORNECEDOR PARA DEDUÇÃO)-->
+  <xsd:complexType name="TCInfoPrestador">
+    <xsd:annotation>
+      <xsd:documentation>Informações do prestador da NFS-e. Difere das demais pessoas por causa das informações de regimes de tributação</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:choice minOccurs="1" maxOccurs="1">
+        <xsd:element name="CNPJ" type="TSCNPJ" minOccurs="1" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation>Número do CNPJ</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="CPF" type="TSCPF" minOccurs="1" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation>Número do CPF</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <!--
+        <xsd:element name="NIF" type="TSNIF" minOccurs="1" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation>Número de Identificação Fiscal fornecido por órgão de administração tributária no exterior</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="cNaoNIF" type="TSCodNaoNIF" minOccurs="1" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation>
+              Motivo para não informação do NIF:
+              1 - Dispensado do NIF;
+              2 - Não exigência do NIF;
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        -->
+      </xsd:choice>
+      <xsd:element name="CAEPF" type="TSCAEPF" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
           <xsd:documentation>Número do Cadastro de Atividade Econômica da Pessoa Física (CAEPF) do prestador do serviço.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
@@ -3631,6 +3664,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           <xsd:documentation>Número da inscrição municipal</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+  <!--
       <xsd:element name="xNome" type="TSNomeRazaoSocial" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Nome/Nome Empresarial do prestador</xsd:documentation>
@@ -3655,6 +3689,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           <xsd:documentation>E-mail</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+  -->
       <xsd:element name="regTrib" type="TCRegTrib" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Grupo de informações relativas aos regimes de tributação do prestador de serviços</xsd:documentation>
@@ -3734,12 +3769,14 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
         <xsd:annotation>
           <xsd:documentation>
             Emitente da DPS: 
-            1 - Prestador;
+            1 - Prestador; 
+            <!-- 
             2 - Tomador; 
-            3 - Intermediário 
+            3 - Intermediário --> 
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+      <!--
       <xsd:element name="cMotivoEmisTI" type="TSMotivoEmisTI" minOccurs="0"  maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Motivo da Emissão da DPS pelo Tomador/Intermediário:
@@ -3757,6 +3794,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+      -->
       <xsd:element name="cLocEmi" type="TSCodMunIBGE" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>
@@ -4336,7 +4374,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           <xsd:documentation>Descrição do código de tributação municipal do ISSQN.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="xNBS" type="TSDesc600" minOccurs="0" maxOccurs="1">
+      <xsd:element name="xNBS" type="TSDesc600" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Descrição do código da NBS.</xsd:documentation>
         </xsd:annotation>
@@ -4401,14 +4439,14 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
           <xsd:documentation>Grupo de informações da DPS relativas ao emitente da NFS-e</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="valores" type="TCValoresNFSe" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>Grupo de valores referentes ao Serviço Prestado</xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
       <xsd:element name="xOutInf" type="TSDesc2000" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Uso da Administração Tributária Municipal.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="valores" type="TCValoresNFSe" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Grupo de valores referentes ao Serviço Prestado</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="IBSCBS" type="TCRTCIBSCBS" minOccurs="0" maxOccurs="1">
@@ -4441,6 +4479,48 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
   INÍCIO ESTRUTURA EVENTOS
   ======================================================================================================================================================================================== -->
 
+  <!--TIPO COMPLEXO INFORMAÇÕES DO EVENTO DE ANULAÇÃO DE REJEIÇÃO DA NFS-E-->
+  <xsd:complexType name="TCInfoEventoAnulacaoRejeicao">
+    <xsd:sequence>
+      <xsd:element name="CPFAgTrib" type="TSCPF" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>CPF do agente da administração tributária municipal que efetuou a anulação da manifestação de rejeição da NFS-e.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="idEvManifRej" type="TSIdNumEvento" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Referência ao Id da "Manifestação de rejeição da NFS-e" que originou o presente evento de anulação.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="xMotivo" type="TSMotivo" minOccurs="1" maxOccurs="1">
+        <xsd:annotation><xsd:documentation>Descrição para explicitar o motivo da anulação</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <!--TIPO COMPLEXO INFORMAÇÕES DO EVENTO DE REJEIÇÃO DA NFS-E-->
+  <xsd:complexType name="TCInfoEventoRejeicao">
+    <xsd:sequence>
+      <xsd:element name="cMotivo" type="TSCodMotivoRejeicao" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Motivo da Rejeição da NFS-e:
+            1 - NFS-e em duplicidade;
+            2 - NFS-e já emitida pelo tomador;
+            3 - Não ocorrência do fato gerador;
+            4 - Erro quanto a responsabilidade tributária;
+            5 - Erro quanto ao valor do serviço, valor das deduções ou serviço prestado ou data do fato gerador;
+            9 - Outros;
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="xMotivo" type="TSMotivo" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Descrição para explicitar o motivo indicado neste evento</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
   <!--TIPO COMPLEXO PARA O EVENTO DE DESBLOQUEIO POR OFÍCIO DA NFS-E-->
   <xsd:complexType name="TE305103">
     <xsd:sequence>
@@ -4472,9 +4552,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Bloqueio de NFS-e por Ofício".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Bloqueio de NFS-e por Ofício".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
@@ -4485,28 +4563,17 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:element>
       <xsd:element name="CPFAgTrib" type="TSCPF" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            CPF do agente da administração tributária municipal que efetuou o bloqueio de NFS-e por ofício de NFS-e.
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="codEvento" type="TSCodigoEventoNFSe" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            Eventos que podem ser escolhidos pelo município emissor para serem rejeitados após emissão e vinculação do evento de bloqueio por ofício em uma NFS-e:
-            e101101 - Cancelamento de NFS-e;
-            e105102 - Cancelamento de NFS-e por Substituição;
-            e105104 - Cancelamento de NFS-e Deferido por Análise Fiscal;
-            e105105 - Cancelamento de NFS-e Indeferido por Análise Fiscal;
-            e305101 - Cancelamento de NFS-e por Ofício;
-          </xsd:documentation>
+          <xsd:documentation>CPF do agente da administração tributária municipal que efetuou o cancelamento por ofício de NFS-e.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="xMotivo" type="TSMotivo" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição para explicitar o motivo indicado neste evento
-          </xsd:documentation>
+          <xsd:documentation>Descrição para explicitar o motivo indicado neste evento</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="codEvento" type="TSCodigoEventoNFSe" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Descrição para explicitar o motivo indicado neste evento</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -4516,9 +4583,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Cancelamento de NFS-e por Ofício".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Cancelamento de NFS-e por Ofício".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
@@ -4529,23 +4594,17 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:element>
       <xsd:element name="CPFAgTrib" type="TSCPF" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            CPF do agente da administração tributária municipal que efetuou o cancelamento por ofício de NFS-e.
-          </xsd:documentation>
+          <xsd:documentation>CPF do agente da administração tributária municipal que efetuou o cancelamento por ofício de NFS-e.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="nProcAdm" type="TSNumProcAdmAnaliseFiscalCanc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Número do processo administrativo municipal vinculado ao cancelamento de NFS-e por ofício.
-          </xsd:documentation>
+          <xsd:documentation>Número do processo administrativo municipal vinculado ao cancelamento de NFS-e por ofício.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="xProcAdm" type="TSMotivo" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição para explicitar o motivo indicado neste evento.
-          </xsd:documentation>
+          <xsd:documentation>Descrição para explicitar o motivo indicado neste evento.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -4555,36 +4614,18 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Manifestação de NFS-e - Anulação da Rejeição".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Anulação da Rejeição".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:whiteSpace value="preserve"/>
-            <xsd:enumeration value="Manifestação de NFS-e - Anulação da Rejeição"/>
+            <xsd:enumeration value="Anulação da Rejeição"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
-      <xsd:element name="CPFAgTrib" type="TSCPF" minOccurs="1" maxOccurs="1">
+      <xsd:element name="infAnRej" type="TCInfoEventoAnulacaoRejeicao" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            CPF do agente da administração tributária municipal que efetuou o anulação da manifestação de rejeição da NFS-e
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="idEvManifRej" type="TSIdNumEvento" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            Referência ao "id" do Evento de Manifestação de NFS-e - Rejeição, que originou o presente evento de anulação
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="xMotivo" type="TSMotivo" minOccurs="1" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            Descrição para explicitar o motivo indicado neste evento
-          </xsd:documentation>
+          <xsd:documentation>Informações do evento de anulação de rejeição da NFS-e.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -4594,35 +4635,18 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Manifestação de NFS-e - Rejeição do Intermediário".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Rejeição do Intermediário".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:whiteSpace value="preserve"/>
-            <xsd:enumeration value="Manifestação de NFS-e - Rejeição do Intermediário"/>
+            <xsd:enumeration value="Rejeição do Intermediário"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
-      <xsd:element name="cMotivo" type="TSCodMotivoRejeicao" minOccurs="1" maxOccurs="1">
+      <xsd:element name="infRej" type="TCInfoEventoRejeicao" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Motivo da Rejeição da NFS-e:
-            1 - NFS-e em duplicidade;
-            2 - NFS-e já emitida pelo tomador;
-            3 - Não ocorrência do fato gerador;
-            4 - Erro quanto a responsabilidade tributária;
-            5 - Erro quanto ao valor do serviço, valor das deduções ou serviço prestado ou data do fato gerador;
-            9 - Outros;
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="xMotivo" type="TSMotivo" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            Descrição para explicitar o motivo indicado neste evento
-          </xsd:documentation>
+          <xsd:documentation>Informações do evento de rejeição da NFS-e.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -4632,35 +4656,18 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Manifestação de NFS-e - Rejeição do Tomador".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Rejeição do Tomador".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:whiteSpace value="preserve"/>
-            <xsd:enumeration value="Manifestação de NFS-e - Rejeição do Tomador"/>
+            <xsd:enumeration value="Rejeição do Tomador"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
-      <xsd:element name="cMotivo" type="TSCodMotivoRejeicao" minOccurs="1" maxOccurs="1">
+      <xsd:element name="infRej" type="TCInfoEventoRejeicao" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Motivo da Rejeição da NFS-e:
-            1 - NFS-e em duplicidade;
-            2 - NFS-e já emitida pelo tomador;
-            3 - Não ocorrência do fato gerador;
-            4 - Erro quanto a responsabilidade tributária;
-            5 - Erro quanto ao valor do serviço, valor das deduções ou serviço prestado ou data do fato gerador;
-            9 - Outros;
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="xMotivo" type="TSMotivo" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            Descrição para explicitar o motivo indicado neste evento
-          </xsd:documentation>
+          <xsd:documentation>Informações do evento de rejeição da NFS-e.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -4670,35 +4677,18 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Manifestação de NFS-e - Rejeição do Prestador".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Rejeição do Prestador".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:whiteSpace value="preserve"/>
-            <xsd:enumeration value="Manifestação de NFS-e - Rejeição do Prestador"/>
+            <xsd:enumeration value="Rejeição do Prestador"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
-      <xsd:element name="cMotivo" type="TSCodMotivoRejeicao" minOccurs="1" maxOccurs="1">
+      <xsd:element name="infRej" type="TCInfoEventoRejeicao" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Motivo da Rejeição da NFS-e:
-            1 - NFS-e em duplicidade;
-            2 - NFS-e já emitida pelo tomador;
-            3 - Não ocorrência do fato gerador;
-            4 - Erro quanto a responsabilidade tributária;
-            5 - Erro quanto ao valor do serviço, valor das deduções ou serviço prestado ou data do fato gerador;
-            9 - Outros;
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:element>
-      <xsd:element name="xMotivo" type="TSMotivo" minOccurs="0" maxOccurs="1">
-        <xsd:annotation>
-          <xsd:documentation>
-            Descrição para explicitar o motivo indicado neste evento
-          </xsd:documentation>
+          <xsd:documentation>Informações do evento de rejeição da NFS-e.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -4708,14 +4698,12 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Manifestação de NFS-e - Confirmação Tácita".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Confirmação Tácita".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:whiteSpace value="preserve"/>
-            <xsd:enumeration value="Manifestação de NFS-e - Confirmação Tácita"/>
+            <xsd:enumeration value="Confirmação Tácita"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
@@ -4726,14 +4714,12 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Manifestação de NFS-e - Confirmação do Intermediário".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Confirmação do Intermediário".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:whiteSpace value="preserve"/>
-            <xsd:enumeration value="Manifestação de NFS-e - Confirmação do Intermediário"/>
+            <xsd:enumeration value="Confirmação do Intermediário"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
@@ -4744,14 +4730,12 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Manifestação de NFS-e - Confirmação do Tomador".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Confirmação do Tomador".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:whiteSpace value="preserve"/>
-            <xsd:enumeration value="Manifestação de NFS-e - Confirmação do Tomador"/>
+            <xsd:enumeration value="Confirmação do Tomador"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
@@ -4762,14 +4746,12 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Manifestação de NFS-e - Confirmação do Prestador".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Confirmação do Prestador".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:whiteSpace value="preserve"/>
-            <xsd:enumeration value="Manifestação de NFS-e - Confirmação do Prestador"/>
+            <xsd:enumeration value="Confirmação do Prestador"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
@@ -4780,9 +4762,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Cancelamento de NFS-e Indeferido por Análise Fiscal".
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Cancelamento de NFS-e Indeferido por Análise Fiscal".</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
@@ -4793,16 +4773,12 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:element>
       <xsd:element name="CPFAgTrib" type="TSCPF" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            CPF do agente da administração tributária municipal que efetuou o indeferimento da solicitação de análise fiscal para cancelamento de NFS-e.
-          </xsd:documentation>
+          <xsd:documentation>CPF do agente da administração tributária municipal que efetuou o indeferimento da solicitação de análise fiscal para cancelamento de NFS-e.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="nProcAdm" type="TSNumProcAdmAnaliseFiscalCanc" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Número do processo administrativo municipal vinculado à solicitação de análise fiscal para cancelamento de NFS-e.
-          </xsd:documentation>
+          <xsd:documentation>Número do processo administrativo municipal vinculado à solicitação de análise fiscal para cancelamento de NFS-e.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="cMotivo" type="TSCodJustAnaliseFiscalCancIndef" minOccurs="1" maxOccurs="1">
@@ -4816,9 +4792,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:element>
       <xsd:element name="xMotivo" type="TSMotivo" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição para explicitar o motivo indicado neste evento
-          </xsd:documentation>
+          <xsd:documentation>Descrição para explicitar o motivo indicado neste evento</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -4828,9 +4802,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
     <xsd:sequence>
       <xsd:element name="xDesc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição do evento: "Cancelamento de NFS-e Deferido por Análise Fiscal"
-          </xsd:documentation>
+          <xsd:documentation>Descrição do evento: "Cancelamento de NFS-e Deferido por Análise Fiscal"</xsd:documentation>
         </xsd:annotation>
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
@@ -4841,16 +4813,12 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:element>
       <xsd:element name="CPFAgTrib" type="TSCPF" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            CPF do agente da administração tributária municipal que efetuou o deferimento da  solicitação de análise fiscal para cancelamento de NFS-e.
-          </xsd:documentation>
+          <xsd:documentation>CPF do agente da administração tributária municipal que efetuou o deferimento da  solicitação de análise fiscal para cancelamento de NFS-e.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="nProcAdm" type="TSNumProcAdmAnaliseFiscalCanc" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Número do processo administrativo municipal vinculado à solicitação de análise fiscal para cancelamento de NFS-e.
-          </xsd:documentation>
+          <xsd:documentation>Número do processo administrativo municipal vinculado à solicitação de análise fiscal para cancelamento de NFS-e.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="cMotivo" type="TSCodJustAnaliseFiscalCancDef" minOccurs="1" maxOccurs="1">
@@ -4863,9 +4831,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:element>
       <xsd:element name="xMotivo" type="TSMotivo" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição para explicitar o motivo indicado neste evento
-          </xsd:documentation>
+          <xsd:documentation>Descrição para explicitar o motivo indicado neste evento</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
     </xsd:sequence>
@@ -4880,18 +4846,13 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:whiteSpace value="preserve"/>
-            <xsd:enumeration value="Solicitação de Análise Fiscal para Cancelamento de NFS-e"/>
+            <xsd:enumeration value="Solicitacao de Analise Fiscal para Cancelamento de NFS-e"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
       <xsd:element name="cMotivo" type="TSCodJustAnaliseFiscalCanc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Código do motivo da solicitação de análise fiscal para cancelamento de NFS-e:
-            1 - Erro na Emissão;
-            2 - Serviço não Prestado;
-            9 - Outros;
-          </xsd:documentation>
+          <xsd:documentation>Código do motivo da solicitação de análise fiscal para cancelamento de NFS-e:</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="xMotivo" type="TSMotivo" minOccurs="1" maxOccurs="1">
@@ -4911,30 +4872,18 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:whiteSpace value="preserve"/>
-            <xsd:enumeration value="Cancelamento de NFS-e por Substituição"/>
+            <xsd:enumeration value="Cancelamento de NFS-e por Substituicao"/>
           </xsd:restriction>
         </xsd:simpleType>
       </xsd:element>
       <xsd:element name="cMotivo" type="TSCodJustSubst" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Código de justificativa de cancelamento substituição:
-            01 - Desenquadramento de NFS-e do Simples Nacional;
-            02 - Enquadramento de NFS-e no Simples Nacional;
-            03 - Inclusão Retroativa de Imunidade/Isenção para NFS-e;
-            04 - Exclusão Retroativa de Imunidade/Isenção para NFS-e;
-            05 - Rejeição de NFS-e pelo tomador ou pelo intermediário se responsável pelo recolhimento do tributo;
-            99 - Outros;
-            Obtido do campo da DPS "DPS/infDPS/subst/cMotivo"
-          </xsd:documentation>
+          <xsd:documentation>Código de justificativa de cancelamento substituição</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="xMotivo" type="TSMotivo" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Descrição para explicitar o motivo indicado neste evento.
-            Obtido do campo da DPS "DPS/infDPS/subst/xMotivo".
-          </xsd:documentation>
+          <xsd:documentation>Descrição para explicitar o motivo indicado neste evento</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="chSubstituta" type="TSChaveNFSe" minOccurs="1" maxOccurs="1">
@@ -4960,12 +4909,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       </xsd:element>
       <xsd:element name="cMotivo" type="TSCodJustCanc" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Código de justificativa de cancelamento:
-            1 - Erro na Emissão;
-            2 - Serviço não Prestado;
-            9 - Outros;
-          </xsd:documentation>
+          <xsd:documentation>Código de justificativa de cancelamento</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="xMotivo" type="TSMotivo" minOccurs="1" maxOccurs="1">
@@ -5014,6 +4958,15 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       <xsd:element name="chNFSe" type="TSChaveNFSe" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>Chave de Acesso da NFS-e vinculada ao Evento</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="nPedRegEvento" type="TSNum3Dig" minOccurs="1" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Número do pedido do registro de evento para o mesmo tipo de evento.
+            Para os eventos que ocorrem somente uma vez, como é o caso do cancelamento, o nPedRegEvento deve ser igual a 1.
+            Os eventos que podem ocorrer mais de uma vez devem ter o nPedRegEvento único.
+          </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:choice minOccurs="1" maxOccurs="1">
@@ -5099,7 +5052,7 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
         </xsd:element>
       </xsd:choice>
     </xsd:sequence>
-    <xsd:attribute name="Id" type="TSIdPedRegEvt" use="required"/>
+    <xsd:attribute name="Id" type="TSIdPedRefEvt" use="required"/>
   </xsd:complexType>
   <!--TIPO COMPLEXO PEDIDO DE REGISTRO DE EVENTO -->
   <xsd:complexType name="TCPedRegEvt">
@@ -5112,41 +5065,32 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
   <!--TIPO COMPLEXO PARA INFORMAÇÕES DO EVENTO-->
   <xsd:complexType name="TCInfEvento">
     <xsd:sequence>
-      <xsd:element name="verAplic" type="TSVerAplic" minOccurs="1" maxOccurs="1">
+      <xsd:element name="verAplic" type="TSVerAplic" minOccurs="0" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>Versão do aplicativo que gerou o evento.</xsd:documentation>
+          <xsd:documentation>Versão do aplicativo que gerou o pedido do evento.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="ambGer" type="TSAmbGeradorEvt" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Ambiente gerador do evento:
-            1 - Sistema próprio do município;
-            2 - Sefin Nacional NFS-e;
-            3 - ADN NFS-e;
-          </xsd:documentation>
+          <xsd:documentation>Ambiente gerador do evento</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="nSeqEvento" type="TSNum3Dig" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>
-            Número sequencial do evento para o mesmo tipo de evento.
-            Para os eventos que ocorrem somente uma vez, como é o caso do cancelamento, o nSeqEvento = 001.
-            Para os eventos que possam existir mais de um evento do mesmo tipo o ambiente gerador deverá numerar de forma sequencial.
-          </xsd:documentation>
+          <xsd:documentation>Sequencial do evento para o mesmo tipo de evento. Para maioria dos eventos nSeqEvento=1. Nos casos em que possa existir mais de um evento do mesmo tipo o ambiente gerador deverá numerar de forma sequencial.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="dhProc" type="TSDateTimeUTC" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
           <xsd:documentation>
             Data/Hora do registro do evento.
-            Data e hora no formato UTC (Universal Coordinated Time): AAAA-MM-DDThh:mm:ssTZD
+            Data e hora no formato UTC (Universal Coordinated Time): AAAA-MM-DDThh:mm:ssTZD"
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
-      <xsd:element name="nDFSe" type="TSNumDFe" minOccurs="1" maxOccurs="1">
+      <xsd:element name="nDFe" type="TSNumDFe" minOccurs="1" maxOccurs="1">
         <xsd:annotation>
-          <xsd:documentation>Número sequencial do documento gerado por ambiente gerador de DFSe do município</xsd:documentation>
+          <xsd:documentation>Número sequencial do documento gerado por ambiente gerador de DFe do município.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
       <xsd:element name="pedRegEvento" type="TCPedRegEvt" minOccurs="1" maxOccurs="1">
@@ -5363,7 +5307,6 @@ Mecanismo de apoio/fomento ao Comércio Exterior utilizado pelo tomador do servi
       <xsd:element name="IdentificacaoDps" type="tcIdentificacaoDps" minOccurs="1" maxOccurs="1" />
       <xsd:element name="Codigo" type="tsCodigoMensagemAlerta" minOccurs="1" maxOccurs="1" />
       <xsd:element name="Mensagem" type="tsDescricaoMensagemAlerta" minOccurs="1" maxOccurs="1" />
-      <xsd:element name="Correcao" type="tsDescricaoMensagemAlerta" minOccurs="0" maxOccurs="1" />
     </xsd:sequence>
   </xsd:complexType>
   
