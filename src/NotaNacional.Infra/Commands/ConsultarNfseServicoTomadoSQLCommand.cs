@@ -3,6 +3,6 @@ namespace NotaNacional.Infra.Commands
 
     public class ConsultarNfseServicoTomadoSQLCommand
     {
-        public static string WsNfseConsultarServicoTomado = "dbo.WS_NFSE_CONSULTAR_SERVICO_TOMADO";
+        public static string WsNfseConsultarServicoTomado = "dbo.NOTA_FISCAL_WS_CONSULTAR_SERVICO_TOMADO";
     }
 }
