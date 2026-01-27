@@ -62,7 +62,7 @@ namespace NotaNacional.Core.ConsultarLoteDps.Handlers
                     var result = _repository.Find(string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
-
+                
                 var xmlString = ParseHelper.GetXml(body);
 
                 try

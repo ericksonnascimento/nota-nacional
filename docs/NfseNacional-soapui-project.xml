@@ -363,15 +363,27 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:ConsultarDpsDisponivel>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/ConsultarDpsDisponivel"/></con:call></con:operation><con:operation id="8b4405e5-2fe1-4118-a355-05396ffa8e83" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarLoteDps" name="ConsultarLoteDps" bindingOperationName="ConsultarLoteDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="60a1c3e4-1ee9-4930-8553-9062ce8f9fa5" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/ConsultarDpsDisponivel"/></con:call></con:operation><con:operation id="8b4405e5-2fe1-4118-a355-05396ffa8e83" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarLoteDps" name="ConsultarLoteDps" bindingOperationName="ConsultarLoteDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="60a1c3e4-1ee9-4930-8553-9062ce8f9fa5" name="Exemplo"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ConsultarLoteDps>
-         <nfseCabecMsg>?</nfseCabecMsg>
-         <nfseDadosMsg>?</nfseDadosMsg>
+         <nfseCabecMsg>
+            <cabecalho versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse">
+               <versaoDados>1.01</versaoDados>
+            </cabecalho>
+         </nfseCabecMsg>
+         <nfseDadosMsg>
+            <ConsultarLoteDpsEnvio xmlns="http://www.sped.fazenda.gov.br/nfse" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+               <Prestador>
+                  <CPF>00022623124</CPF>
+                  <IM>4879-1</IM>
+               </Prestador>
+               <Protocolo>139E3D3C-BCF7-F011-8D75-00505699BAC5</Protocolo>
+            </ConsultarLoteDpsEnvio>
+         </nfseDadosMsg>
       </nfse:ConsultarLoteDps>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/ConsultarLoteDps"/></con:call></con:operation><con:operation id="bcff58d5-2f85-4a70-9591-d54f2fb87c31" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseDps" name="ConsultarNfseDps" bindingOperationName="ConsultarNfseDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="96ba0385-14bb-47a6-8e59-a6ca5185cb1e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/ConsultarLoteDps"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="bcff58d5-2f85-4a70-9591-d54f2fb87c31" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ConsultarNfseDps" name="ConsultarNfseDps" bindingOperationName="ConsultarNfseDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="96ba0385-14bb-47a6-8e59-a6ca5185cb1e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ConsultarNfseDps>

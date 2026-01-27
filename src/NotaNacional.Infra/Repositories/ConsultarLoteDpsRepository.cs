@@ -22,9 +22,12 @@ namespace NotaNacional.Infra.Repositories
         {
             using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
             connection.Open();
+            
+            
             var parameters = new
             {
                 XML_REQUISICAO = outerXml,
+                CPF_CNPJ_CERTIFICADO = string.Empty,
                 ERROS = erros,
                 IP_USUARIO = ipUsuario
             };
