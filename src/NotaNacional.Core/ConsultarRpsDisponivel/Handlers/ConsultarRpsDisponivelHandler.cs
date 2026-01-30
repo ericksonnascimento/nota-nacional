@@ -1,4 +1,4 @@
-﻿using NotaNacional.Core.Base;
+using NotaNacional.Core.Base;
 using NotaNacional.Core.Cabecalho.Validator;
 using NotaNacional.Core.Configuration;
 using NotaNacional.Core.ConsultarRpsDisponivel.Models;
@@ -31,7 +31,7 @@ namespace NotaNacional.Core.ConsultarRpsDisponivel.Handlers
         }
 
 
-        public BaseResponse Handle(object header, object body, string ipUsuario)
+        public BaseResponse Handle(object header, object body, string ipUsuario, string cpfCnpjCertificado = "")
         {
             var erros = string.Empty;
 

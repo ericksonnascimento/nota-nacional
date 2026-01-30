@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
-using System.IO;
 using NotaNacional.Core.Helpers;
 
 namespace NotaNacional.Core.Base.Validator
@@ -296,14 +292,9 @@ namespace NotaNacional.Core.Base.Validator
     /// <summary>
     /// Resolver customizado para resolver caminhos de schemas relativos
     /// </summary>
-    internal class SchemaPathResolver : XmlUrlResolver
+    internal class SchemaPathResolver(string basePath) : XmlUrlResolver
     {
-        private readonly string _basePath;
-
-        public SchemaPathResolver(string basePath)
-        {
-            _basePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
-        }
+        private readonly string _basePath = basePath ?? throw new ArgumentNullException(nameof(basePath));
 
         public override object? GetEntity(Uri absoluteUri, string? role, Type? ofObjectToReturn)
         {

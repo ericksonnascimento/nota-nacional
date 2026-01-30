@@ -1,27 +1,19 @@
 using System.Data;
-using System.Data.SqlClient;
 using NotaNacional.Core.ConsultarNfseDps.Models;
 using NotaNacional.Core.ConsultarNfseDps.Repositories;
 using NotaNacional.Infra.Commands;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace NotaNacional.Infra.Repositories
 {
 
-    public class ConsultarNfseDpsRepository : IConsultarNfseDpsRepository
+    public class ConsultarNfseDpsRepository(IConfiguration configuration) : IConsultarNfseDpsRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public ConsultarNfseDpsRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-
         public WsNfseConsultarNfseDpsResult Find(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario)
         {
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
+            using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
             var parameters = new
             {

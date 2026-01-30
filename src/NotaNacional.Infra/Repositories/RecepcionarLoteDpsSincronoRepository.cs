@@ -1,26 +1,20 @@
 using System.Data;
-using System.Data.SqlClient;
 using NotaNacional.Core.RecepcionarLoteDpsSincrono.Models;
 using NotaNacional.Core.RecepcionarLoteDpsSincrono.Repositories;
 using NotaNacional.Infra.Commands;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace NotaNacional.Infra.Repositories
 {
 
-    public class RecepcionarLoteDpsSincronoRepository : IRecepcionarLoteDpsSincronoRepository
+    public class RecepcionarLoteDpsSincronoRepository(IConfiguration configuration)
+        : IRecepcionarLoteDpsSincronoRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public RecepcionarLoteDpsSincronoRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public WsNfseEnviarLoteDpsSincronoResult Process(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario ,string issuer = "")
         {
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
+            using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
             var parameters = new
             {

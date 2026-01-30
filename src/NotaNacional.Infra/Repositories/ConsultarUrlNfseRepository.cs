@@ -1,25 +1,19 @@
 using System.Data;
-using System.Data.SqlClient;
 using NotaNacional.Core.ConsultarUrlNfse.Models;
 using NotaNacional.Core.ConsultarUrlNfse.Repositories;
 using NotaNacional.Infra.Commands;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using NotaNacional.Core.Helpers;
 
 namespace NotaNacional.Infra.Repositories
 {
-    public class ConsultarUrlNfseRepository : IConsultarUrlNfseRepository
+    public class ConsultarUrlNfseRepository(IConfiguration configuration) : IConsultarUrlNfseRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public ConsultarUrlNfseRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;     
-        }
         public WsNfseConsultarUrlResult Find(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario)
         {
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
+            using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
             var parameters = new DynamicParameters();
             parameters.Add("XML_REQUISICAO", outerXml);

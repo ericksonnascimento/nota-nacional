@@ -1,4 +1,4 @@
-﻿using NotaNacional.Core.Base;
+using NotaNacional.Core.Base;
 using NotaNacional.Core.Cabecalho.Validator;
 using NotaNacional.Core.Configuration;
 using NotaNacional.Core.ConsultarUrlNfse.Models;
@@ -29,7 +29,7 @@ namespace NotaNacional.Core.ConsultarUrlNfse.Handlers
             _apenasValidar = handlerConfig.ApenasValidar;
         }
 
-        public BaseResponse Handle(object header, object body, string ipUsuario)
+        public BaseResponse Handle(object header, object body, string ipUsuario, string cpfCnpjCertificado = "")
         {
             var erros = string.Empty;
 

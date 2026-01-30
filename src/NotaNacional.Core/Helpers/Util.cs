@@ -1,4 +1,8 @@
-﻿namespace NotaNacional.Core.Helpers
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Text.RegularExpressions;
+
+namespace NotaNacional.Core.Helpers
 {
 
     public class Util
@@ -35,6 +39,38 @@
                 resto = 11 - resto;
             digito = digito + resto.ToString();
             return cnpj.EndsWith(digito);
+        }
+        
+        public static string ExtractPersonalDocumentFromCertificate(X509Certificate2? certificate)
+        {
+            if (certificate == null)
+                return string.Empty;
+            
+            // Tenta extrair CNPJ da extensão Subject Alternative Name (OID 2.5.29.17)
+            const string oid = "2.5.29.17";
+            if (certificate.Extensions[oid] != null)
+            {
+                var extension = certificate.Extensions[oid];
+                var data = Encoding.UTF8.GetString(extension.RawData);
+                var matches = Regex.Matches(data, @"(?<!\d)\d{14}(?!\d)");
+                var cnpj = matches.FirstOrDefault(x => Util.IsCnpj(x.Value));
+
+                if (cnpj != null && !string.IsNullOrEmpty(cnpj.Value))
+                {
+                    return cnpj.Value;
+                }
+            }
+
+            // Se não encontrou CNPJ na extensão, tenta extrair do Common Name (CN) do Subject
+            var cnParts = certificate.Subject.Split(',')
+                .Select(x => x.Trim().Split('='))
+                .Where(x => x.Length == 2 && x[0].Equals("CN", StringComparison.OrdinalIgnoreCase))
+                .Select(x => x[1])
+                .FirstOrDefault();
+
+            return !string.IsNullOrEmpty(cnParts) ?
+                // Extrai apenas os dígitos do CN
+                new string(cnParts.Where(char.IsDigit).ToArray()) : string.Empty;
         }
     }
 }

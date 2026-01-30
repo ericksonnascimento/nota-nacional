@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Xml.Serialization;
-using NotaNacional.Core.Models;
 
 namespace NotaNacional.Core.Models.Response
 {
@@ -9,7 +8,7 @@ namespace NotaNacional.Core.Models.Response
     public class ValidarXmlResposta : BaseResponse
     {
         [XmlIgnore]
-        private Collection<TcMensagemRetorno> _listaMensagemRetorno;
+        private Collection<TcMensagemRetorno> _listaMensagemRetorno = new();
 
         [XmlArray("ListaMensagemRetorno")]
         [XmlArrayItem("MensagemRetorno", Namespace = "http://www.sped.fazenda.gov.br/nfse")]
@@ -35,11 +34,6 @@ namespace NotaNacional.Core.Models.Response
             {
                 return (this.ListaMensagemRetorno.Count != 0);
             }
-        }
-
-        public ValidarXmlResposta()
-        {
-            this._listaMensagemRetorno = new Collection<TcMensagemRetorno>();
         }
     }
 }
