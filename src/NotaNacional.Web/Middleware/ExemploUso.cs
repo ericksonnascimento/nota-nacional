@@ -42,18 +42,11 @@ public class ExemploUso
     }
 
     // Exemplo 2: Usando em um serviço com IHttpContextAccessor
-    public class ExemploService
+    public class ExemploService(IHttpContextAccessor httpContextAccessor)
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public ExemploService(IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
-        }
-
         public string ObterClienteDoCertificado()
         {
-            var context = _httpContextAccessor.HttpContext;
+            var context = httpContextAccessor.HttpContext;
             if (context == null)
                 return "Desconhecido";
 

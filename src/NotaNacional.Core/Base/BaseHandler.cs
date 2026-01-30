@@ -6,13 +6,9 @@ using NotaNacional.Core.Helpers;
 
 namespace NotaNacional.Core.Base
 {
-    public class ValidateException : Exception
+    public class ValidateException(string code) : Exception
     {
-        public string code;
-
-        public ValidateException(string code) {
-            this.code = code;
-        }
+        public string code = code;
     }
 
     public abstract class BaseHandler

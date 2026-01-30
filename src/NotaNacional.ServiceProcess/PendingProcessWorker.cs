@@ -3,11 +3,9 @@ using NotaNacional.Core.ServicoProcessamento.Repositories;
 
 namespace NotaNacional.ServiceProcess;
 
-public class PendingProcessWorker : BackgroundService
+public class PendingProcessWorker(ILogger<PendingProcessWorker> logger, IServicoProcessamentoRepository repository)
+    : BackgroundService
 {
-    private readonly ILogger<PendingProcessWorker> _logger;
-    private readonly IServicoProcessamentoRepository _repository;
-
     private static Dictionary<MunicipioProcessamento, int> _citiesWithDuration =
         new()
         {
@@ -37,16 +35,11 @@ public class PendingProcessWorker : BackgroundService
             { MunicipioProcessamento.Apresentacao, 2000 },
         };
 
-    public PendingProcessWorker(ILogger<PendingProcessWorker> logger, IServicoProcessamentoRepository repository)
-    {
-        _logger = logger;
-        _repository = repository;
-    }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogInformation("Processamento de notas iniciado em: {time}", DateTimeOffset.Now);
+            logger.LogInformation("Processamento de notas iniciado em: {time}", DateTimeOffset.Now);
             var tasks = new Task[_citiesWithDuration.Count];
             var idx = 0;
             foreach (var city in _citiesWithDuration)
@@ -64,7 +57,7 @@ public class PendingProcessWorker : BackgroundService
         {
             while (true)
             {
-                var pendingProcessing = _repository.PullPending(city);
+                var pendingProcessing = repository.PullPending(city);
                 if (pendingProcessing.Count > 0)
                 {
                     var grouped = pendingProcessing.GroupBy(item => item.InscricaoMunicipal)
@@ -89,7 +82,7 @@ public class PendingProcessWorker : BackgroundService
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Erro while executing processing");
+            logger.LogError(e, "Erro while executing processing");
 
         }
     }
@@ -97,7 +90,7 @@ public class PendingProcessWorker : BackgroundService
     {
         foreach (var protocol in protocols)
         {
-            _repository.SendToProcess(city, protocol);
+            repository.SendToProcess(city, protocol);
         }
     }
 }

@@ -33,99 +33,41 @@ using System.Xml.Linq;
 namespace NotaNacional.Web.Service
 {
 
-    public class Nfse : INfse
+    public class Nfse(
+        ICancelarNfseHandler cancelarNfseHandler,
+        IConsultarLoteDpsHandler consultarLoteDpsHandler,
+        IConsultarNfseServicoPrestadoHandler consultarNfseServicoPrestadoHandler,
+        IConsultarNfseServicoTomadoHandler consultarNfseServicoTomadoHandler,
+        IConsultarNfseFaixaHandler consultarNfseFaixaHandler,
+        IConsultarNfseDpsHandler consultarNfseDpsHandler,
+        IRecepcionarLoteDpsHandler recepcionarLoteDpsHandler,
+        IGerarNfseHandler gerarNfseHandler,
+        IRecepcionarLoteDpsSincronoHandler recepcionarLoteDpsSincronoHandler,
+        IConsultarUrlNfseHandler consultarUrlNfseHandler,
+        IConsultarDadosCadastraisHandler consultarDadosCadastraisHandler,
+        IConsultarDpsDisponivelHandler consultarDpsDisponivelHandler,
+        IHttpContextAccessor httpContextAccessor,
+        ICabecalhoValidator cabecalhoValidator,
+        ICancelarNfseValidator cancelarNfseValidator,
+        IConsultarLoteDpsValidator consultarLoteDpsValidator,
+        IConsultarNfseFaixaValidator consultarNfseFaixaValidator,
+        IConsultarNfseDpsValidator consultarNfseDpsValidator,
+        IConsultarNfseServicoPrestadoValidator consultarNfseServicoPrestadoValidator,
+        IConsultarNfseServicoTomadoValidator consultarNfseServicoTomadoValidator,
+        IGerarNfseValidator gerarNfseValidator,
+        IRecepcionarLoteDpsValidator recepcionarLoteDpsValidator,
+        IRecepcionarLoteDpsSincronoValidator recepcionarLoteDpsSincronoValidator,
+        IConsultarUrlNfseValidator consultarUrlNfseValidator,
+        IConsultarDadosCadastraisValidator consultarDadosCadastraisValidator,
+        IConsultarDpsDisponivelValidator consultarDpsDisponivelValidator,
+        IConfiguration configuration)
+        : INfse
     {
-        private ICancelarNfseHandler _cancelarNfseHandler;
-        private IConsultarLoteDpsHandler _consultarLoteDpsHandler;
-        private IConsultarNfseServicoPrestadoHandler _consultarNfseServicoPrestadoHandler;
-        private IConsultarNfseServicoTomadoHandler _consultarNfseServicoTomadoHandler;
-        private IConsultarNfseFaixaHandler _consultarNfseFaixaHandler;
-        private IConsultarNfseDpsHandler _consultarNfseDpsHandler;
-        private IRecepcionarLoteDpsHandler _recepcionarLoteDpsHandler;
-        private IGerarNfseHandler _gerarNfseHandler;
-        private IRecepcionarLoteDpsSincronoHandler _recepcionarLoteDpsSincronoHandler;
-        private IConsultarUrlNfseHandler _consultarUrlNfseHandler;
-        private IConsultarDadosCadastraisHandler _consultarDadosCadastraisHandler;
-        private IConsultarDpsDisponivelHandler _consultarDpsDisponivelHandler;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        
         // Validators para ValidarXml
-        private readonly ICabecalhoValidator _cabecalhoValidator;
-        private readonly ICancelarNfseValidator _cancelarNfseValidator;
-        private readonly IConsultarLoteDpsValidator _consultarLoteDpsValidator;
-        private readonly IConsultarNfseFaixaValidator _consultarNfseFaixaValidator;
-        private readonly IConsultarNfseDpsValidator _consultarNfseDpsValidator;
-        private readonly IConsultarNfseServicoPrestadoValidator _consultarNfseServicoPrestadoValidator;
-        private readonly IConsultarNfseServicoTomadoValidator _consultarNfseServicoTomadoValidator;
-        private readonly IGerarNfseValidator _gerarNfseValidator;
-        private readonly IRecepcionarLoteDpsValidator _recepcionarLoteDpsValidator;
-        private readonly IRecepcionarLoteDpsSincronoValidator _recepcionarLoteDpsSincronoValidator;
-        private readonly IConsultarUrlNfseValidator _consultarUrlNfseValidator;
-        private readonly IConsultarDadosCadastraisValidator _consultarDadosCadastraisValidator;
-        private readonly IConsultarDpsDisponivelValidator _consultarDpsDisponivelValidator;
-        private readonly IConfiguration _configuration;
         private const string OPERACAO_EM_CONSTRUCAO = "E999";
 
-        public Nfse(
-            ICancelarNfseHandler cancelarNfseHandler,
-            IConsultarLoteDpsHandler consultarLoteDpsHandler,
-            IConsultarNfseServicoPrestadoHandler consultarNfseServicoPrestadoHandler,
-            IConsultarNfseServicoTomadoHandler consultarNfseServicoTomadoHandler,
-            IConsultarNfseFaixaHandler consultarNfseFaixaHandler,
-            IConsultarNfseDpsHandler consultarNfseDpsHandler,
-            IRecepcionarLoteDpsHandler recepcionarLoteDpsHandler,
-            IGerarNfseHandler gerarNfseHandler,
-            IRecepcionarLoteDpsSincronoHandler recepcionarLoteDpsSincronoHandler,
-            IConsultarUrlNfseHandler consultarUrlNfseHandler,
-            IConsultarDadosCadastraisHandler consultarDadosCadastraisHandler,
-            IConsultarDpsDisponivelHandler consultarDpsDisponivelHandler,
-            IHttpContextAccessor httpContextAccessor,
-            ICabecalhoValidator cabecalhoValidator,
-            ICancelarNfseValidator cancelarNfseValidator,
-            IConsultarLoteDpsValidator consultarLoteDpsValidator,
-            IConsultarNfseFaixaValidator consultarNfseFaixaValidator,
-            IConsultarNfseDpsValidator consultarNfseDpsValidator,
-            IConsultarNfseServicoPrestadoValidator consultarNfseServicoPrestadoValidator,
-            IConsultarNfseServicoTomadoValidator consultarNfseServicoTomadoValidator,
-            IGerarNfseValidator gerarNfseValidator,
-            IRecepcionarLoteDpsValidator recepcionarLoteDpsValidator,
-            IRecepcionarLoteDpsSincronoValidator recepcionarLoteDpsSincronoValidator,
-            IConsultarUrlNfseValidator consultarUrlNfseValidator,
-            IConsultarDadosCadastraisValidator consultarDadosCadastraisValidator,
-            IConsultarDpsDisponivelValidator consultarDpsDisponivelValidator,
-            IConfiguration configuration)
-        {
-            _cancelarNfseHandler = cancelarNfseHandler;
-            _consultarLoteDpsHandler = consultarLoteDpsHandler;
-            _consultarNfseServicoPrestadoHandler = consultarNfseServicoPrestadoHandler;
-            _consultarNfseServicoTomadoHandler = consultarNfseServicoTomadoHandler;
-            _consultarNfseFaixaHandler = consultarNfseFaixaHandler;
-            _consultarNfseDpsHandler = consultarNfseDpsHandler;
-            _recepcionarLoteDpsHandler = recepcionarLoteDpsHandler;
-            _gerarNfseHandler = gerarNfseHandler;
-            _recepcionarLoteDpsSincronoHandler = recepcionarLoteDpsSincronoHandler;
-            _consultarUrlNfseHandler = consultarUrlNfseHandler;
-            _consultarDadosCadastraisHandler = consultarDadosCadastraisHandler;
-            _consultarDpsDisponivelHandler = consultarDpsDisponivelHandler;
-            _httpContextAccessor = httpContextAccessor;
-            
-            // Validators
-            _cabecalhoValidator = cabecalhoValidator;
-            _cancelarNfseValidator = cancelarNfseValidator;
-            _consultarLoteDpsValidator = consultarLoteDpsValidator;
-            _consultarNfseFaixaValidator = consultarNfseFaixaValidator;
-            _consultarNfseDpsValidator = consultarNfseDpsValidator;
-            _consultarNfseServicoPrestadoValidator = consultarNfseServicoPrestadoValidator;
-            _consultarNfseServicoTomadoValidator = consultarNfseServicoTomadoValidator;
-            _gerarNfseValidator = gerarNfseValidator;
-            _recepcionarLoteDpsValidator = recepcionarLoteDpsValidator;
-            _recepcionarLoteDpsSincronoValidator = recepcionarLoteDpsSincronoValidator;
-            _consultarUrlNfseValidator = consultarUrlNfseValidator;
-            _consultarDadosCadastraisValidator = consultarDadosCadastraisValidator;
-            _consultarDpsDisponivelValidator = consultarDpsDisponivelValidator;
-            _configuration = configuration;
-        }
-        
+        // Validators
+
         public BaseResponse CancelarNfse(object nfseCabecMsg, object nfseDadosMsg)
         {
             if (!IsOperacaoHabilitada("CancelarNfse"))
@@ -133,10 +75,10 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("CancelarNfse");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
             
-            return _cancelarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip, Util.ExtractPersonalDocumentFromCertificate(certificado));
+            return cancelarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip, Util.ExtractPersonalDocumentFromCertificate(certificado));
         }
         public BaseResponse RecepcionarLoteDps(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -145,9 +87,9 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("RecepcionarLoteDps");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
-            return _recepcionarLoteDpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
+            return recepcionarLoteDpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
 
         public BaseResponse ConsultarLoteDps(object nfseCabecMsg, object nfseDadosMsg)
@@ -157,10 +99,10 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("ConsultarLoteDps");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
             
-            return _consultarLoteDpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip, Util.ExtractPersonalDocumentFromCertificate(certificado));
+            return consultarLoteDpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip, Util.ExtractPersonalDocumentFromCertificate(certificado));
         }
         public BaseResponse ConsultarNfseServicoPrestado(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -169,9 +111,9 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("ConsultarNfseServicoPrestado");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
-            return _consultarNfseServicoPrestadoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
+            return consultarNfseServicoPrestadoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarNfseServicoTomado(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -180,9 +122,9 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("ConsultarNfseServicoTomado");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
-            return _consultarNfseServicoTomadoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
+            return consultarNfseServicoTomadoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarNfsePorFaixa(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -191,9 +133,9 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("ConsultarNfsePorFaixa");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
-            return _consultarNfseFaixaHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
+            return consultarNfseFaixaHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarNfseDps(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -202,9 +144,9 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("ConsultarNfseDps");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
-            return _consultarNfseDpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
+            return consultarNfseDpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse GerarNfse(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -213,9 +155,9 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("GerarNfse");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
-            return _gerarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
+            return gerarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse RecepcionarLoteDpsSincrono(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -224,9 +166,9 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("RecepcionarLoteDpsSincrono");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
-            return _recepcionarLoteDpsSincronoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
+            return recepcionarLoteDpsSincronoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarUrlNfse(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -235,9 +177,9 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("ConsultarUrlNfse");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
-            return _consultarUrlNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
+            return consultarUrlNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarDadosCadastrais(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -246,9 +188,9 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("ConsultarDadosCadastrais");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
-            return _consultarDadosCadastraisHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
+            return consultarDadosCadastraisHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarDpsDisponivel(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -257,9 +199,9 @@ namespace NotaNacional.Web.Service
                 return RetornarOperacaoIndisponivel("ConsultarDpsDisponivel");
             }
             
-            var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
-            return _consultarDpsDisponivelHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var ip = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = httpContextAccessor.HttpContext?.GetClientCertificate();
+            return consultarDpsDisponivelHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
 
         public BaseResponse ValidarXml(object nfseCabecMsg, object nfseDadosMsg)
@@ -267,7 +209,7 @@ namespace NotaNacional.Web.Service
             try
             {
                 // Validar cabeçalho
-                var headerValidationResult = _cabecalhoValidator.Validate(nfseCabecMsg);
+                var headerValidationResult = cabecalhoValidator.Validate(nfseCabecMsg);
                 
                 // Extrair versão do cabeçalho para usar como referência na validação do body
                 var headerVersion = ExtractVersionFromHeader(nfseCabecMsg);
@@ -355,18 +297,18 @@ namespace NotaNacional.Web.Service
         {
             return operation switch
             {
-                "CancelarNfse" => _cancelarNfseValidator,
-                "ConsultarLoteDps" => _consultarLoteDpsValidator,
-                "ConsultarNfsePorFaixa" => _consultarNfseFaixaValidator,
-                "ConsultarNfseDps" => _consultarNfseDpsValidator,
-                "ConsultarNfseServicoPrestado" => _consultarNfseServicoPrestadoValidator,
-                "ConsultarNfseServicoTomado" => _consultarNfseServicoTomadoValidator,
-                "GerarNfse" => _gerarNfseValidator,
-                "RecepcionarLoteDps" => _recepcionarLoteDpsValidator,
-                "RecepcionarLoteDpsSincrono" => _recepcionarLoteDpsSincronoValidator,
-                "ConsultarUrlNfse" => _consultarUrlNfseValidator,
-                "ConsultarDadosCadastrais" => _consultarDadosCadastraisValidator,
-                "ConsultarDpsDisponivel" => _consultarDpsDisponivelValidator,
+                "CancelarNfse" => cancelarNfseValidator,
+                "ConsultarLoteDps" => consultarLoteDpsValidator,
+                "ConsultarNfsePorFaixa" => consultarNfseFaixaValidator,
+                "ConsultarNfseDps" => consultarNfseDpsValidator,
+                "ConsultarNfseServicoPrestado" => consultarNfseServicoPrestadoValidator,
+                "ConsultarNfseServicoTomado" => consultarNfseServicoTomadoValidator,
+                "GerarNfse" => gerarNfseValidator,
+                "RecepcionarLoteDps" => recepcionarLoteDpsValidator,
+                "RecepcionarLoteDpsSincrono" => recepcionarLoteDpsSincronoValidator,
+                "ConsultarUrlNfse" => consultarUrlNfseValidator,
+                "ConsultarDadosCadastrais" => consultarDadosCadastraisValidator,
+                "ConsultarDpsDisponivel" => consultarDpsDisponivelValidator,
                 _ => null
             };
         }
@@ -426,7 +368,7 @@ namespace NotaNacional.Web.Service
 
         private bool IsOperacaoHabilitada(string nomeOperacao)
         {
-            return _configuration.GetValue<bool>($"OperacoesHabilitadas:{nomeOperacao}", false);
+            return configuration.GetValue<bool>($"OperacoesHabilitadas:{nomeOperacao}", false);
         }
 
         private BaseResponse RetornarOperacaoIndisponivel(string operacao)

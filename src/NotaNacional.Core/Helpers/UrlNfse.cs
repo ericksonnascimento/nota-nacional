@@ -1,28 +1,16 @@
 ﻿namespace NotaNacional.Core.Helpers
 {
-    public class UrlNfse
+    public class UrlNfse(string[] input, string? url)
     {
         const string visualize = "0";
         const string cleanCache = "1";
         const string expire = "31/12/9999 23:59:59";
 
-        readonly string? url;
-        readonly string serie;
-        readonly string sequence;
-        readonly string cae;
-        readonly string type;
-        readonly string chaveAutenticidade;
-
-        public UrlNfse(string[] input, string? url)
-        {
-           this.url = url;
-
-            cae = input[0];
-            serie = input[1];
-            type = input[2];
-            sequence = input[3];
-            chaveAutenticidade = input[4];
-        }
+        readonly string serie = input[1];
+        readonly string sequence = input[3];
+        readonly string cae = input[0];
+        readonly string type = input[2];
+        readonly string chaveAutenticidade = input[4];
 
         public string GetUrlNF()
         {

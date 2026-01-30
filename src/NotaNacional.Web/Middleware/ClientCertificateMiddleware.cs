@@ -6,29 +6,21 @@ namespace NotaNacional.Web.Middleware;
 /// Middleware para capturar e disponibilizar o certificado do cliente durante o handshake TLS/SSL.
 /// O certificado é armazenado no HttpContext.Items para acesso posterior.
 /// </summary>
-public class ClientCertificateMiddleware
+public class ClientCertificateMiddleware(RequestDelegate next, ILogger<ClientCertificateMiddleware>? logger = null)
 {
-    private readonly RequestDelegate _next;
-    private readonly ILogger<ClientCertificateMiddleware>? _logger;
     private const string ClientCertificateKey = "ClientCertificate";
-
-    public ClientCertificateMiddleware(RequestDelegate next, ILogger<ClientCertificateMiddleware>? logger = null)
-    {
-        _next = next;
-        _logger = logger;
-    }
 
     public async Task InvokeAsync(HttpContext context)
     {
         // Log para debug
-        _logger?.LogDebug("Processando requisição - IsHttps: {IsHttps}, RemoteIp: {RemoteIp}", 
+        logger?.LogDebug("Processando requisição - IsHttps: {IsHttps}, RemoteIp: {RemoteIp}", 
             context.Request.IsHttps, context.Connection.RemoteIpAddress);
 
         // Obtém o certificado do cliente da conexão
         // O certificado pode estar disponível diretamente na conexão após o handshake TLS
         var clientCertificate = context.Connection.ClientCertificate;
         
-        _logger?.LogDebug("Certificado inicial da conexão: {HasCert}", clientCertificate != null);
+        logger?.LogDebug("Certificado inicial da conexão: {HasCert}", clientCertificate != null);
 
         // Se não estiver disponível diretamente, tenta obter da requisição
         if (clientCertificate == null)
@@ -88,17 +80,17 @@ public class ClientCertificateMiddleware
             if (cert2 != null)
             {
                 context.Items[ClientCertificateKey] = cert2;
-                _logger?.LogInformation("Certificado do cliente capturado - Subject: {Subject}, Thumbprint: {Thumbprint}", 
+                logger?.LogInformation("Certificado do cliente capturado - Subject: {Subject}, Thumbprint: {Thumbprint}", 
                     cert2.Subject, cert2.Thumbprint);
             }
         }
         else
         {
-            _logger?.LogWarning("Nenhum certificado do cliente encontrado na requisição");
+            logger?.LogWarning("Nenhum certificado do cliente encontrado na requisição");
         }
 
         // Continua o pipeline
-        await _next(context);
+        await next(context);
     }
 
     /// <summary>

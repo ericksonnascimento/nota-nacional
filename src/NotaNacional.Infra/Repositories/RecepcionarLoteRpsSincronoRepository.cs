@@ -9,18 +9,12 @@ using Microsoft.Extensions.Configuration;
 namespace NotaNacional.Infra.Repositories
 {
 
-    public class RecepcionarLoteRpsSincronoRepository : IRecepcionarLoteRpsSincronoRepository
+    public class RecepcionarLoteRpsSincronoRepository(IConfiguration configuration)
+        : IRecepcionarLoteRpsSincronoRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public RecepcionarLoteRpsSincronoRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public WsNfseEnviarLoteRpsSincronoResult Process(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario ,string issuer = "")
         {
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
+            using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
             var parameters = new
             {

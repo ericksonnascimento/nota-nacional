@@ -9,14 +9,8 @@ using Microsoft.Extensions.Configuration;
 namespace NotaNacional.Infra.Repositories
 {
 
-    public class ServicoProcessamentoRepository : IServicoProcessamentoRepository
+    public class ServicoProcessamentoRepository(IConfiguration configuration) : IServicoProcessamentoRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public ServicoProcessamentoRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
         public List<LotePendente> PullPending(MunicipioProcessamento city)
         {
             var connectionString = GetConnectionString(city);
@@ -55,7 +49,7 @@ namespace NotaNacional.Infra.Repositories
         private string GetConnectionString(MunicipioProcessamento city)
         {
             var key = city.ToString().ToLowerInvariant();
-            return _configuration.GetConnectionString(key);
+            return configuration.GetConnectionString(key);
         }
     }
 }

@@ -9,19 +9,11 @@ using Microsoft.Extensions.Configuration;
 namespace NotaNacional.Infra.Repositories
 {
 
-    public class ConsultarNfseFaixaRepository : IConsultarNfseFaixaRepository
+    public class ConsultarNfseFaixaRepository(IConfiguration configuration) : IConsultarNfseFaixaRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public ConsultarNfseFaixaRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-
         public WsNfseConsultarNfseFaixaResult Find(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario)
         {
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
+            using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
             var parameters = new
             {

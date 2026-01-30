@@ -8,18 +8,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace NotaNacional.Infra.Repositories
 {
-    public class ConsultarRpsDisponivelRepository : IConsultarRpsDisponivelRepository    
+    public class ConsultarRpsDisponivelRepository(IConfiguration configuration) : IConsultarRpsDisponivelRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public ConsultarRpsDisponivelRepository(IConfiguration configuration)
-        {
-            _configuration = configuration; 
-        }
-
         public WsConsultarRpsDisponivelResult Find(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario)
         {
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
+            using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
             var parameters = new
             {

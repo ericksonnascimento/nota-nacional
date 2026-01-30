@@ -9,18 +9,11 @@ using Microsoft.Extensions.Configuration;
 namespace NotaNacional.Infra.Repositories
 {
 
-    public class CancelarNfseRepository : ICancelarNfseRepository
+    public class CancelarNfseRepository(IConfiguration configuration) : ICancelarNfseRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public CancelarNfseRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public WsCancelarNfseResult Cancel(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario, string issuer = "")
         {
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
+            using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
             var parameters = new
             {

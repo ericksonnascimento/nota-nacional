@@ -9,18 +9,11 @@ using Microsoft.Extensions.Configuration;
 namespace NotaNacional.Infra.Repositories
 {
 
-    public class GerarNfseRepository : IGerarNfseRepository
+    public class GerarNfseRepository(IConfiguration configuration) : IGerarNfseRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public GerarNfseRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public WsNfseGerarNfseResult Generate(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario ,string issuer = "")
         {
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
+            using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
             var parameters = new
             {

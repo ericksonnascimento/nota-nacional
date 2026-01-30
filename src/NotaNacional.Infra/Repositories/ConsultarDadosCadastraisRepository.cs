@@ -8,18 +8,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace NotaNacional.Infra.Repositories
 {
-    public class ConsultarDadosCadastraisRepository : IConsultarDadosCadastraisRepository
+    public class ConsultarDadosCadastraisRepository(IConfiguration configuration) : IConsultarDadosCadastraisRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public ConsultarDadosCadastraisRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public WsConsultarDadosCadastraisResult Find(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario)
         {
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
+            using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
             var parameters = new
             {

@@ -9,18 +9,12 @@ using Microsoft.Extensions.Configuration;
 namespace NotaNacional.Infra.Repositories
 {
 
-    public class ConsultarNfseServicoPrestadoRepository : IConsultarNfseServicoPrestadoRepository
+    public class ConsultarNfseServicoPrestadoRepository(IConfiguration configuration)
+        : IConsultarNfseServicoPrestadoRepository
     {
-        private readonly IConfiguration _configuration;
-
-        public ConsultarNfseServicoPrestadoRepository(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
         public WsNfseConsultarNfseServicoPrestadoResult Find(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario)
         {
-            using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
+            using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
             var parameters = new
             {
