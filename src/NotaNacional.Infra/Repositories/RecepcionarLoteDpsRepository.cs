@@ -1,9 +1,9 @@
 using System.Data;
-using System.Data.SqlClient;
 using NotaNacional.Core.RecepcionarLoteDps.Models;
 using NotaNacional.Core.RecepcionarLoteDps.Repositories;
 using NotaNacional.Infra.Commands;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace NotaNacional.Infra.Repositories

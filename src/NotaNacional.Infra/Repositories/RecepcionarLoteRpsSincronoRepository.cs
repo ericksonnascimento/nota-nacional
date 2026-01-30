@@ -1,9 +1,9 @@
 using System.Data;
-using System.Data.SqlClient;
 using NotaNacional.Core.RecepcionarLoteRpsSincrono.Models;
 using NotaNacional.Core.RecepcionarLoteRpsSincrono.Repositories;
 using NotaNacional.Infra.Commands;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace NotaNacional.Infra.Repositories

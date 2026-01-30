@@ -1,9 +1,9 @@
 using System.Data;
-using System.Data.SqlClient;
 using NotaNacional.Core.ConsultarUrlNfse.Models;
 using NotaNacional.Core.ConsultarUrlNfse.Repositories;
 using NotaNacional.Infra.Commands;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using NotaNacional.Core.Helpers;
 
