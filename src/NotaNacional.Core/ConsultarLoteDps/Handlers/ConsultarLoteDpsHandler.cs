@@ -89,7 +89,7 @@ namespace NotaNacional.Core.ConsultarLoteDps.Handlers
             {
                 throw new Exception("Error");
             }
-
+            
             return ParseHelper.ParseXml<NotaNacional.Core.Models.ConsultarLoteDpsResposta>(result.XmlResposta);
         }
     }

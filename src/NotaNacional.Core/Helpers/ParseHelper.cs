@@ -14,13 +14,19 @@ namespace NotaNacional.Core.Helpers
             {
                 ConformanceLevel = ConformanceLevel.Document
             });
-            return new XmlSerializer(typeof(T)).Deserialize(reader) as T ?? throw new InvalidOperationException();
+            
+            // Criar XmlSerializerNamespaces para mapear os namespaces corretos
+            var namespaces = new System.Xml.Serialization.XmlSerializerNamespaces();
+            namespaces.Add("", "http://www.sped.fazenda.gov.br/nfse");
+            
+            var serializer = new XmlSerializer(typeof(T));
+            return serializer.Deserialize(reader) as T ?? throw new InvalidOperationException();
         }
 
         private static Stream GenerateStreamFromString(string s)
         {
             var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
+            var writer = new StreamWriter(stream, Encoding.UTF8, leaveOpen: true);
             writer.Write(s);
             writer.Flush();
             stream.Position = 0;

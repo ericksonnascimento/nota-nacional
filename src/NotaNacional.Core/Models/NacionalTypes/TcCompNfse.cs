@@ -23,7 +23,7 @@ namespace NotaNacional.Core.Models
     {
         
         [System.ComponentModel.DataAnnotations.RequiredAttribute(AllowEmptyStrings=true)]
-        [System.Xml.Serialization.XmlElementAttribute("Nfse")]
+        [System.Xml.Serialization.XmlElementAttribute("NFSe")]
         public TcnfSe Nfse { get; set; }
         
         [System.Xml.Serialization.XmlElementAttribute("Evento")]
