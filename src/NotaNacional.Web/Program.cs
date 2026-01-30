@@ -1,5 +1,4 @@
 using System.ServiceModel.Channels;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
 using NotaNacional.Web.Configuration;
@@ -14,13 +13,37 @@ builder.WebHost.ConfigureKestrel(options =>
 {
     options.ConfigureHttpsDefaults(httpsOptions =>
     {
-        // Aceita certificados de cliente, mas não exige (AllowCertificate)
-        // Para exigir certificado, use RequireCertificate
-        httpsOptions.ClientCertificateMode = ClientCertificateMode.AllowCertificate;
+        // Lê configuração do appsettings para determinar o modo do certificado
+        var requireCert = builder.Configuration.GetValue<bool>("ClientCertificate:RequireCertificate", false);
+        var acceptSelfSigned = builder.Configuration.GetValue<bool>("ClientCertificate:AcceptSelfSigned", true);
+        
+        // Define o modo baseado na configuração
+        // AllowCertificate: aceita certificado quando fornecido, mas não exige
+        // RequireCertificate: exige certificado obrigatório
+        httpsOptions.ClientCertificateMode = requireCert 
+            ? ClientCertificateMode.RequireCertificate 
+            : ClientCertificateMode.AllowCertificate;
         
         // Valida o certificado do cliente
         httpsOptions.ClientCertificateValidation = (certificate, chain, errors) =>
         {
+            // Se não há certificado e estamos em modo RequireCertificate, rejeita
+            if (certificate == null)
+            {
+                return false;
+            }
+
+            // Em desenvolvimento ou se configurado para aceitar auto-assinados
+            // Aceita certificados mesmo com erros de validação da cadeia
+            // Isso permite usar certificados auto-assinados para testes com SOAP UI
+            if (builder.Environment.IsDevelopment() || acceptSelfSigned)
+            {
+                // Aceita qualquer certificado (incluindo auto-assinados)
+                // O middleware irá fazer o log detalhado do certificado
+                return true;
+            }
+
+            // Em produção, valida adequadamente
             // Aqui você pode implementar validação customizada do certificado
             // Por padrão, retorna true para aceitar qualquer certificado válido
             // Em produção, implemente validação adequada (ex: verificar CA, revogação, etc.)

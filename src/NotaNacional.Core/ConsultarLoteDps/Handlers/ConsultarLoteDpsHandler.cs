@@ -29,10 +29,9 @@ namespace NotaNacional.Core.ConsultarLoteDps.Handlers
             _apenasValidar = handlerConfig.ApenasValidar;
         }
 
-        public BaseResponse Handle(object header, object body, string ipUsuario)
+        public BaseResponse Handle(object header, object body, string ipUsuario, string cpfCnpjCertificado = "")
         {
             var erros = string.Empty;
-            var cpfCnpj = "00022623124";
             try
             {
                 //Validar cabecalho
@@ -53,13 +52,13 @@ namespace NotaNacional.Core.ConsultarLoteDps.Handlers
 
                 if (erros.Length != 0)
                 {
-                    var result = _repository.Find(string.Empty, cpfCnpj, erros, ipUsuario);
+                    var result = _repository.Find(string.Empty, cpfCnpjCertificado, erros, ipUsuario);
                     return BuildResponse(result);
                 }
 
                 if (_apenasValidar)
                 {
-                    var result = _repository.Find(string.Empty, cpfCnpj, string.Empty, ipUsuario);
+                    var result = _repository.Find(string.Empty, cpfCnpjCertificado, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
                 
@@ -67,30 +66,24 @@ namespace NotaNacional.Core.ConsultarLoteDps.Handlers
 
                 try
                 {
-                    var result = _repository.Find(xmlString, cpfCnpj, erros, ipUsuario);
+                    var result = _repository.Find(xmlString, cpfCnpjCertificado, erros, ipUsuario);
                     return BuildResponse(result);
                 }
                 catch (Exception)
                 {
-                    var result = _repository.Find(xmlString, cpfCnpj, "E160", ipUsuario); //Arquivo em desacordo com o XML Schema.
+                    var result = _repository.Find(xmlString, cpfCnpjCertificado, "E160", ipUsuario); //Arquivo em desacordo com o XML Schema.
                     return BuildResponse(result);
                 }
             }
             catch (Exception)
             {
-                var result = _repository.Find(string.Empty, cpfCnpj, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
+                var result = _repository.Find(string.Empty, cpfCnpjCertificado, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
                 return BuildResponse(result);
             }
         }
 
-        private NotaNacional.Core.Models.ConsultarLoteDpsResposta BuildResponse(WsNfseConsultarLoteDpsResult result)
-        {
-            if (string.IsNullOrEmpty(result.XmlResposta))
-            {
-                throw new Exception("Error");
-            }
-            
-            return ParseHelper.ParseXml<NotaNacional.Core.Models.ConsultarLoteDpsResposta>(result.XmlResposta);
-        }
+        private NotaNacional.Core.Models.ConsultarLoteDpsResposta BuildResponse(WsNfseConsultarLoteDpsResult result) 
+            => string.IsNullOrEmpty(result.XmlResposta) ? throw new Exception("Error") 
+                : ParseHelper.ParseXml<NotaNacional.Core.Models.ConsultarLoteDpsResposta>(result.XmlResposta);
     }
 }

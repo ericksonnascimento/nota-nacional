@@ -30,7 +30,7 @@ namespace NotaNacional.Core.ConsultarNfseServicoPrestado.Handlers
             _apenasValidar = handlerConfig.ApenasValidar;
         }
 
-        public BaseResponse Handle(object header, object body, string ipUsuario)
+        public BaseResponse Handle(object header, object body, string ipUsuario, string cpfCnpjCertificado = "")
         {
             var erros = string.Empty;
 

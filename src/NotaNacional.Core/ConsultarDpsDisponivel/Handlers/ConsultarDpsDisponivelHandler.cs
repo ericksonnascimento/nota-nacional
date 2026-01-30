@@ -31,7 +31,7 @@ namespace NotaNacional.Core.ConsultarDpsDisponivel.Handlers
         }
 
 
-        public BaseResponse Handle(object header, object body, string ipUsuario)
+        public BaseResponse Handle(object header, object body, string ipUsuario, string cpfCnpjCertificado = "")
         {
             var erros = string.Empty;
 

@@ -22,8 +22,7 @@ namespace NotaNacional.Infra.Repositories
         {
             using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
             connection.Open();
-            
-            
+
             var parameters = new
             {
                 XML_REQUISICAO = outerXml,

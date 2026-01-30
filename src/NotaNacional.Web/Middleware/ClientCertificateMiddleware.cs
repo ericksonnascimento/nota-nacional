@@ -9,18 +9,26 @@ namespace NotaNacional.Web.Middleware;
 public class ClientCertificateMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly ILogger<ClientCertificateMiddleware>? _logger;
     private const string ClientCertificateKey = "ClientCertificate";
 
-    public ClientCertificateMiddleware(RequestDelegate next)
+    public ClientCertificateMiddleware(RequestDelegate next, ILogger<ClientCertificateMiddleware>? logger = null)
     {
         _next = next;
+        _logger = logger;
     }
 
     public async Task InvokeAsync(HttpContext context)
     {
+        // Log para debug
+        _logger?.LogDebug("Processando requisição - IsHttps: {IsHttps}, RemoteIp: {RemoteIp}", 
+            context.Request.IsHttps, context.Connection.RemoteIpAddress);
+
         // Obtém o certificado do cliente da conexão
         // O certificado pode estar disponível diretamente na conexão após o handshake TLS
         var clientCertificate = context.Connection.ClientCertificate;
+        
+        _logger?.LogDebug("Certificado inicial da conexão: {HasCert}", clientCertificate != null);
 
         // Se não estiver disponível diretamente, tenta obter da requisição
         if (clientCertificate == null)
@@ -80,7 +88,13 @@ public class ClientCertificateMiddleware
             if (cert2 != null)
             {
                 context.Items[ClientCertificateKey] = cert2;
+                _logger?.LogInformation("Certificado do cliente capturado - Subject: {Subject}, Thumbprint: {Thumbprint}", 
+                    cert2.Subject, cert2.Thumbprint);
             }
+        }
+        else
+        {
+            _logger?.LogWarning("Nenhum certificado do cliente encontrado na requisição");
         }
 
         // Continua o pipeline

@@ -11,6 +11,7 @@ using NotaNacional.Core.RecepcionarLoteDpsSincrono.Handlers;
 using NotaNacional.Core.ConsultarUrlNfse.Handlers;
 using NotaNacional.Core.ConsultarDadosCadastrais.Handlers;
 using NotaNacional.Core.ConsultarDpsDisponivel.Handlers;
+using NotaNacional.Web.Middleware;
 using NotaNacional.Core.Cabecalho.Validator;
 using NotaNacional.Core.CancelarNfse.Validator;
 using NotaNacional.Core.ConsultarLoteDps.Validator;
@@ -27,9 +28,7 @@ using NotaNacional.Core.ConsultarDpsDisponivel.Validator;
 using NotaNacional.Core.Base.Validator;
 using NotaNacional.Core.Helpers;
 using NotaNacional.Core.Models;
-using System.Linq;
 using System.Xml.Linq;
-using Microsoft.Extensions.Configuration;
 
 namespace NotaNacional.Web.Service
 {
@@ -126,8 +125,7 @@ namespace NotaNacional.Web.Service
             _consultarDpsDisponivelValidator = consultarDpsDisponivelValidator;
             _configuration = configuration;
         }
-
-
+        
         public BaseResponse CancelarNfse(object nfseCabecMsg, object nfseDadosMsg)
         {
             if (!IsOperacaoHabilitada("CancelarNfse"))
@@ -136,7 +134,9 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            return _cancelarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
+            
+            return _cancelarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip, Util.ExtractPersonalDocumentFromCertificate(certificado));
         }
         public BaseResponse RecepcionarLoteDps(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -146,6 +146,7 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
             return _recepcionarLoteDpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
 
@@ -157,7 +158,9 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
-            return _consultarLoteDpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
+            
+            return _consultarLoteDpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip, Util.ExtractPersonalDocumentFromCertificate(certificado));
         }
         public BaseResponse ConsultarNfseServicoPrestado(object nfseCabecMsg, object nfseDadosMsg)
         {
@@ -167,6 +170,7 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
             return _consultarNfseServicoPrestadoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarNfseServicoTomado(object nfseCabecMsg, object nfseDadosMsg)
@@ -177,6 +181,7 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
             return _consultarNfseServicoTomadoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarNfsePorFaixa(object nfseCabecMsg, object nfseDadosMsg)
@@ -187,6 +192,7 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
             return _consultarNfseFaixaHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarNfseDps(object nfseCabecMsg, object nfseDadosMsg)
@@ -197,6 +203,7 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
             return _consultarNfseDpsHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse GerarNfse(object nfseCabecMsg, object nfseDadosMsg)
@@ -207,6 +214,7 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
             return _gerarNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse RecepcionarLoteDpsSincrono(object nfseCabecMsg, object nfseDadosMsg)
@@ -217,6 +225,7 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
             return _recepcionarLoteDpsSincronoHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarUrlNfse(object nfseCabecMsg, object nfseDadosMsg)
@@ -227,6 +236,7 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
             return _consultarUrlNfseHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarDadosCadastrais(object nfseCabecMsg, object nfseDadosMsg)
@@ -237,6 +247,7 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
             return _consultarDadosCadastraisHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
         public BaseResponse ConsultarDpsDisponivel(object nfseCabecMsg, object nfseDadosMsg)
@@ -247,6 +258,7 @@ namespace NotaNacional.Web.Service
             }
             
             var ip = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();
+            var certificado = _httpContextAccessor.HttpContext?.GetClientCertificate();
             return _consultarDpsDisponivelHandler.Handle(nfseCabecMsg, nfseDadosMsg, ip);
         }
 

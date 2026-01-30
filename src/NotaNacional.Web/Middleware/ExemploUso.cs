@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-using NotaNacional.Web.Middleware;
 using System.Security.Cryptography.X509Certificates;
 
 namespace NotaNacional.Web.Middleware;

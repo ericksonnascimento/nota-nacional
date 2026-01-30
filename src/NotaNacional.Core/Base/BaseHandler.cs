@@ -3,7 +3,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using NotaNacional.Core.Helpers;
-using NotaNacional.Core.Models;
 
 namespace NotaNacional.Core.Base
 {
@@ -60,16 +59,12 @@ namespace NotaNacional.Core.Base
             return "";
         }
 
-        protected static string ValidateCertificate(SignatureType signature)
+        // Métodos auxiliares para extrair certificado de diferentes tipos de assinatura
+        private static X509Certificate2 ExtractCertificateFromSignature(SignatureType signature)
         {
             try
             {
-                var certificate = new X509Certificate2((signature.KeyInfo.Items[0] as X509DataType).Items[0] as byte[]);
-                return ValidateSignature(certificate);
-            }
-            catch (ValidateException e)
-            {
-                throw;
+                return new X509Certificate2((signature.KeyInfo.Items[0] as X509DataType).Items[0] as byte[]);
             }
             catch (Exception)
             {
@@ -77,13 +72,32 @@ namespace NotaNacional.Core.Base
             }
         }
 
-        protected static string ExtractPersonalDocumentFromSignature(SignatureType signature)
+        private static X509Certificate2 ExtractCertificateFromSignature(NotaNacional.Core.Models.SignatureType signature)
         {
+            if (signature?.KeyInfo?.X509Data == null || signature.KeyInfo.X509Data.Count == 0)
+                throw new ValidateException("E190");
+
+            var x509Data = signature.KeyInfo.X509Data[0];
+            if (x509Data.X509Certificate == null || x509Data.X509Certificate.Count == 0)
+                throw new ValidateException("E190");
+
             try
             {
-                var certificate = new X509Certificate2((signature.KeyInfo.Items[0] as X509DataType).Items[0] as byte[]);
+                return new X509Certificate2(x509Data.X509Certificate[0]);
+            }
+            catch (Exception)
+            {
+                throw new ValidateException("E190");
+            }
+        }
 
-                var oid = "2.5.29.17";
+        // Método centralizado para extrair documento pessoal de um certificado
+        protected static string ExtractPersonalDocumentFromCertificate(X509Certificate2 certificate)
+        {
+            // Tenta extrair CNPJ da extensão Subject Alternative Name (OID 2.5.29.17)
+            const string oid = "2.5.29.17";
+            if (certificate.Extensions[oid] != null)
+            {
                 var extension = certificate.Extensions[oid];
                 var data = Encoding.UTF8.GetString(extension.RawData);
                 var matches = Regex.Matches(data, @"(?<!\d)\d{14}(?!\d)");
@@ -93,87 +107,71 @@ namespace NotaNacional.Core.Base
                 {
                     return cnpj.Value;
                 }
+            }
 
-                var cn = certificate.Subject.Split(',')
-                    .Select(x => x.Split('=')).Where(x => x[0] == "CN")
-                    .Select(x => x[1])
-                    .First() ?? string.Empty;
+            // Se não encontrou CNPJ na extensão, tenta extrair do Common Name (CN) do Subject
+            var cnParts = certificate.Subject.Split(',')
+                .Select(x => x.Trim().Split('='))
+                .Where(x => x.Length == 2 && x[0].Equals("CN", StringComparison.OrdinalIgnoreCase))
+                .Select(x => x[1])
+                .FirstOrDefault();
 
-                return cn.Any(char.IsDigit) ? new string(cn.Where(char.IsDigit).ToArray()) : string.Empty;
-            }
-            catch (ValidateException e)
+            if (!string.IsNullOrEmpty(cnParts))
             {
-                throw;
+                // Extrai apenas os dígitos do CN
+                return new string(cnParts.Where(char.IsDigit).ToArray());
             }
-            catch (Exception)
-            {
-                throw new ValidateException("E190");
-            }
+
+            return string.Empty;
         }
 
-        // Métodos sobrecarregados para aceitar o tipo gerado do padrão nacional
+        // Métodos públicos ValidateCertificate - sobrecargas
+        protected static string ValidateCertificate(SignatureType signature)
+        {
+            var certificate = ExtractCertificateFromSignature(signature);
+            return ValidateSignature(certificate);
+        }
+
         protected static string ValidateCertificate(NotaNacional.Core.Models.SignatureType signature)
         {
-            if (signature?.KeyInfo?.X509Data == null || signature.KeyInfo.X509Data.Count == 0)
-                throw new ValidateException("E190");
+            var certificate = ExtractCertificateFromSignature(signature);
+            return ValidateSignature(certificate);
+        }
 
-            try
-            {
-                var x509Data = signature.KeyInfo.X509Data[0];
-                if (x509Data.X509Certificate == null || x509Data.X509Certificate.Count == 0)
-                    throw new ValidateException("E190");
-
-                var certificate = new X509Certificate2(x509Data.X509Certificate[0]);
-                return ValidateSignature(certificate);
-            }
-            catch (ValidateException e)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw new ValidateException("E190");
-            }
+        // Métodos públicos ExtractPersonalDocumentFromSignature - sobrecargas
+        protected static string ExtractPersonalDocumentFromSignature(SignatureType signature)
+        {
+            var certificate = ExtractCertificateFromSignature(signature);
+            return ExtractPersonalDocumentFromCertificate(certificate);
         }
 
         protected static string ExtractPersonalDocumentFromSignature(NotaNacional.Core.Models.SignatureType signature)
         {
-            if (signature?.KeyInfo?.X509Data == null || signature.KeyInfo.X509Data.Count == 0)
-                throw new ValidateException("E190");
+            var certificate = ExtractCertificateFromSignature(signature);
+            return ExtractPersonalDocumentFromCertificate(certificate);
+        }
+
+        /// <summary>
+        /// Extrai o documento pessoal (CPF/CNPJ) de um certificado X509Certificate2.
+        /// Primeiro tenta extrair CNPJ da extensão Subject Alternative Name (OID 2.5.29.17),
+        /// caso contrário tenta extrair do Common Name (CN) do Subject.
+        /// </summary>
+        /// <param name="certificate">O certificado X509Certificate2 do qual extrair o documento</param>
+        /// <returns>O documento pessoal (CPF/CNPJ) encontrado ou string vazia se não encontrado</returns>
+        protected static string ExtractPersonalDocumentFromSignature(X509Certificate2? certificate)
+        {
+            if (certificate == null)
+                return string.Empty;
 
             try
             {
-                var x509Data = signature.KeyInfo.X509Data[0];
-                if (x509Data.X509Certificate == null || x509Data.X509Certificate.Count == 0)
-                    throw new ValidateException("E190");
-
-                var certificate = new X509Certificate2(x509Data.X509Certificate[0]);
-
-                var oid = "2.5.29.17";
-                var extension = certificate.Extensions[oid];
-                var data = Encoding.UTF8.GetString(extension.RawData);
-                var matches = Regex.Matches(data, @"(?<!\d)\d{14}(?!\d)");
-                var cnpj = matches.FirstOrDefault(x => Util.IsCnpj(x.Value));
-
-                if (cnpj != null && !string.IsNullOrEmpty(cnpj.Value))
-                {
-                    return cnpj.Value;
-                }
-
-                var cn = certificate.Subject.Split(',')
-                    .Select(x => x.Split('=')).Where(x => x[0] == "CN")
-                    .Select(x => x[1])
-                    .First() ?? string.Empty;
-
-                return cn.Any(char.IsDigit) ? new string(cn.Where(char.IsDigit).ToArray()) : string.Empty;
-            }
-            catch (ValidateException e)
-            {
-                throw;
+                return ExtractPersonalDocumentFromCertificate(certificate);
             }
             catch (Exception)
             {
-                throw new ValidateException("E190");
+                // Em caso de erro, retorna string vazia ao invés de lançar exceção
+                // para permitir que o código continue funcionando mesmo com certificados malformados
+                return string.Empty;
             }
         }
 
