@@ -18,7 +18,7 @@ namespace NotaNacional.Infra.Repositories
             _configuration = configuration;
         }
 
-        public WsNfseConsultarLoteDpsResult Find(string outerXml, string erros, string ipUsuario)
+        public WsNfseConsultarLoteDpsResult Find(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario)
         {
             using var connection = new SqlConnection(_configuration.GetConnectionString("MainConnection"));
             connection.Open();
@@ -27,7 +27,7 @@ namespace NotaNacional.Infra.Repositories
             var parameters = new
             {
                 XML_REQUISICAO = outerXml,
-                CPF_CNPJ_CERTIFICADO = string.Empty,
+                CPF_CNPJ_CERTIFICADO = cpfCnpjCertificado,
                 ERROS = erros,
                 IP_USUARIO = ipUsuario
             };

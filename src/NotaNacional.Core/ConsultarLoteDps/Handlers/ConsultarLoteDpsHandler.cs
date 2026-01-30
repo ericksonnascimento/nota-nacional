@@ -32,7 +32,7 @@ namespace NotaNacional.Core.ConsultarLoteDps.Handlers
         public BaseResponse Handle(object header, object body, string ipUsuario)
         {
             var erros = string.Empty;
-
+            var cpfCnpj = "00022623124";
             try
             {
                 //Validar cabecalho
@@ -53,13 +53,13 @@ namespace NotaNacional.Core.ConsultarLoteDps.Handlers
 
                 if (erros.Length != 0)
                 {
-                    var result = _repository.Find(string.Empty, erros, ipUsuario);
+                    var result = _repository.Find(string.Empty, cpfCnpj, erros, ipUsuario);
                     return BuildResponse(result);
                 }
 
                 if (_apenasValidar)
                 {
-                    var result = _repository.Find(string.Empty, string.Empty, ipUsuario);
+                    var result = _repository.Find(string.Empty, cpfCnpj, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
                 
@@ -67,18 +67,18 @@ namespace NotaNacional.Core.ConsultarLoteDps.Handlers
 
                 try
                 {
-                    var result = _repository.Find(xmlString, erros, ipUsuario);
+                    var result = _repository.Find(xmlString, cpfCnpj, erros, ipUsuario);
                     return BuildResponse(result);
                 }
                 catch (Exception)
                 {
-                    var result = _repository.Find(xmlString, "E160", ipUsuario); //Arquivo em desacordo com o XML Schema.
+                    var result = _repository.Find(xmlString, cpfCnpj, "E160", ipUsuario); //Arquivo em desacordo com o XML Schema.
                     return BuildResponse(result);
                 }
             }
             catch (Exception)
             {
-                var result = _repository.Find(string.Empty, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
+                var result = _repository.Find(string.Empty, cpfCnpj, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
                 return BuildResponse(result);
             }
         }
