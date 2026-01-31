@@ -1,0 +1,11 @@
+<ConsultarNfseServicoPrestadoEnvio xmlns="http://www.sped.fazenda.gov.br/nfse">
+	<Prestador>
+		<CPF>00022623124</CPF>
+		<IM>4879-1</IM>
+	</Prestador>
+	<PeriodoEmissao>
+		<DataInicial>2026-01-01</DataInicial>
+		<DataFinal>2026-01-24</DataFinal>
+	</PeriodoEmissao>
+	<Pagina>0000001</Pagina>
+</ConsultarNfseServicoPrestadoEnvio>
