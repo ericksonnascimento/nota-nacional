@@ -72,7 +72,7 @@ namespace NotaNacional.Core.ConsultarDadosCadastrais.Handlers
                 }
                 catch (Exception)
                 {
-                    var result = _repository.Find(xmlString, string.Empty, "E160", ipUsuario); //Arquivo em desacordo com o XML Schema.
+                    var result = _repository.Find(xmlString, cpfCnpjCertificado, "E160", ipUsuario); //Arquivo em desacordo com o XML Schema.
                     return BuildResponse(result);
                 }
 
@@ -80,12 +80,12 @@ namespace NotaNacional.Core.ConsultarDadosCadastrais.Handlers
                 {
                     DuplicateIdValidation(xmlString);
                     // ConsultarDadosCadastraisEnvio não tem Signature no padrão nacional
-                    var result = _repository.Find(xmlString, string.Empty, erros, ipUsuario);
+                    var result = _repository.Find(xmlString, cpfCnpjCertificado, erros, ipUsuario);
                     return BuildResponse(result);
                 }
                 catch (ValidateException ex)
                 {
-                    var result = _repository.Find(xmlString, string.Empty, ex.code, ipUsuario); //Arquivo enviado com erro na assinatura.
+                    var result = _repository.Find(xmlString, cpfCnpjCertificado, ex.code, ipUsuario); //Arquivo enviado com erro na assinatura.
                     return BuildResponse(result);
                 }
             }
