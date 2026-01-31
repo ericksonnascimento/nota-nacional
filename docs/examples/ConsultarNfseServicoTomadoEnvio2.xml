@@ -1,0 +1,13 @@
+<ConsultarNfseServicoTomadoEnvio xmlns="http://www.sped.fazenda.gov.br/nfse">
+	<Consulente>
+		<CPF>00813228875</CPF>
+	</Consulente>
+	<PeriodoEmissao>
+		<DataInicial>2026-01-01</DataInicial>
+		<DataFinal>2026-01-25</DataFinal>
+	</PeriodoEmissao>
+	<Tomador>
+		<CPF>00813228875</CPF>
+	</Tomador>
+	<Pagina>0000001</Pagina>
+</ConsultarNfseServicoTomadoEnvio>

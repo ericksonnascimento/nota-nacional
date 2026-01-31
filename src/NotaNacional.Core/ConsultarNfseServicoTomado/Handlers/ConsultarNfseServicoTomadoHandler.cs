@@ -82,7 +82,7 @@ namespace NotaNacional.Core.ConsultarNfseServicoTomado.Handlers
                 {
                     DuplicateIdValidation(xmlString);
                     // ConsultarNfseServicoTomadoEnvio não tem Signature no padrão nacional
-                    var result = _repository.Find(xmlString, string.Empty, erros, ipUsuario);
+                    var result = _repository.Find(xmlString, cpfCnpjCertificado, erros, ipUsuario);
                     return BuildResponse(result);
                 }
                 catch (ValidateException ex)
