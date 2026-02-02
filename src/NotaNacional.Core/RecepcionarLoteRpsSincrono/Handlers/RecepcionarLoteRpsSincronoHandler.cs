@@ -55,13 +55,13 @@ namespace NotaNacional.Core.RecepcionarLoteRpsSincrono.Handlers
 
                 if (erros.Length != 0)
                 {
-                    var result = _repository.Process(string.Empty, string.Empty, erros, ipUsuario);
+                    var result = _repository.Process(Util.XmlVazio(OperacaoNfse.RecepcionarLoteRpsSincrono), string.Empty, erros, ipUsuario);
                     return BuildResponse(result);
                 }
 
                 if (_apenasValidar)
                 {
-                    var result = _repository.Process(string.Empty, string.Empty, string.Empty, ipUsuario);
+                    var result = _repository.Process(Util.XmlVazio(OperacaoNfse.RecepcionarLoteRpsSincrono), string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 
@@ -95,7 +95,7 @@ namespace NotaNacional.Core.RecepcionarLoteRpsSincrono.Handlers
             }
             catch (Exception)
             {
-                var result = _repository.Process(string.Empty, string.Empty, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
+                var result = _repository.Process(Util.XmlVazio(OperacaoNfse.RecepcionarLoteRpsSincrono), string.Empty, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
                 return BuildResponse(result);
             }
         }

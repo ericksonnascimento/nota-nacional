@@ -53,13 +53,13 @@ namespace NotaNacional.Core.ConsultarDadosCadastrais.Handlers
 
                 if (erros.Length != 0)
                 {
-                    var result = _repository.Find(string.Empty, string.Empty, erros,ipUsuario);
+                    var result = _repository.Find(Util.XmlVazio(OperacaoNfse.ConsultarDadosCadastrais), cpfCnpjCertificado, erros,ipUsuario);
                     return BuildResponse(result);
                 }
 
                 if (_apenasValidar)
                 {
-                    var result = _repository.Find(string.Empty, string.Empty, string.Empty, ipUsuario);
+                    var result = _repository.Find(Util.XmlVazio(OperacaoNfse.ConsultarDadosCadastrais), cpfCnpjCertificado, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 
@@ -91,7 +91,7 @@ namespace NotaNacional.Core.ConsultarDadosCadastrais.Handlers
             }
             catch (Exception)
             {
-                var result = _repository.Find(string.Empty, string.Empty, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
+                var result = _repository.Find(Util.XmlVazio(OperacaoNfse.ConsultarDadosCadastrais), string.Empty, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
                 return BuildResponse(result);
             }
         }

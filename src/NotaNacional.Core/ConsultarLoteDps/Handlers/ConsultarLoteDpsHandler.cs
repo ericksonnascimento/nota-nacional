@@ -52,13 +52,13 @@ namespace NotaNacional.Core.ConsultarLoteDps.Handlers
 
                 if (erros.Length != 0)
                 {
-                    var result = _repository.Find(string.Empty, cpfCnpjCertificado, erros, ipUsuario);
+                    var result = _repository.Find(Util.XmlVazio(OperacaoNfse.ConsultarLoteDps), cpfCnpjCertificado, erros, ipUsuario);
                     return BuildResponse(result);
                 }
 
                 if (_apenasValidar)
                 {
-                    var result = _repository.Find(string.Empty, cpfCnpjCertificado, string.Empty, ipUsuario);
+                    var result = _repository.Find(Util.XmlVazio(OperacaoNfse.ConsultarLoteDps), cpfCnpjCertificado, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
                 
@@ -77,7 +77,7 @@ namespace NotaNacional.Core.ConsultarLoteDps.Handlers
             }
             catch (Exception)
             {
-                var result = _repository.Find(string.Empty, cpfCnpjCertificado, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
+                var result = _repository.Find(Util.XmlVazio(OperacaoNfse.ConsultarLoteDps), cpfCnpjCertificado, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
                 return BuildResponse(result);
             }
         }

@@ -72,5 +72,29 @@ namespace NotaNacional.Core.Helpers
                 // Extrai apenas os dígitos do CN
                 new string(cnParts.Where(char.IsDigit).ToArray()) : string.Empty;
         }
+
+        public static string XmlVazio(OperacaoNfse operacao)
+        {
+            return operacao switch
+            {
+                OperacaoNfse.ConsultarDadosCadastrais =>
+                    "<ConsultarDadosCadastraisEnvio></ConsultarDadosCadastraisEnvio>",
+                OperacaoNfse.CancelarNfse => "<CancelarNfse></CancelarNfse>",
+                OperacaoNfse.ConsultarDpsDisponivel => "<ConsultarDpsDisponivel></ConsultarDpsDisponivel>",
+                OperacaoNfse.ConsultarLoteDps => "<ConsultarLoteDps></ConsultarLoteDps>",
+                OperacaoNfse.ConsultarNfseDps => "<ConsultarNfseDps></ConsultarNfseDps>",
+                OperacaoNfse.ConsultarNfsePorFaixa => "<ConsultarNfsePorFaixa></ConsultarNfsePorFaixa>",
+                OperacaoNfse.ConsultarNfsePorRps => "<ConsultarNfsePorRps></ConsultarNfsePorRps>",
+                OperacaoNfse.ConsultarNfseServicoPrestado => "<ConsultarNfseServicoPrestado></ConsultarNfseServicoPrestado>",
+                OperacaoNfse.ConsultarNfseServicoTomado => "<ConsultarNfseServicoTomado></ConsultarNfseServicoTomado>",
+                OperacaoNfse.ConsultarRpsDisponivel => "<ConsultarRpsDisponivel></ConsultarRpsDisponivel>",
+                OperacaoNfse.ConsultarUrlNfse => "<ConsultarUrlNfse></ConsultarUrlNfse>",
+                OperacaoNfse.GerarNfse => "<GerarNfse></GerarNfse>",
+                OperacaoNfse.RecepcionarLoteDps => "<RecepcionarLoteDps></RecepcionarLoteDps>",
+                OperacaoNfse.RecepcionarLoteDpsSincrono => "<RecepcionarLoteDpsSincrono></RecepcionarLoteDpsSincrono>",
+                OperacaoNfse.RecepcionarLoteRpsSincrono => "<RecepcionarLoteRpsSincrono></RecepcionarLoteRpsSincrono>",
+                _ => ""
+            };
+        }
     }
 }

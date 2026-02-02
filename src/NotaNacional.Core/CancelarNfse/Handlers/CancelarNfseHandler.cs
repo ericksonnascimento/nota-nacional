@@ -56,13 +56,13 @@ namespace NotaNacional.Core.CancelarNfse.Handlers
 
                 if (erros.Length != 0)
                 {
-                    var result = _repository.Cancel(string.Empty, string.Empty, erros, ipUsuario);
+                    var result = _repository.Cancel(Util.XmlVazio(OperacaoNfse.CancelarNfse), string.Empty, erros, ipUsuario);
                     return BuildResponse(result);
                 }
 
                 if (_apenasValidar)
                 {
-                    var result = _repository.Cancel(string.Empty, string.Empty, string.Empty, ipUsuario);
+                    var result = _repository.Cancel(Util.XmlVazio(OperacaoNfse.CancelarNfse), string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 
@@ -96,7 +96,7 @@ namespace NotaNacional.Core.CancelarNfse.Handlers
             }
             catch (Exception)
             {
-                var result = _repository.Cancel(string.Empty, string.Empty, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
+                var result = _repository.Cancel(Util.XmlVazio(OperacaoNfse.CancelarNfse), string.Empty, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
                 return BuildResponse(result);
             }
         }

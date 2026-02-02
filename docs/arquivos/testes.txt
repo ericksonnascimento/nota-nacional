@@ -1,0 +1,7 @@
+Serviços testados até 01/02/2026:
+
+=> Consultar Dados Cadastrais
+=> Consultar Lote Dps
+=> ConsultarNfseServicoPrestado
+=> ConsultarNfseServicoTomado
+=> RecepcionarLoteDps

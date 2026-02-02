@@ -54,13 +54,13 @@ namespace NotaNacional.Core.ConsultarNfseFaixa.Handlers
 
                 if (erros.Length != 0)
                 {
-                    var result = _repository.Find(string.Empty, string.Empty, erros, ipUsuario);
+                    var result = _repository.Find(Util.XmlVazio(OperacaoNfse.ConsultarNfsePorFaixa), string.Empty, erros, ipUsuario);
                     return BuildResponse(result);
                 }
 
                 if (_apenasValidar)
                 {
-                    var result = _repository.Find(string.Empty, string.Empty, string.Empty, ipUsuario);
+                    var result = _repository.Find(Util.XmlVazio(OperacaoNfse.ConsultarNfsePorFaixa), string.Empty, string.Empty, ipUsuario);
                     return BuildResponse(result);
                 }
 
@@ -92,7 +92,7 @@ namespace NotaNacional.Core.ConsultarNfseFaixa.Handlers
             }
             catch (Exception)
             {
-                var result = _repository.Find(string.Empty, string.Empty, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
+                var result = _repository.Find(Util.XmlVazio(OperacaoNfse.ConsultarNfsePorFaixa), string.Empty, "E232", ipUsuario); //Ocorreu um erro no processamento do arquivo.
                 return BuildResponse(result);
             }
         }
