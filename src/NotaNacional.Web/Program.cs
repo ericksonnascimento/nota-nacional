@@ -4,9 +4,28 @@ using Microsoft.AspNetCore.Server.Kestrel.Https;
 using NotaNacional.Web.Configuration;
 using NotaNacional.Web.Middleware;
 using NotaNacional.Web.Service;
+using Serilog;
 using SoapCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configura Serilog
+var loggerConfig = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .WriteTo.Console();
+
+var writeToFile = builder.Configuration.GetValue<bool>("Logging:WriteToFile");
+if (writeToFile)
+{
+    var filePath = builder.Configuration.GetValue<string>("Logging:FilePath") ?? "logs/log-.txt";
+    loggerConfig.WriteTo.File(
+        filePath,
+        rollingInterval: RollingInterval.Day,
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}");
+}
+
+Log.Logger = loggerConfig.CreateLogger();
+builder.Host.UseSerilog();
 
 // Configura o Kestrel para aceitar certificados de cliente (mutual TLS)
 builder.WebHost.ConfigureKestrel(options =>

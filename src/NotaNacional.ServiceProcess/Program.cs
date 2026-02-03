@@ -17,6 +17,19 @@ var host = Host.CreateDefaultBuilder(args)
     .UseSerilog((hostingContext, loggerConfiguration) =>
     {
         loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration);
+
+        var writeToFile = hostingContext.Configuration.GetValue<bool>("Logging:WriteToFile");
+        if (writeToFile)
+        {
+            var filePath = hostingContext.Configuration.GetValue<string>("Logging:FilePath") ?? "logs/log-.txt";
+            var basePath = System.AppDomain.CurrentDomain.BaseDirectory;
+            var fullPath = Path.Combine(basePath, filePath);
+
+            loggerConfiguration.WriteTo.File(
+                fullPath,
+                rollingInterval: RollingInterval.Day,
+                outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}");
+        }
     })
     .Build();
 
