@@ -74,6 +74,12 @@ builder.WebHost.ConfigureKestrel(options =>
 builder.Services.AddSoapCore();
 builder.Services.AddDependencyInjectionConfiguration();
 builder.Services.AddHttpContextAccessor();
+
+// Configura o forwarding de certificado do cliente (necessário quando atrás de IIS/reverse proxy)
+builder.Services.AddCertificateForwarding(options =>
+{
+    options.CertificateHeader = "X-ARR-ClientCert";
+});
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -87,6 +93,9 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
+
+// Middleware para forwarding de certificado (IIS/reverse proxy)
+app.UseCertificateForwarding();
 
 // Middleware para capturar certificado do cliente
 app.UseMiddleware<ClientCertificateMiddleware>();
