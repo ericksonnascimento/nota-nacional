@@ -476,23 +476,433 @@
          <nfseDadosMsg>?</nfseDadosMsg>
       </nfse:GerarNfse>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/GerarNfse"/></con:call></con:operation><con:operation id="d8342367-ef10-441f-9048-6fbc1c4ecbe1" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDps" name="RecepcionarLoteDps" bindingOperationName="RecepcionarLoteDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a8ce5b00-5152-4d0e-87a2-66673cf53795" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/GerarNfse"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="d8342367-ef10-441f-9048-6fbc1c4ecbe1" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDps" name="RecepcionarLoteDps" bindingOperationName="RecepcionarLoteDps" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a8ce5b00-5152-4d0e-87a2-66673cf53795" name="Exemplo"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:5246/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:RecepcionarLoteDps>
-         <nfseCabecMsg>?</nfseCabecMsg>
-         <nfseDadosMsg>?</nfseDadosMsg>
+         <nfseCabecMsg>
+            <cabecalho versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse">
+               <versaoDados>1.01</versaoDados>
+            </cabecalho>
+         </nfseCabecMsg>
+         <nfseDadosMsg>
+            <EnviarLoteDpsEnvio xmlns="http://www.sped.fazenda.gov.br/nfse" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+               <LoteDps versao="1.01" Id="dd99125b-e0cf-4066-b97c-8dc4243f0c00">
+                  <NumeroLote>7201</NumeroLote>
+                  <Prestador>
+                     <CPF>00022623124</CPF>
+                     <IM>4879-1</IM>
+                  </Prestador>
+                  <QuantidadeDps>2</QuantidadeDps>
+                  <ListaDps>
+                     <DPS versao="1.01">
+                        <infDPS Id="DPS500370210000002262312400012000000000000013">
+                           <tpAmb>2</tpAmb>
+                           <dhEmi>2026-01-16T08:10:00-03:00</dhEmi>
+                           <verAplic>1.01</verAplic>
+                           <serie>12</serie>
+                           <nDPS>13</nDPS>
+                           <dCompet>2026-01-16</dCompet>
+                           <tpEmit>1</tpEmit>
+                           <cLocEmi>5003702</cLocEmi>
+                           <prest>
+                              <CPF>00022623124</CPF>
+                              <IM>4879-1</IM>
+                              <regTrib>
+                                 <opSimpNac>1</opSimpNac>
+                                 <regEspTrib>0</regEspTrib>
+                              </regTrib>
+                           </prest>
+                           <toma>
+                              <CPF>00813228875</CPF>
+                              <xNome>JOAO FRANCISCO DE CARVALHO</xNome>
+                              <end>
+                                 <endNac>
+                                    <cMun>5003702</cMun>
+                                    <CEP>79800002</CEP>
+                                 </endNac>
+                                 <xLgr>SEBASTIAO BORGES LEAL</xLgr>
+                                 <nro>461</nro>
+                                 <xCpl>-</xCpl>
+                                 <xBairro>JARDIM CRUZEIRO DO S</xBairro>
+                              </end>
+                           </toma>
+                           <serv>
+                              <locPrest>
+                                 <cLocPrestacao>5003702</cLocPrestacao>
+                              </locPrest>
+                              <cServ>
+                                 <cTribNac>100101</cTribNac>
+                                 <cTribMun>9007</cTribMun>
+                                 <xDescServ>Prestação de Serviços de Plataforma de Assistência de Saúde</xDescServ>
+                              </cServ>
+                              <infoCompl>
+                                 <xInfComp>NFS-e gerada com o número de série do RPS alfanumérico de acordo com o modelo de BH, com valor de: ABCDZ.</xInfComp>
+                              </infoCompl>
+                           </serv>
+                           <valores>
+                              <vServPrest>
+                                 <vServ>0.90</vServ>
+                              </vServPrest>
+                              <vDedRed>
+                                 <vDR>0.00</vDR>
+                              </vDedRed>
+                              <trib>
+                                 <tribMun>
+                                    <tribISSQN>1</tribISSQN>
+                                    <tpRetISSQN>1</tpRetISSQN>
+                                 </tribMun>
+                                 <totTrib>
+                                    <indTotTrib>0</indTotTrib>
+                                 </totTrib>
+                              </trib>
+                           </valores>
+                        </infDPS>
+                        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+                           <SignedInfo>
+                              <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                              <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                              <Reference URI="#DPS500370210000002262312400012000000000000013">
+                                 <Transforms>
+                                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                                 </Transforms>
+                                 <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                                 <DigestValue>oO3drMKDZ7ryb1nZtWsPCgJu2Vg=</DigestValue>
+                              </Reference>
+                           </SignedInfo>
+                           <SignatureValue>ePrSuFw1fovELEqHhMJhzh5AVGbt9cb8Pc0oja2472vPzrIxodPxi8H7ILhga1W1vJUTrEnDNxUDCphcN4AQ0X13qIru3iw4Oc92pbsfxdXrfFi1KvXm1oYGUh/Zj7XQ94dnjn/xAMGDVcq9baprGrdQYP8Mi2ScKkjOEBB+QJ5wDo7TqQodzP6JUmJ/h3ksM3qNhuQxhF58GaemtL8+aZMqN+pgPWTH8Av+m2/JJr+c7iP2gzNt2yd9vjTWIcHezug7T0arJzAPiapr7lNC0/Pc4eneS5pwpo8FOES5DMuFf9EO96u51ttr6CbpPeVSMV6Ops6KISv1WfL5d8vMhg==</SignatureValue>
+                           <KeyInfo>
+                              <X509Data>
+                                 <X509Certificate>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</X509Certificate>
+                              </X509Data>
+                           </KeyInfo>
+                        </Signature>
+                     </DPS>
+                     <DPS versao="1.01">
+                        <infDPS Id="DPS500370210000002262312400012000000000000014">
+                           <tpAmb>2</tpAmb>
+                           <dhEmi>2026-01-01T00:00:00-03:00</dhEmi>
+                           <verAplic>1.01</verAplic>
+                           <serie>12</serie>
+                           <nDPS>14</nDPS>
+                           <dCompet>2026-01-01</dCompet>
+                           <tpEmit>1</tpEmit>
+                           <cLocEmi>5003702</cLocEmi>
+                           <prest>
+                              <CPF>00022623124</CPF>
+                              <IM>4879-1</IM>
+                              <regTrib>
+                                 <opSimpNac>1</opSimpNac>
+                                 <regEspTrib>0</regEspTrib>
+                              </regTrib>
+                           </prest>
+                           <toma>
+                              <CPF>04600794842</CPF>
+                              <xNome>ALCINO GARCIA DE OLIVEIRA</xNome>
+                              <end>
+                                 <endNac>
+                                    <cMun>3549904</cMun>
+                                    <CEP>12211127</CEP>
+                                 </endNac>
+                                 <xLgr>RUA R ANTON R G PRADO</xLgr>
+                                 <nro>000125</nro>
+                                 <xCpl>-</xCpl>
+                                 <xBairro>VL CRISTINA</xBairro>
+                              </end>
+                           </toma>
+                           <serv>
+                              <locPrest>
+                                 <cLocPrestacao>3106200</cLocPrestacao>
+                              </locPrest>
+                              <cServ>
+                                 <cTribNac>100101</cTribNac>
+                                 <cTribMun>9007</cTribMun>
+                                 <xDescServ>Prestação de Serviços de Plataforma de Assistência de Saúde</xDescServ>
+                              </cServ>
+                              <infoCompl>
+                                 <xInfComp>NFS-e gerada com o número de série do RPS alfanumérico de acordo com o modelo de BH, com valor de: ABCDZ.</xInfComp>
+                              </infoCompl>
+                           </serv>
+                           <valores>
+                              <vServPrest>
+                                 <vServ>0.90</vServ>
+                              </vServPrest>
+                              <vDedRed>
+                                 <vDR>0.00</vDR>
+                              </vDedRed>
+                              <trib>
+                                 <tribMun>
+                                    <tribISSQN>1</tribISSQN>
+                                    <tpRetISSQN>1</tpRetISSQN>
+                                 </tribMun>
+                                 <totTrib>
+                                    <indTotTrib>0</indTotTrib>
+                                 </totTrib>
+                              </trib>
+                           </valores>
+                        </infDPS>
+                        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+                           <SignedInfo>
+                              <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                              <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                              <Reference URI="#DPS500370210000002262312400012000000000000014">
+                                 <Transforms>
+                                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                                 </Transforms>
+                                 <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                                 <DigestValue>oO3drMKDZ7ryb1nZtWsPCgJu2Vg=</DigestValue>
+                              </Reference>
+                           </SignedInfo>
+                           <SignatureValue>ePrSuFw1fovELEqHhMJhzh5AVGbt9cb8Pc0oja2472vPzrIxodPxi8H7ILhga1W1vJUTrEnDNxUDCphcN4AQ0X13qIru3iw4Oc92pbsfxdXrfFi1KvXm1oYGUh/Zj7XQ94dnjn/xAMGDVcq9baprGrdQYP8Mi2ScKkjOEBB+QJ5wDo7TqQodzP6JUmJ/h3ksM3qNhuQxhF58GaemtL8+aZMqN+pgPWTH8Av+m2/JJr+c7iP2gzNt2yd9vjTWIcHezug7T0arJzAPiapr7lNC0/Pc4eneS5pwpo8FOES5DMuFf9EO96u51ttr6CbpPeVSMV6Ops6KISv1WfL5d8vMhg==</SignatureValue>
+                           <KeyInfo>
+                              <X509Data>
+                                 <X509Certificate>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</X509Certificate>
+                              </X509Data>
+                           </KeyInfo>
+                        </Signature>
+                     </DPS>
+                  </ListaDps>
+               </LoteDps>
+               <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+                  <SignedInfo>
+                     <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                     <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                     <Reference URI="#dd99125b-e0cf-4066-b97c-8dc4243f0c00">
+                        <Transforms>
+                           <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                           <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                        </Transforms>
+                        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                        <DigestValue>388L6EueHDcay5jJTNzQUUL+Xyc=</DigestValue>
+                     </Reference>
+                  </SignedInfo>
+                  <SignatureValue>W/euydFg9rpoOQlOKX7HexDi+LloLB9e7uQtBVrc1MpLY6gzOAQQwDI5rS40N9wCEGAP37FLvss+Ah08zPL7nCoWLQ5WYi6rHKRUDaS7Q8skC6tH3+Eej/zan+dTaR0vFlwdInIgu9nrKMMegC+hRWhS6PLRZfcTLtKs7tkYYsiGpXXdPC0ZwGBn26KMi0lebrzMY40kafAdt4Fe119hCY4xQsvWL6lTpwE8faKCsTHYPK2uj/WfBRwZfzsCi/jGw26gTNhkNvtBV6D03FaT+CsgIF1vfGCEcfqqaJqFgIgXOB/i4HOJqQ7040nzPtMaRQOYi+VwHAwyeQj798N48g==</SignatureValue>
+                  <KeyInfo>
+                     <X509Data>
+                        <X509Certificate>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</X509Certificate>
+                     </X509Data>
+                  </KeyInfo>
+               </Signature>
+            </EnviarLoteDpsEnvio>
+         </nfseDadosMsg>
       </nfse:RecepcionarLoteDps>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDps"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="025d4efd-2590-480f-99f8-d05f85dc7d18" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDpsSincrono" name="RecepcionarLoteDpsSincrono" bindingOperationName="RecepcionarLoteDpsSincrono" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cd3d9883-e889-4e59-b92f-dcfd6e6f16aa" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDps"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="025d4efd-2590-480f-99f8-d05f85dc7d18" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDpsSincrono" name="RecepcionarLoteDpsSincrono" bindingOperationName="RecepcionarLoteDpsSincrono" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cd3d9883-e889-4e59-b92f-dcfd6e6f16aa" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:5246/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:RecepcionarLoteDpsSincrono>
-         <nfseCabecMsg>?</nfseCabecMsg>
-         <nfseDadosMsg>?</nfseDadosMsg>
+         <nfseCabecMsg>
+            <cabecalho versao="1.01" xmlns="http://www.sped.fazenda.gov.br/nfse">
+               <versaoDados>1.01</versaoDados>
+            </cabecalho>
+         </nfseCabecMsg>
+         <nfseDadosMsg>
+            <EnviarLoteDpsSincronoEnvio xmlns="http://www.sped.fazenda.gov.br/nfse" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+               <LoteDps versao="1.01" Id="dd99125b-e0cf-4066-b97c-8dc4243f0c00">
+                  <NumeroLote>7201</NumeroLote>
+                  <Prestador>
+                     <CPF>00022623124</CPF>
+                     <IM>4879-1</IM>
+                  </Prestador>
+                  <QuantidadeDps>2</QuantidadeDps>
+                  <ListaDps>
+                     <DPS versao="1.01">
+                        <infDPS Id="DPS500370210000002262312400012000000000000011">
+                           <tpAmb>2</tpAmb>
+                           <dhEmi>2026-01-16T08:10:00-03:00</dhEmi>
+                           <verAplic>1.01</verAplic>
+                           <serie>12</serie>
+                           <nDPS>11</nDPS>
+                           <dCompet>2026-01-16</dCompet>
+                           <tpEmit>1</tpEmit>
+                           <cLocEmi>5003702</cLocEmi>
+                           <prest>
+                              <CPF>00022623124</CPF>
+                              <IM>4879-1</IM>
+                              <regTrib>
+                                 <opSimpNac>1</opSimpNac>
+                                 <regEspTrib>0</regEspTrib>
+                              </regTrib>
+                           </prest>
+                           <toma>
+                              <CPF>00813228875</CPF>
+                              <xNome>JOAO FRANCISCO DE CARVALHO</xNome>
+                              <end>
+                                 <endNac>
+                                    <cMun>5003702</cMun>
+                                    <CEP>79800002</CEP>
+                                 </endNac>
+                                 <xLgr>SEBASTIAO BORGES LEAL</xLgr>
+                                 <nro>461</nro>
+                                 <xCpl>-</xCpl>
+                                 <xBairro>JARDIM CRUZEIRO DO S</xBairro>
+                              </end>
+                           </toma>
+                           <serv>
+                              <locPrest>
+                                 <cLocPrestacao>5003702</cLocPrestacao>
+                              </locPrest>
+                              <cServ>
+                                 <cTribNac>100101</cTribNac>
+                                 <cTribMun>9007</cTribMun>
+                                 <xDescServ>Prestação de Serviços de Plataforma de Assistência de Saúde</xDescServ>
+                              </cServ>
+                              <infoCompl>
+                                 <xInfComp>NFS-e gerada com o número de série do RPS alfanumérico de acordo com o modelo de BH, com valor de: ABCDZ.</xInfComp>
+                              </infoCompl>
+                           </serv>
+                           <valores>
+                              <vServPrest>
+                                 <vServ>0.90</vServ>
+                              </vServPrest>
+                              <vDedRed>
+                                 <vDR>0.00</vDR>
+                              </vDedRed>
+                              <trib>
+                                 <tribMun>
+                                    <tribISSQN>1</tribISSQN>
+                                    <tpRetISSQN>1</tpRetISSQN>
+                                 </tribMun>
+                                 <totTrib>
+                                    <indTotTrib>0</indTotTrib>
+                                 </totTrib>
+                              </trib>
+                           </valores>
+                        </infDPS>
+                        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+                           <SignedInfo>
+                              <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                              <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                              <Reference URI="#DPS500370210000002262312400012000000000000011">
+                                 <Transforms>
+                                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                                 </Transforms>
+                                 <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                                 <DigestValue>oO3drMKDZ7ryb1nZtWsPCgJu2Vg=</DigestValue>
+                              </Reference>
+                           </SignedInfo>
+                           <SignatureValue>ePrSuFw1fovELEqHhMJhzh5AVGbt9cb8Pc0oja2472vPzrIxodPxi8H7ILhga1W1vJUTrEnDNxUDCphcN4AQ0X13qIru3iw4Oc92pbsfxdXrfFi1KvXm1oYGUh/Zj7XQ94dnjn/xAMGDVcq9baprGrdQYP8Mi2ScKkjOEBB+QJ5wDo7TqQodzP6JUmJ/h3ksM3qNhuQxhF58GaemtL8+aZMqN+pgPWTH8Av+m2/JJr+c7iP2gzNt2yd9vjTWIcHezug7T0arJzAPiapr7lNC0/Pc4eneS5pwpo8FOES5DMuFf9EO96u51ttr6CbpPeVSMV6Ops6KISv1WfL5d8vMhg==</SignatureValue>
+                           <KeyInfo>
+                              <X509Data>
+                                 <X509Certificate>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</X509Certificate>
+                              </X509Data>
+                           </KeyInfo>
+                        </Signature>
+                     </DPS>
+                     <DPS versao="1.01">
+                        <infDPS Id="DPS500370210000002262312400012000000000000012">
+                           <tpAmb>2</tpAmb>
+                           <dhEmi>2026-01-01T00:00:00-03:00</dhEmi>
+                           <verAplic>1.01</verAplic>
+                           <serie>12</serie>
+                           <nDPS>12</nDPS>
+                           <dCompet>2026-01-01</dCompet>
+                           <tpEmit>1</tpEmit>
+                           <cLocEmi>5003702</cLocEmi>
+                           <prest>
+                              <CPF>00022623124</CPF>
+                              <IM>4879-1</IM>
+                              <regTrib>
+                                 <opSimpNac>1</opSimpNac>
+                                 <regEspTrib>0</regEspTrib>
+                              </regTrib>
+                           </prest>
+                           <toma>
+                              <CPF>04600794842</CPF>
+                              <xNome>ALCINO GARCIA DE OLIVEIRA</xNome>
+                              <end>
+                                 <endNac>
+                                    <cMun>3549904</cMun>
+                                    <CEP>12211127</CEP>
+                                 </endNac>
+                                 <xLgr>RUA R ANTON R G PRADO</xLgr>
+                                 <nro>000125</nro>
+                                 <xCpl>-</xCpl>
+                                 <xBairro>VL CRISTINA</xBairro>
+                              </end>
+                           </toma>
+                           <serv>
+                              <locPrest>
+                                 <cLocPrestacao>3106200</cLocPrestacao>
+                              </locPrest>
+                              <cServ>
+                                 <cTribNac>100101</cTribNac>
+                                 <cTribMun>9007</cTribMun>
+                                 <xDescServ>Prestação de Serviços de Plataforma de Assistência de Saúde</xDescServ>
+                              </cServ>
+                              <infoCompl>
+                                 <xInfComp>NFS-e gerada com o número de série do RPS alfanumérico de acordo com o modelo de BH, com valor de: ABCDZ.</xInfComp>
+                              </infoCompl>
+                           </serv>
+                           <valores>
+                              <vServPrest>
+                                 <vServ>0.90</vServ>
+                              </vServPrest>
+                              <vDedRed>
+                                 <vDR>0.00</vDR>
+                              </vDedRed>
+                              <trib>
+                                 <tribMun>
+                                    <tribISSQN>1</tribISSQN>
+                                    <tpRetISSQN>1</tpRetISSQN>
+                                 </tribMun>
+                                 <totTrib>
+                                    <indTotTrib>0</indTotTrib>
+                                 </totTrib>
+                              </trib>
+                           </valores>
+                        </infDPS>
+                        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+                           <SignedInfo>
+                              <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                              <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                              <Reference URI="#DPS500370210000002262312400012000000000000012">
+                                 <Transforms>
+                                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                                    <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                                 </Transforms>
+                                 <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                                 <DigestValue>oO3drMKDZ7ryb1nZtWsPCgJu2Vg=</DigestValue>
+                              </Reference>
+                           </SignedInfo>
+                           <SignatureValue>ePrSuFw1fovELEqHhMJhzh5AVGbt9cb8Pc0oja2472vPzrIxodPxi8H7ILhga1W1vJUTrEnDNxUDCphcN4AQ0X13qIru3iw4Oc92pbsfxdXrfFi1KvXm1oYGUh/Zj7XQ94dnjn/xAMGDVcq9baprGrdQYP8Mi2ScKkjOEBB+QJ5wDo7TqQodzP6JUmJ/h3ksM3qNhuQxhF58GaemtL8+aZMqN+pgPWTH8Av+m2/JJr+c7iP2gzNt2yd9vjTWIcHezug7T0arJzAPiapr7lNC0/Pc4eneS5pwpo8FOES5DMuFf9EO96u51ttr6CbpPeVSMV6Ops6KISv1WfL5d8vMhg==</SignatureValue>
+                           <KeyInfo>
+                              <X509Data>
+                                 <X509Certificate>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</X509Certificate>
+                              </X509Data>
+                           </KeyInfo>
+                        </Signature>
+                     </DPS>
+                  </ListaDps>
+               </LoteDps>
+               <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+                  <SignedInfo>
+                     <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                     <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+                     <Reference URI="#dd99125b-e0cf-4066-b97c-8dc4243f0c00">
+                        <Transforms>
+                           <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                           <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+                        </Transforms>
+                        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                        <DigestValue>388L6EueHDcay5jJTNzQUUL+Xyc=</DigestValue>
+                     </Reference>
+                  </SignedInfo>
+                  <SignatureValue>W/euydFg9rpoOQlOKX7HexDi+LloLB9e7uQtBVrc1MpLY6gzOAQQwDI5rS40N9wCEGAP37FLvss+Ah08zPL7nCoWLQ5WYi6rHKRUDaS7Q8skC6tH3+Eej/zan+dTaR0vFlwdInIgu9nrKMMegC+hRWhS6PLRZfcTLtKs7tkYYsiGpXXdPC0ZwGBn26KMi0lebrzMY40kafAdt4Fe119hCY4xQsvWL6lTpwE8faKCsTHYPK2uj/WfBRwZfzsCi/jGw26gTNhkNvtBV6D03FaT+CsgIF1vfGCEcfqqaJqFgIgXOB/i4HOJqQ7040nzPtMaRQOYi+VwHAwyeQj798N48g==</SignatureValue>
+                  <KeyInfo>
+                     <X509Data>
+                        <X509Certificate>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</X509Certificate>
+                     </X509Data>
+                  </KeyInfo>
+               </Signature>
+            </EnviarLoteDpsSincronoEnvio>
+         </nfseDadosMsg>
       </nfse:RecepcionarLoteDpsSincrono>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDpsSincrono"/></con:call></con:operation><con:operation id="80a69272-7976-4fe1-86a4-b09315c88452" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ValidarXml" name="ValidarXml" bindingOperationName="ValidarXml" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="dd1dade6-e14f-4d74-9674-bd906b95189b" name="CancelarNfse_Sucesso"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sped.fazenda.gov.br/nfse/RecepcionarLoteDpsSincrono"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="80a69272-7976-4fe1-86a4-b09315c88452" isOneWay="false" action="http://www.sped.fazenda.gov.br/nfse/ValidarXml" name="ValidarXml" bindingOperationName="ValidarXml" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="dd1dade6-e14f-4d74-9674-bd906b95189b" name="CancelarNfse_Sucesso"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:5245/Nfse.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfse="http://www.sped.fazenda.gov.br/nfse">
    <soapenv:Header/>
    <soapenv:Body>
       <nfse:ValidarXml>
