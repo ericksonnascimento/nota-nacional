@@ -13,14 +13,14 @@ public class ClientCertificateMiddleware(RequestDelegate next, ILogger<ClientCer
     public async Task InvokeAsync(HttpContext context)
     {
         // Log para debug
-        logger?.LogDebug("Processando requisição - IsHttps: {IsHttps}, RemoteIp: {RemoteIp}", 
+        logger?.LogInformation("Processando requisição - IsHttps: {IsHttps}, RemoteIp: {RemoteIp}", 
             context.Request.IsHttps, context.Connection.RemoteIpAddress);
 
         // Obtém o certificado do cliente da conexão
         // O certificado pode estar disponível diretamente na conexão após o handshake TLS
         var clientCertificate = context.Connection.ClientCertificate;
         
-        logger?.LogDebug("Certificado inicial da conexão: {HasCert}", clientCertificate != null);
+        logger?.LogInformation("Certificado inicial da conexão: {HasCert}", clientCertificate != null);
 
         // Se não estiver disponível diretamente, tenta obter da requisição
         if (clientCertificate == null)

@@ -5,15 +5,18 @@ using NotaNacional.Infra.Commands;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace NotaNacional.Infra.Repositories
 {
-    public class ConsultarDadosCadastraisRepository(IConfiguration configuration) : IConsultarDadosCadastraisRepository
+    public class ConsultarDadosCadastraisRepository(IConfiguration configuration,
+        ILogger<ConsultarDadosCadastraisRepository> logger) : IConsultarDadosCadastraisRepository
     {
         public WsConsultarDadosCadastraisResult Find(string outerXml, string cpfCnpjCertificado, string erros, string ipUsuario)
         {
             using var connection = new SqlConnection(configuration.GetConnectionString("MainConnection"));
             connection.Open();
+            logger.LogInformation("ConsultarDadosCadastrais: ${OuterXml}", outerXml);
             var parameters = new
             {
                 XML_REQUISICAO = outerXml,
@@ -28,6 +31,8 @@ namespace NotaNacional.Infra.Repositories
                     .QuerySingleOrDefault<string>(
                     ConsultarDadosCadastraisSQLCommand.WsConsutarDadosCadastrais, 
                     parameters, commandType:CommandType.StoredProcedure);
+            
+            logger.LogInformation("ConsultarDadosCadastrais resultado procedure: ${XmlResult}", xmlResult);
 
                     return new WsConsultarDadosCadastraisResult()
                     {
