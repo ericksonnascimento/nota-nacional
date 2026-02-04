@@ -2,6 +2,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using NotaNacional.Core.Helpers;
+using Microsoft.Extensions.Logging;
 
 namespace NotaNacional.Core.Base.Validator
 {
@@ -9,7 +10,10 @@ namespace NotaNacional.Core.Base.Validator
     {
         protected abstract string DefaultSchemaVersion { get; }
         protected abstract string OperationName { get; }
-        
+
+        // Logger estático para diagnóstico - pode ser configurado via DI em subclasses se necessário
+        protected static ILogger? DiagnosticLogger { get; set; }
+
         /// <summary>
         /// Armazena os detalhes do último erro de validação quando captureErrorDetails é true
         /// </summary>
@@ -199,17 +203,30 @@ namespace NotaNacional.Core.Base.Validator
         {
             LastValidationError = null;
             var validationErrors = new List<string>();
-            
+
             try
             {
                 var schemaBasePath = GetSchemaBasePath();
                 // Todos os schemas estão agora diretamente em Schemas/nacional/
                 var basePath = Path.Combine(schemaBasePath, "nacional");
                 var mainSchema = Path.Combine(basePath, GetMainSchemaFileName(schemaVersion));
-                
+
+                // ===== LOGS DE DIAGNÓSTICO =====
+                DiagnosticLogger?.LogInformation("=== ValidateSchema - {Operation} ===", OperationName);
+                DiagnosticLogger?.LogInformation("SchemaVersion: {SchemaVersion}", schemaVersion);
+                DiagnosticLogger?.LogInformation("SchemaBasePath: {SchemaBasePath}", schemaBasePath);
+                DiagnosticLogger?.LogInformation("BasePath: {BasePath}", basePath);
+                DiagnosticLogger?.LogInformation("MainSchema: {MainSchema}", mainSchema);
+                DiagnosticLogger?.LogInformation("MainSchema Exists: {Exists}", File.Exists(mainSchema));
+                DiagnosticLogger?.LogInformation("XML Length: {Length}", xml?.Length ?? 0);
+                DiagnosticLogger?.LogInformation("XML Content (primeiros 500 chars): {Xml}",
+                    xml?.Length > 500 ? xml.Substring(0, 500) + "..." : xml);
+                // ===== FIM LOGS DE DIAGNÓSTICO =====
+
                 // Verificar se o schema principal existe
                 if (!File.Exists(mainSchema))
                 {
+                    DiagnosticLogger?.LogError("Schema NÃO encontrado: {MainSchema}", mainSchema);
                     throw new FileNotFoundException($"Schema não encontrado: {mainSchema}");
                 }
                 
@@ -278,14 +295,25 @@ namespace NotaNacional.Core.Base.Validator
             }
             catch (Exception ex)
             {
+                DiagnosticLogger?.LogError(ex, "Erro na validação do schema: {Message}", ex.Message);
+                DiagnosticLogger?.LogError("StackTrace: {StackTrace}", ex.StackTrace);
+
                 if (captureErrorDetails)
                 {
-                    LastValidationError = validationErrors.Any() 
+                    LastValidationError = validationErrors.Any()
                         ? string.Join("; ", validationErrors) + $"; Erro geral: {ex.Message}"
                         : $"Erro na validação do schema: {ex.Message}";
                 }
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Configura o logger para diagnóstico (chamado pelo DI)
+        /// </summary>
+        public static void SetDiagnosticLogger(ILogger logger)
+        {
+            DiagnosticLogger = logger;
         }
     }
 

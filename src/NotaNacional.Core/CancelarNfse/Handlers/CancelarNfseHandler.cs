@@ -34,8 +34,6 @@ namespace NotaNacional.Core.CancelarNfse.Handlers
         {
             var erros = string.Empty;
             
-            
-
             try
             {
                 //Validar cabecalho
