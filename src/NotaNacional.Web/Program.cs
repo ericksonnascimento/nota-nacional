@@ -1,6 +1,7 @@
 using System.ServiceModel.Channels;
 using System.Text;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
+using NotaNacional.Core.Base.Validator;
 using NotaNacional.Web.Configuration;
 using NotaNacional.Web.Middleware;
 using NotaNacional.Web.Service;
@@ -83,6 +84,13 @@ builder.Services.AddCertificateForwarding(options =>
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+// Configura logger de diagnóstico para o BaseSchemaValidator
+var schemaValidatorLogger = app.Services.GetService<ILoggerFactory>()?.CreateLogger("BaseSchemaValidator");
+if (schemaValidatorLogger != null)
+{
+    BaseSchemaValidator.SetDiagnosticLogger(schemaValidatorLogger);
+}
 
 var settings = app.Configuration.GetSection("FileWSDL").Get<WsdlFileOptions>();
 settings.AppPath = app.Environment.ContentRootPath;
