@@ -5,19 +5,24 @@ using NotaNacional.Infra.Commands;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace NotaNacional.Infra.Repositories
 {
 
-    public class ServicoProcessamentoRepository(IConfiguration configuration) : IServicoProcessamentoRepository
+    public class ServicoProcessamentoRepository(IConfiguration configuration, ILogger<ServicoProcessamentoRepository> logger) : IServicoProcessamentoRepository
     {
         public List<LotePendente> PullPending(MunicipioProcessamento city)
         {
             var connectionString = GetConnectionString(city);
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                return Enumerable.Empty<LotePendente>().ToList();
+            }
             using var connection = new SqlConnection(connectionString);
             connection.Open();
 
-            var result = connection.Query<(string CAE, Guid COD_REQUISICAO)>(
+            var result = connection.Query<(string CAE, long COD_REQUISICAO)>(
                 ServicoProcessamentoSQLCommand.WsNfseLoteAProcessar,
                 commandType: CommandType.StoredProcedure
             );
@@ -31,22 +36,22 @@ namespace NotaNacional.Infra.Repositories
             }).ToList();
         }
 
-        public void SendToProcess(MunicipioProcessamento city, Guid protocol)
+        public void SendToProcess(MunicipioProcessamento city, long protocol)
         {
             var connectionString = GetConnectionString(city);
             using var connection = new SqlConnection(connectionString);
             connection.Open();
             var parameters = new
             {
-                NU_PROTOCOLO = protocol
+                COD_REQUISICAO = protocol
             };
 
             var affectedRows = connection.Execute(ServicoProcessamentoSQLCommand.WsNfseProcessaLote, parameters,
                 commandType: CommandType.StoredProcedure);
-            Console.WriteLine($"Affected rows: {affectedRows}");
+            logger.LogInformation("Affected rows: {AffectedRows}", affectedRows);
         }
 
-        private string GetConnectionString(MunicipioProcessamento city)
+        private string? GetConnectionString(MunicipioProcessamento city)
         {
             var key = city.ToString().ToLowerInvariant();
             return configuration.GetConnectionString(key);
