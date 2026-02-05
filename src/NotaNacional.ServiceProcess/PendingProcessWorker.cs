@@ -78,10 +78,9 @@ public class PendingProcessWorker(ILogger<PendingProcessWorker> logger, IServico
         catch (Exception e)
         {
             logger.LogError(e, "Erro while executing processing");
-
         }
     }
-    private async Task RunAsync(MunicipioProcessamento city, List<Guid> protocols)
+    private async Task RunAsync(MunicipioProcessamento city, List<long> protocols)
     {
         foreach (var protocol in protocols)
         {

@@ -7,6 +7,6 @@ namespace NotaNacional.Core.ServicoProcessamento.Repositories
     {
         List<LotePendente> PullPending(MunicipioProcessamento city);
 
-        void SendToProcess(MunicipioProcessamento city, Guid protocol);
+        void SendToProcess(MunicipioProcessamento city, long protocol);
     }
 }
